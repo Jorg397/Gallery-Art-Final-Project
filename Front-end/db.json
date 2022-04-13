@@ -5,32 +5,88 @@
       "name": "titulo",
       "serie": "test",
       "measures": "medidas",
-      "categories": "",
-      "price": 100
+      "categories": [
+        { "idCategory": 1, "name": "Categoria1" },
+        { "idCategory": 2, "name": "Categoria2" }
+      ],
+      "price": 100,
+      "image": "http://lh6.ggpht.com/HlgucZ0ylJAfZgusynnUwxNIgIp5htNhShF559x3dRXiuy_UdP3UQVLYW6c=w454-h300-n-l64"
     },
     {
       "idProduct": 2,
       "name": "titulo2",
       "serie": "test",
       "measures": "medidas",
-      "categories": "",
-      "price": 200
+      "categories": [{ "idCategory": 1, "name": "Categoria1" }],
+      "price": 200,
+      "image": "https://ichef.bbci.co.uk/news/800/cpsprodpb/787D/production/_121254803_gettyimages-534228980.jpg.webp"
     },
     {
       "idProduct": 3,
       "name": "titulo3",
       "serie": "test",
       "measures": "medidas",
-      "categories": "",
-      "price": 300
+      "categories": [
+        { "idCategory": 1, "name": "Categoria1" },
+        { "idCategory": 2, "name": "Categoria2" },
+        { "idCategory": 3, "name": "Categoria3" }
+      ],
+      "price": 300,
+      "image": "https://ichef.bbci.co.uk/news/800/cpsprodpb/D830/production/_121244355_gettyimages-534251738.jpg.webp"
     },
     {
       "idProduct": 4,
       "name": "titulo4",
       "serie": "test",
       "measures": "medidas",
-      "categories": "",
-      "price": 400
+      "categories": [{ "idCategory": 1, "name": "Categoria1" }],
+      "price": 400,
+      "image": "https://casaydiseno.com/wp-content/uploads/2019/09/aprender-a-pintar-flores.jpg"
+    },
+    {
+      "idProduct": 5,
+      "name": "titulo5",
+      "serie": "test",
+      "measures": "medidas",
+      "categories": [{ "idCategory": 1, "name": "Categoria1" }],
+      "price": 400,
+      "image": "https://4.bp.blogspot.com/-5kh6T5JL35w/Uacz-WJ2BqI/AAAAAAAAgvs/jjvxrjwgNTQ/s1600/paisajes-pintados-en-oleo+(2).jpg"
+    },
+    {
+      "idProduct": 6,
+      "name": "titulo6",
+      "serie": "test",
+      "measures": "medidas",
+      "categories": [{ "idCategory": 1, "name": "Categoria1" }],
+      "price": 400,
+      "image": "https://i.pinimg.com/originals/62/60/b7/6260b7ffe5df4a5e3e6951af039eaf67.jpg"
+    },
+    {
+      "idProduct": 7,
+      "name": "titulo7",
+      "serie": "test",
+      "measures": "medidas",
+      "categories": [{ "idCategory": 1, "name": "Categoria1" }],
+      "price": 400,
+      "image": "https://4.bp.blogspot.com/-opX2Kwx6qvM/VhEw65Nkj0I/AAAAAAADqnI/1vw3h5rO75U/s1600/cuadros-de-calles-parisinas_6.jpg"
+    },
+    {
+      "idProduct": 8,
+      "name": "titulo8",
+      "serie": "test",
+      "measures": "medidas",
+      "categories": [{ "idCategory": 1, "name": "Categoria1" }],
+      "price": 400,
+      "image": "https://artelista.s3.amazonaws.com/obras/big/8/9/7/1544638877582942.jpg"
+    },
+    {
+      "idProduct": 9,
+      "name": "titulo9",
+      "serie": "test",
+      "measures": "medidas",
+      "categories": [{ "idCategory": 1, "name": "Categoria1" }],
+      "price": 400,
+      "image": "https://www.cuadrostripticos.com/wp-content/uploads/2019/06/cuadro-triptico-de-paisaje-mas-comprado.png"
     }
   ],
   "categories": [
@@ -47,12 +103,15 @@
       "name": "titulo",
       "serie": "test",
       "measures": "medidas",
-      "categories": "",
+      "categories": [
+        { "idCategory": 1, "name": "Categoria1" },
+        { "idCategory": 2, "name": "Categoria2" }
+      ],
       "price": 100,
       "description": "description",
       "technique": "tech",
       "released": "",
-      "image": ""
+      "image": "http://lh6.ggpht.com/HlgucZ0ylJAfZgusynnUwxNIgIp5htNhShF559x3dRXiuy_UdP3UQVLYW6c=w454-h300-n-l64"
     },
     {
       "idProduct": 2,
@@ -60,12 +119,16 @@
       "name": "titulo",
       "serie": "test",
       "measures": "medidas",
-      "categories": "",
+      "categories": [
+        { "idCategory": 1, "name": "Categoria1" },
+        { "idCategory": 2, "name": "Categoria2" },
+        { "idCategory": 3, "name": "Categoria3" }
+      ],
       "price": 100,
       "description": "description",
       "technique": "tech",
       "released": "",
-      "image": ""
+      "image": "https://ichef.bbci.co.uk/news/800/cpsprodpb/787D/production/_121254803_gettyimages-534228980.jpg.webp"
     },
     {
       "idProduct": 3,
@@ -73,12 +136,15 @@
       "name": "titulo",
       "serie": "test",
       "measures": "medidas",
-      "categories": "",
+      "categories": [
+        { "idCategory": 1, "name": "Categoria1" },
+        { "idCategory": 2, "name": "Categoria2" }
+      ],
       "price": 100,
       "description": "description",
       "technique": "tech",
       "released": "",
-      "image": ""
+      "image": "https://ichef.bbci.co.uk/news/800/cpsprodpb/D830/production/_121244355_gettyimages-534251738.jpg.webp"
     },
     {
       "idProduct": 4,
@@ -86,12 +152,12 @@
       "name": "titulo",
       "serie": "test",
       "measures": "medidas",
-      "categories": "",
+      "categories": [{ "idCategory": 1, "name": "Categoria1" }],
       "price": 100,
       "description": "description",
       "technique": "tech",
       "released": "",
-      "image": ""
+      "image": "https://casaydiseno.com/wp-content/uploads/2019/09/aprender-a-pintar-flores.jpg"
     },
     {
       "idProduct": 5,
@@ -99,12 +165,79 @@
       "name": "titulo",
       "serie": "test",
       "measures": "medidas",
-      "categories": "",
+      "categories": [
+        { "idCategory": 1, "name": "Categoria1" },
+        { "idCategory": 2, "name": "Categoria2" }
+      ],
       "price": 100,
       "description": "description",
       "technique": "tech",
       "released": "",
-      "image": ""
+      "image": "https://4.bp.blogspot.com/-5kh6T5JL35w/Uacz-WJ2BqI/AAAAAAAAgvs/jjvxrjwgNTQ/s1600/paisajes-pintados-en-oleo+(2).jpg"
+    },
+    {
+      "idProduct": 6,
+      "sku": "111",
+      "name": "titulo",
+      "serie": "test",
+      "measures": "medidas",
+      "categories": [
+        { "idCategory": 1, "name": "Categoria1" },
+        { "idCategory": 2, "name": "Categoria2" }
+      ],
+      "price": 100,
+      "description": "description",
+      "technique": "tech",
+      "released": "",
+      "image": "https://i.pinimg.com/originals/62/60/b7/6260b7ffe5df4a5e3e6951af039eaf67.jpg"
+    },
+    {
+      "idProduct": 7,
+      "sku": "111",
+      "name": "titulo",
+      "serie": "test",
+      "measures": "medidas",
+      "categories": [
+        { "idCategory": 1, "name": "Categoria1" },
+        { "idCategory": 2, "name": "Categoria2" }
+      ],
+      "price": 100,
+      "description": "description",
+      "technique": "tech",
+      "released": "",
+      "image": "https://4.bp.blogspot.com/-opX2Kwx6qvM/VhEw65Nkj0I/AAAAAAADqnI/1vw3h5rO75U/s1600/cuadros-de-calles-parisinas_6.jpg"
+    },
+    {
+      "idProduct": 8,
+      "sku": "111",
+      "name": "titulo",
+      "serie": "test",
+      "measures": "medidas",
+      "categories": [
+        { "idCategory": 1, "name": "Categoria1" },
+        { "idCategory": 2, "name": "Categoria2" }
+      ],
+      "price": 100,
+      "description": "description",
+      "technique": "tech",
+      "released": "",
+      "image": "https://artelista.s3.amazonaws.com/obras/big/8/9/7/1544638877582942.jpg"
+    },
+    {
+      "idProduct": 9,
+      "sku": "111",
+      "name": "titulo",
+      "serie": "test",
+      "measures": "medidas",
+      "categories": [
+        { "idCategory": 1, "name": "Categoria1" },
+        { "idCategory": 2, "name": "Categoria2" }
+      ],
+      "price": 100,
+      "description": "description",
+      "technique": "tech",
+      "released": "",
+      "image": "https://www.cuadrostripticos.com/wp-content/uploads/2019/06/cuadro-triptico-de-paisaje-mas-comprado.png"
     }
   ]
 }
