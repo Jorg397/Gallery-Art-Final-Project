@@ -1,0 +1,110 @@
+{
+  "products": [
+    {
+      "idProduct": 1,
+      "name": "titulo",
+      "serie": "test",
+      "measures": "medidas",
+      "categories": "",
+      "price": 100
+    },
+    {
+      "idProduct": 2,
+      "name": "titulo2",
+      "serie": "test",
+      "measures": "medidas",
+      "categories": "",
+      "price": 200
+    },
+    {
+      "idProduct": 3,
+      "name": "titulo3",
+      "serie": "test",
+      "measures": "medidas",
+      "categories": "",
+      "price": 300
+    },
+    {
+      "idProduct": 4,
+      "name": "titulo4",
+      "serie": "test",
+      "measures": "medidas",
+      "categories": "",
+      "price": 400
+    }
+  ],
+  "categories": [
+    { "idCategory": 1, "name": "Categoria1" },
+    { "idCategory": 2, "name": "Categoria2" },
+    { "idCategory": 3, "name": "Categoria3" },
+    { "idCategory": 4, "name": "Categoria4" },
+    { "idCategory": 5, "name": "Categoria5" }
+  ],
+  "productsDetails": [
+    {
+      "idProduct": 1,
+      "sku": "111",
+      "name": "titulo",
+      "serie": "test",
+      "measures": "medidas",
+      "categories": "",
+      "price": 100,
+      "description": "description",
+      "technique": "tech",
+      "released": "",
+      "image": ""
+    },
+    {
+      "idProduct": 2,
+      "sku": "111",
+      "name": "titulo",
+      "serie": "test",
+      "measures": "medidas",
+      "categories": "",
+      "price": 100,
+      "description": "description",
+      "technique": "tech",
+      "released": "",
+      "image": ""
+    },
+    {
+      "idProduct": 3,
+      "sku": "111",
+      "name": "titulo",
+      "serie": "test",
+      "measures": "medidas",
+      "categories": "",
+      "price": 100,
+      "description": "description",
+      "technique": "tech",
+      "released": "",
+      "image": ""
+    },
+    {
+      "idProduct": 4,
+      "sku": "111",
+      "name": "titulo",
+      "serie": "test",
+      "measures": "medidas",
+      "categories": "",
+      "price": 100,
+      "description": "description",
+      "technique": "tech",
+      "released": "",
+      "image": ""
+    },
+    {
+      "idProduct": 5,
+      "sku": "111",
+      "name": "titulo",
+      "serie": "test",
+      "measures": "medidas",
+      "categories": "",
+      "price": 100,
+      "description": "description",
+      "technique": "tech",
+      "released": "",
+      "image": ""
+    }
+  ]
+}
