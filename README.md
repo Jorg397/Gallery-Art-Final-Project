@@ -112,3 +112,19 @@ Se debe desarrollar un servidor en Node/Express con las siguientes rutas:
 - [ ] **POST /products**:
       Recibe los datos recoelctados desde el formulario controlado de la ruta de creacion de productos por body
       Crear un producto en la base de datos
+
+**Json Server**:
+
+Para ejecutar el servidor usan el comando:
+npm run server
+
+Las peticiones las pueden hacer a estas rutas:
+
+- **http://localhost:3010/products**
+  Devuelve productos con datos necesarios para el home
+- **http://localhost:3010/products?q=titulo**
+  Devuelve productos que contengan la palabra "titulo" en su nombre
+- **http://localhost:3010/products/1**
+  Devuelve los detalles del producto
+- **http://localhost:3010/categories/**
+  Devuelve las categorias
