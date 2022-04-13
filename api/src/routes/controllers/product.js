@@ -1,5 +1,5 @@
 require('dotenv').config();
-const axios = requiere('axios')
+const axios = require('axios')
 
 module.exports= {
     get(req, res) {

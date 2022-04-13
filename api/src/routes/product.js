@@ -7,6 +7,8 @@ const productController = require('./controllers/product');
 
 //router.use(express.json());
 
+
+
 router
     .route('/:idProduct')
     .get(productController.get);
