@@ -1,0 +1,62 @@
+.card{
+    width: 375px;
+    margin-left: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    height: 467px;
+    box-shadow: 8px 6px 16px 3px rgba(0, 0, 0, 0.7);
+
+}
+.cardbody{
+width: 375px;
+height: 111px;
+background: rgba(34, 34, 59, 0.72);
+backdrop-filter: blur(7px);
+border-radius: 20px 20px 0px 0px;
+position: relative;
+top:356px;
+color: white;
+}
+.cardtitle{
+    position: relative;
+    top: 8px;
+    left: 15px
+}
+.cardsub{
+    position: relative;
+    font-weight: lighter;
+    top: 6px;
+    left: 15px
+}
+.cardmed{
+    position: relative;
+    font-weight: lighter;
+    left: 15px
+    
+}
+.cardcat{
+    position: relative;
+    top: 8px;
+    left: 15px
+}
+.cardbtn{
+    position: relative;
+    background-color: #4A4E69;
+    width: 145.46px;
+    font-size: small;
+    height: 29.09px;
+    border: 1px solid white;
+    border-radius: 10px;
+    bottom: 65px;
+    left: 218px;
+}
+.cardbtn:hover{
+    background-color: #9A8C98;
+    transform: scale(1.05);
+}
+.cardprice{
+    font-size: large;
+    position: relative;
+    bottom: 50px;
+    left: 290px;
+}
