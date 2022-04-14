@@ -7,13 +7,15 @@ import Ilustrame from '../Ilustrame/Ilustrame'
 import Titulos from '../Titulos/Titulos'
 import { useAuth0 } from '@auth0/auth0-react'
 import Profile from '../Profile/Profile'
+import Navbar from '../Navbar/Navbar'
+
 
 export default function Home() { 
   const { loginWithRedirect, user, isAuthenticated, logout } = useAuth0();  
 
     return (
         <div>
-          <button onClick={()=> loginWithRedirect()}>Log-in</button>
+           {/* <button onClick={()=> loginWithRedirect()}>Log-in</button>  */}
           {
             isAuthenticated && <div>
               <img src={user.picture} alt="Profile" />
@@ -22,7 +24,8 @@ export default function Home() {
               <button onClick={() => logout()}>Log out</button>
               </div>
           }
-
+   
+            <Navbar></Navbar>
             <Titulos titulo="Cuadros decorativos"></Titulos>
             <Destacado></Destacado>
             <Titulos titulo="Una galeria explendida"></Titulos>
