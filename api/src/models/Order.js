@@ -22,9 +22,9 @@ module.exports = (sequelize) => {
       defaultValue:"Created"},
     order_date: { type: DataTypes.DATEONLY,allowNull:false },
 
-    description: { //por si se necesita aclarar algo en la orden de compra
+    observation: { //por si se necesita aclarar algo en la orden de compra
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     shipping_address: { 
         type: DataTypes.STRING,

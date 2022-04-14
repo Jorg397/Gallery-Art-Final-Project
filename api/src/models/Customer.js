@@ -25,20 +25,20 @@ module.exports = (sequelize) => {
     },
     phone: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     country:{
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     default_shipping_address: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
 
     billing_address: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
   });
 };

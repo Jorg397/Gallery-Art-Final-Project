@@ -32,6 +32,5 @@ module.exports = (sequelize) => {
     state:{type:DataTypes.ENUM('Available','Pending','Sold'),allowNull: false,
     defaultValue:'Available'},
    
-    shipping_address: { type: DataTypes.STRING, allowNull: false,  },
   });
 };
