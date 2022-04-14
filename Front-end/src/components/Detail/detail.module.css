@@ -1,0 +1,71 @@
+.container {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.mainImage {
+    width: 375px;
+    height: 466.69px;
+}
+
+.detailsContainer {
+    background-color: #c9ada7;
+    width: 460px;
+}
+
+.arrow {
+    position: absolute;
+    bottom: 50%;
+    right: 50%;
+}
+
+.detailsContainer h3 {
+    background-color: #22223b;
+}
+
+.pSection span,
+a {
+    color: #22223b;
+    font-weight: 600;
+}
+
+.pSection p {
+    margin-bottom: 5px;
+}
+
+.button {
+    background-color: #4a4e69;
+    width: 200px;
+    font-size: small;
+    height: 40px;
+    border: 1px solid white;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color: #9a8c98;
+    transform: scale(1.05);
+}
+
+.priceSection {
+    background-color: #22223b;
+}
+
+.secondImagesContainer img {
+    max-width: 60px;
+    max-height: 60px;
+    margin: 15px 25px;
+    border: 1px solid white;
+    padding: 7px;
+    cursor: pointer;
+}
+
+.secondImagesContainer img:hover {
+    transform: scale(1.05);
+}
+
+.sectionContainer {
+    background-color: #22223b;
+    width: 100vw;
+}
