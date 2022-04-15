@@ -1,0 +1,38 @@
+@use '../../assets/VariablesStyle/color.scss' as color;
+@use '../../assets/VariablesStyle/size.scss' as size;
+@use '../../assets/VariablesStyle/fontFamily.scss' as font;
+
+@mixin sizetext($fontFamily,$color,$fontWeight,$fontSize){
+    font-family: $fontFamily;
+    color: $color;
+    font-weight: $fontWeight;
+    font-size: $fontSize;
+}
+
+.textField{
+    width: 100%;
+    height: 68px;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+    .textField__label{
+        margin-bottom: 3px;
+        @include sizetext(font.$font_text,color.$text_color_secondary,font.$font_Weight_text,1rem);
+    }
+    .textField__input{
+        width: 100%;
+        height: 45px;
+        border-radius: size.$size_corners;
+        @include sizetext(font.$font_text,color.$text_color_input,font.$font_Weight_text,1rem);
+        padding: 2px 15px;
+        &:focus{
+            outline: none;
+            border: color.$color_primary solid 2px;
+        }
+
+        &::placeholder{
+            font-family: font.$font_text;
+            font-size: size.$size_text;
+        }
+    }
+}

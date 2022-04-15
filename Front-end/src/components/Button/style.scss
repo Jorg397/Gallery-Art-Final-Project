@@ -1,0 +1,38 @@
+@use '../../assets/VariablesStyle/color' as color;
+@use '../../assets//VariablesStyle/size.scss' as size;
+@use '../../assets/VariablesStyle/fontFamily.scss' as font;
+
+@mixin button($background, $textColorPrimary ,$borderSize,$borderStyle,$backgroundSecundary,$textColorSecundary) {
+    background-color: $background;
+    border-radius: size.$size_corners_button;
+    border: $borderSize;
+    border-style: $borderStyle;
+    border-color: $backgroundSecundary;
+    font-size: size.$size_button_text;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &:hover{
+        opacity: 0.8;
+    }
+
+    span{
+        font-weight: font.$font_Weight_button;
+        color: $textColorPrimary;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            margin-left: 7px;
+        }
+    }
+}
+
+.button{
+    .button__v1{
+        @include button(color.$color_button_background_primary,color.$text_color_primary,size.$size_button_border,solid ,color.$color_button_background_secondary,color.$text_color_secondary);
+    }
+    
+    .button__v2{
+        @include button(color.$color_button_background_secondary,color.$text_color_secondary,size.$size_button_border,solid  ,color.$color_button_background_primary,color.$text_color_primary);
+    }
+}

@@ -1,0 +1,125 @@
+@use '../../assets/VariablesStyle/color.scss'  as color;
+@use '../../assets/VariablesStyle/size.scss'  as size;
+@use '../../assets/VariablesStyle/fontFamily.scss'  as font;
+
+@mixin baseFormElemts ($width, $height){
+    width: $width;
+    height: $height;
+}
+
+.login{
+    margin: 0 auto;
+    width: 100vw;
+    background-color: color.$color_background;
+    max-width: 1500px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    .header{
+        margin-top: 0.8%;
+        width: 98%;
+        height: 70px;
+        background-color: rgba(255,255,255,0.2);
+        backdrop-filter: blur(10px);
+        border-radius: size.$size_corners;
+    }
+
+    .login__container{
+        margin-top: 2%;
+        background-color: color.$color_quaternary;
+        width: size.$size_width_container_login;
+        height: 493px;
+        border-radius: size.$size_corners;
+        padding: 20px 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .login__container__form{
+
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+
+            .login__container__form__title{
+                @include baseFormElemts (100%, 50px);
+                background-color: color.$color_primary;
+                h1{
+                    font-family: font.$font_text;
+                    font-size: 1.5rem;
+                    font-weight: normal;
+                    color: color.$text_color_primary;
+                    text-align: center;
+                    line-height: 50px;
+                }
+            }
+    
+            .login__container__form__inputs{
+                @include baseFormElemts (357px, 155px);
+                margin-top: 13px;
+                margin-bottom: 43px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+    
+            .login__container__form__buttons{
+                @include baseFormElemts (357px, 141px);
+                margin-bottom: 30px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .login__container__buttons-login{
+                    @include baseFormElemts (357px, 72px);
+                    text-align:right;
+
+                    a{
+                        margin-top: 6px;
+                        text-decoration: underline;
+                        width: 100%;
+                        font-family: font.$font_text;
+                        font-weight: font.$font_Weight_button;
+                        font-size: 0.75rem;
+                        color: color.$text_color_secondary;
+                        transition: all 0.3s ease-in-out;
+                        &:hover{
+                            font-size: 0.78rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        .login__container__Registry{
+            @include baseFormElemts (357px, 20px);
+            margin-bottom: 15px;
+            text-align: left;
+
+            span{
+                font-family: font.$font_text;
+                font-size: 0.75rem;
+                font-weight: font.$font_Weight_text;
+                color: color.$text_color_secondary;
+                text-align: left;
+                line-height: 20px;
+            }
+
+
+            a{
+                text-decoration: underline;
+                font-family: font.$font_text;
+                font-weight: 900;
+                font-size: 0.75rem;
+                color: color.$text_color_primary;
+                transition: all 0.3s ease-in-out;
+                &:hover{
+                    transform: scale(1.05);
+                }
+            }
+        }
+    }
+
+}
