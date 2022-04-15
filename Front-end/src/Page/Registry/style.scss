@@ -1,13 +1,14 @@
 @use '../../assets/VariablesStyle/color.scss'  as color;
 @use '../../assets/VariablesStyle/size.scss'  as size;
 @use '../../assets/VariablesStyle/fontFamily.scss'  as font;
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@700&display=swap');
 
 @mixin baseFormElemts ($width, $height){
     width: $width;
     height: $height;
 }
 
-.login{
+.registry{
     margin: 0 auto;
     width: 100vw;
     background-color: color.$color_background;
@@ -36,25 +37,26 @@
         }
     }
 
-    .login__container{
+    .registry__container{
         margin-top: 2%;
         background-color: color.$color_quaternary;
         width: size.$size_width_container_login;
-        height: 493px;
+        height: 532px;
         border-radius: size.$size_corners;
         padding: 20px 0;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        margin-bottom: 2%;
 
-        .login__container__form{
+        .registry__container__form{
 
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
 
 
-            .login__container__form__title{
+            .registry__container__form__title{
                 @include baseFormElemts (100%, 50px);
                 background-color: color.$color_primary;
                 h1{
@@ -67,46 +69,27 @@
                 }
             }
     
-            .login__container__form__inputs{
-                @include baseFormElemts (357px, 155px);
+            .registry__container__form__inputs{
+                @include baseFormElemts (357px, 249px);
                 margin-top: 13px;
-                margin-bottom: 43px;
+                margin-bottom: 29px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
             }
     
-            .login__container__form__buttons{
-                @include baseFormElemts (357px, 141px);
-                margin-bottom: 30px;
+            .registry__container__form__buttons{
+                @include baseFormElemts (357px, 113px);
+                margin-bottom: 18px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-
-                .login__container__buttons-login{
-                    @include baseFormElemts (357px, 72px);
-                    text-align:right;
-
-                    a{
-                        margin-top: 6px;
-                        text-decoration: underline;
-                        width: 100%;
-                        font-family: font.$font_text;
-                        font-weight: font.$font_Weight_button;
-                        font-size: 0.75rem;
-                        color: color.$text_color_secondary;
-                        transition: all 0.3s ease-in-out;
-                        &:hover{
-                            font-size: 0.78rem;
-                        }
-                    }
-                }
             }
         }
 
-        .login__container__Registry{
+        .registry__container__Login{
             @include baseFormElemts (357px, 20px);
-            margin-bottom: 15px;
+            margin-bottom: 22px;
             text-align: left;
 
             span{

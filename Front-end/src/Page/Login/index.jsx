@@ -9,7 +9,9 @@ import "./style.scss";
 const Login = () => {
   return (
     <div className="login">
-      <div className="header"></div>
+      <div className="header">
+       <h1>Gallery Art</h1>
+      </div>
       <div className="login__container">
         <form className="login__container__form">
           <div className="login__container__form__title">
@@ -42,7 +44,7 @@ const Login = () => {
           </div>
         </form>
         <div className="login__container__Registry">
-          <span>¿no tienes una cuenta?  </span><Link to="/login">Registrate aqui</Link>
+          <span>¿no tienes una cuenta?  </span><Link to="/registry">Registrate aqui</Link>
         </div>
       </div>
     </div>
