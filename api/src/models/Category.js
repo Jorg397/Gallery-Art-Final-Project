@@ -6,10 +6,11 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('category', {
     id_category: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.INTEGER,
+   //   defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      allowNull: false
+      allowNull: false,
+      autoIncrement:true,
     },
     name: {
       type: DataTypes.STRING,
@@ -20,5 +21,6 @@ module.exports = (sequelize) => {
       allowNull: true,
     }
     
-  });
+  } ,{timestamps:false},
+  );
 };

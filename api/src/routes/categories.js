@@ -5,5 +5,8 @@ const categories = require("./controllers/categories");
 router
     .route("/")
     .get(categories.get)
-
+   // .post(categories.post)
+router 
+.route("/")
+.post(categories.post)
 module.exports = router;
