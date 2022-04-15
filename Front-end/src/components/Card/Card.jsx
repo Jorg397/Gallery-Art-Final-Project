@@ -13,7 +13,7 @@ export default function Card({ name, serie, measures, categories, price, image, 
 			id={idProduct}
 			className={s.card}
 			style={{
-				background: `url(${image}) no-repeat center center`,
+				background: `url(${image[0]}) no-repeat center center`,
 				backgroundSize: "cover",
 			}}>
 			<div className={s.cardbody}>

@@ -23,7 +23,7 @@ const Detail = () => {
 					className={` ${s.container} pt-32 flex justify-around pb-10`}>
 					<div>
 						<img
-							src={`${resp?.image}`}
+							src={`${resp?.image[0]}`}
 							alt='picture'
 							className={`${s.mainImage}`}
 						/>
@@ -31,15 +31,15 @@ const Detail = () => {
 						<div
 							className={`flex ${s.secondImagesContainer} justify-center`}>
 							<img
-								src={`${resp?.image}`}
+								src={`${resp?.image[0]}`}
 								alt=''
 							/>
 							<img
-								src={`${resp?.image}`}
+								src={`${resp?.image[0]}`}
 								alt=''
 							/>
 							<img
-								src={`${resp?.image}`}
+								src={`${resp?.image[0]}`}
 								alt=''
 							/>
 						</div>
