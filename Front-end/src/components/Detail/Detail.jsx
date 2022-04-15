@@ -1,15 +1,29 @@
+import { useSelector } from "react-redux";
 import arrowimg from "../../assets/arroww.png";
 import Cards from "../Cards/Cards";
 import s from "./detail.module.css";
+import { useDispatch } from "react-redux";
+import { fetchPaints, getDetail } from "../../redux/actions";
+import { useEffect } from "react";
+
 const Detail = () => {
+	  const dispatch = useDispatch();	
+	  useEffect(() => {
+		dispatch(fetchPaints())
+	}, [dispatch])
+	  const resp = useSelector((state) => state.detail);
+	  console.log(resp);
+
+
+
 	return (
-		<div className={s.sectionContainer}>
+		<div className={s.sectionContainer} >
 			<section>
 				<div
 					className={` ${s.container} pt-32 flex justify-around pb-10`}>
 					<div>
 						<img
-							src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/The_Scream_by_Edvard_Munch%2C_1893_-_Nasjonalgalleriet.png/640px-The_Scream_by_Edvard_Munch%2C_1893_-_Nasjonalgalleriet.png'
+							src={`${resp?.image[0]}`}
 							alt='picture'
 							className={`${s.mainImage}`}
 						/>
@@ -17,15 +31,15 @@ const Detail = () => {
 						<div
 							className={`flex ${s.secondImagesContainer} justify-center`}>
 							<img
-								src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/The_Scream_by_Edvard_Munch%2C_1893_-_Nasjonalgalleriet.png/640px-The_Scream_by_Edvard_Munch%2C_1893_-_Nasjonalgalleriet.png'
+								src={`${resp?.image[0]}`}
 								alt=''
 							/>
 							<img
-								src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/The_Scream_by_Edvard_Munch%2C_1893_-_Nasjonalgalleriet.png/640px-The_Scream_by_Edvard_Munch%2C_1893_-_Nasjonalgalleriet.png'
+								src={`${resp?.image[0]}`}
 								alt=''
 							/>
 							<img
-								src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/The_Scream_by_Edvard_Munch%2C_1893_-_Nasjonalgalleriet.png/640px-The_Scream_by_Edvard_Munch%2C_1893_-_Nasjonalgalleriet.png'
+								src={`${resp?.image[0]}`}
 								alt=''
 							/>
 						</div>
@@ -35,38 +49,32 @@ const Detail = () => {
 
 					<div className={`${s.detailsContainer} flex flex-col`}>
 						<h3 className='text-4xl text-white w-full text-center mt-10'>
-							S/T 4 UNDER THE BRIDGE
+							{resp?.name}
 						</h3>
 
 						<div
 							className={`p-10 px-16 text-2xl  text-white ${s.pSection}`}>
 							<p>
 								<span>Técnica: </span>
-								Dibujo a pincel, tinta gouache sobre papel
+								{resp?.technique}
 							</p>
 							<p>
-								<span>Medida : </span> 50 x 42 cm
+								<span>Medida : </span> {resp?.measures}
 							</p>
 							<p>
 								<span>Código : </span>
-								K26974
+								{resp?.idProduct}
 							</p>
 							<p>
 								<span>Año : </span>
-								2015
+								{resp?.released}
 							</p>
 
 							<p>
-								<span>Categoria: </span> Barraco, Minimalista
+								<span>Categoria: </span> {resp?.categories.map(e=> e.name)+" "}
 							</p>
 							<p className='mt-12'>
-								Nació en Buenos Aires en 1975 . Cursó estudios
-								de arte en Paris, Francia, 1994-1998 en la
-								Universidad de La Sorbonne, Paris VIII y en la
-								École de Sévrès. Continuo luego sus estudios en
-								la Escuela Nacional Prilidiano Pueyrredón. Desde
-								2005 trabajó durante cinco años en el estudio
-								Fran...
+								{resp?.description}
 							</p>
 							<a href='#' className='decoration-1'>
 								Ver más
@@ -76,7 +84,7 @@ const Detail = () => {
 						<div
 							className={`flex justify-between px-16 my-10 mb-5 ${s.priceSection} p-10 text-center`}>
 							<p className='self-center text-white text-5xl'>
-								S/. 150.00
+								$ {resp?.price}
 							</p>
 							<button className={`${s.button}`}>
 								Agregar al carrito
