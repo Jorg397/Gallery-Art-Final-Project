@@ -1,3 +1,10 @@
-.container {
-    background: linear-gradient(150deg, #4a4e69, #9a8c98, #4a4e69);
+body {
+    background: linear-gradient(180deg, #1e2136, #9a8c98, #1e2136, #1e2136, #9a8c98, #1e2136);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+::-webkit-scrollbar{
+    display: none;
 }

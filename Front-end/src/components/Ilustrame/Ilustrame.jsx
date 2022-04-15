@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import s from "../SliderCard/SliderCard.module.css"
 
 export default function Ilustrame() {
     return (
@@ -18,7 +20,9 @@ export default function Ilustrame() {
                     <p className="pt-4 pb-8 m-0 leading-7 text-white-700 border-0 border-gray-300 sm:pr-12 xl:pr-32 lg:text-lg">
                         Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de
                     </p>
-                    <button type="button" className="py-2.5 px-5 p-1 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-gray-600 rounded-lg border border-gray-200 hover:bg-gray-500 hover:text-gray-800 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Saber mas</button>
+                    <a href="https://www.whatsapp.com" target="_blank">
+                    <button type="button" className={s.cardbtn}>Saber mas</button>                    
+                    </a>
 
                 </div>
                 
