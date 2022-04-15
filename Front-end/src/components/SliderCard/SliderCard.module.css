@@ -1,0 +1,14 @@
+.cardbtn {
+    color: azure;
+    background-color: #4a4e69;
+    width: 250px;
+    font-size: medium;
+    height: 50px;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.cardbtn:hover {
+    background-color: #9a8c98;
+    transform: scale(1.05);
+}

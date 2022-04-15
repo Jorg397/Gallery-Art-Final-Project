@@ -1,21 +1,33 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { getDetail } from "../../redux/actions";
 import s from "./Card.module.css";
-export default function Card() {
+
+
+export default function Card({ name, serie, measures, categories, price, image, idProduct }) {
+	  const dispatch = useDispatch();
+
 	return (
 		<div
+			id={idProduct}
 			className={s.card}
 			style={{
-				background:
-					"url(https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/The_Scream_by_Edvard_Munch%2C_1893_-_Nasjonalgalleriet.png/640px-The_Scream_by_Edvard_Munch%2C_1893_-_Nasjonalgalleriet.png)",
+				background: `url(${image[0]}) no-repeat center center`,
 				backgroundSize: "cover",
 			}}>
 			<div className={s.cardbody}>
-				<h1 className={s.cardtitle}>UNDER THE BRIDGE</h1>
-				<p className={s.cardsub}>Serie/ 1 </p>
-				<p className={s.cardmed}>150x150 cm</p>
-				<p className={s.cardcat}>Paisaje, Minimalista.</p>
-				<button className={s.cardbtn}>Agregar al carrito</button>
-				<h2 className={s.cardprice}>$500.00</h2>
+				<h1 className={s.cardtitle}>{name}</h1>
+				<p className={s.cardsub}>{serie} </p>
+				<p className={s.cardmed}>{measures}</p>
+				<p className={s.cardcat}>{categories.map(e=> e.name)+" "}</p>
+				<Link key={idProduct}
+					onClick={()=>dispatch(getDetail(idProduct))}
+					to={`/details/${idProduct}`}
+				>
+				<button className={s.cardbtn} type="submit">Agregar al carrito</button>
+				</Link>
+				<span className={s.cardprice}>$ {price}</span>
 			</div>
 		</div>
 	);

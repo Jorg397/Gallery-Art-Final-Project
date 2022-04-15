@@ -109,7 +109,7 @@ Se debe desarrollar un servidor en Node/Express con las siguientes rutas:
       idCategor:,
       name:"titulo",
       }]
-- [ ] **POST /products**:
+- [ ] **POST /product**:
       Recibe los datos recoelctados desde el formulario controlado de la ruta de creacion de productos por body
       Crear un producto en la base de datos
 
