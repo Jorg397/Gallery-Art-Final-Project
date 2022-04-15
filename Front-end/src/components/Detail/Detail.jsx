@@ -5,6 +5,9 @@ import s from "./detail.module.css";
 import { useDispatch } from "react-redux";
 import { fetchPaints, getDetail } from "../../redux/actions";
 import { useEffect } from "react";
+import NavBar from "../NavBar/NavBar";
+import Footer from "../Footer/Footer";
+
 
 const Detail = () => {
 	  const dispatch = useDispatch();	
@@ -17,10 +20,11 @@ const Detail = () => {
 
 
 	return (
-		<div className={s.sectionContainer} >
+		<div >
+			<NavBar></NavBar>
 			<section>
 				<div
-					className={` ${s.container} pt-32 flex justify-around pb-10`}>
+					className={`pt-32 flex justify-around pb-10`}>
 					<div>
 						<img
 							src={`${resp?.image[0]}`}
@@ -108,9 +112,10 @@ const Detail = () => {
 				</p>
 
 				<div className='flex'>
-					<Cards />
+					<Cards/>
 				</div>
 			</section>
+			<Footer></Footer>
 		</div>
 	);
 };

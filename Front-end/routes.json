@@ -1,3 +1,4 @@
 {
-  "/products/:idProduct": "/productsDetails/:idProduct"
+  "/products/:idProduct": "/productsDetails/:idProduct",
+  "/categories": "/categories"
 }
