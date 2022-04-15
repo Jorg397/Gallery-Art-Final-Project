@@ -37,7 +37,6 @@ module.exports= {
                 }
                 res.status(200).json(data);
             } catch (error) {
-                console.log(error);
                 res.status(404).send('Product not found');
             }
         }else{
@@ -69,21 +68,34 @@ module.exports= {
         const {name, description, technique, measures, image, price, sku, released, categories, serie} = req.body;
         if(name && description && technique && measures && image && price && sku && released && categories.length && serie) {
             try {
-                const product = await Product.create({
-                    name: name.trim().toLowerCase().replace(/\b\w/g, l => l.toUpperCase()),
-                    description: description.trim(),
-                    technique: technique.trim(),
-                    measures: measures.trim(),
-                    image: image.trim(),
-                    price: price,
-                    sku: sku.trim(),
-                    serie: serie.trim(),
-                    released: released.trim(),
-                })
-                categories.forEach(async (item) => {
-                    await product.addCategories(item.idCategory);  
-                })
-                res.status(201).send('Product created');
+
+                const cateDb = categories.map(c => 
+                    Category.findOne({
+                        where: {
+                            id_category: c.idCategory,
+                        }
+                    }).then(cate => !cate? Promise.reject(`Category ${c.idCategory} not found`): cate)
+                )
+
+                Promise.all(cateDb)
+                    .then(async (categories) => {
+                        const product = await Product.create({
+                            name: name.trim().toLowerCase().replace(/\b\w/g, l => l.toUpperCase()),
+                            description: description.trim(),
+                            technique: technique.trim(),
+                            measures: measures.trim(),
+                            image: image.trim(),
+                            price: price,
+                            sku: sku.trim(),
+                            serie: serie.trim(),
+                            released: released.trim(),
+                        })
+                        await product.addCategories(categories);
+                        res.status(201).send('Product created');
+                    }).catch(err => {
+                    res.status(400).send(err);
+                    })
+
             } catch (error) {
                 console.log(error);
                 res.status(400).send('Bad request');
