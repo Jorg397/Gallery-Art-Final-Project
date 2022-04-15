@@ -25,6 +25,8 @@ module.exports = (sequelize) => {
 
     price:{type:DataTypes.INTEGER,allowNull:false},
 
+    serie:{type:DataTypes.STRING, allowNull:false},
+
     sku:{ type: DataTypes.STRING, allowNull: false},
 
     released:{type:DataTypes.DATEONLY,allowNull:false},
