@@ -1,5 +1,5 @@
 require("dotenv").config;
-const axios = require("axios");
+
 const { Category} = require("../../db");
  
 module.exports = {
@@ -15,7 +15,7 @@ try{
 
 async post(req, res){
   let{name,description}=req.body;
-  const getDbCategories= await Category.findAll(
+   await Category.findAll(
     {attributes:["id_category","name"]}
   )
 try{
@@ -23,7 +23,6 @@ try{
     {attributes:["name"]}
   )
   let band=false
-//  console.log("leido:::",categoriesDb[0].dataValues.name)
   categoriesDb.map(e=>{
        if(name===e.dataValues.name) band=true  
   })
