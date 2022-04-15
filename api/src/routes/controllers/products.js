@@ -38,8 +38,8 @@ module.exports = {
             "released",
             "state",
           ],
-          limit: 5,
-          offset: page * 5,
+          limit: 20,
+          offset: page * 20,
         };
       } else {
         query = {
@@ -56,8 +56,8 @@ module.exports = {
             "released",
             "state",
           ],
-          limit: 5,
-          offset: page * 5,
+          limit: 20,
+          offset: page * 20,
         };
       }
       const products = await getProducts(query);
