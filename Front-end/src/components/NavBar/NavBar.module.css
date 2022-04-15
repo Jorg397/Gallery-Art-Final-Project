@@ -1,0 +1,12 @@
+.title {
+    font-size: 36px;
+    font-weight: 1000;
+    margin-left: 14px;
+    position: relative;
+    bottom: 5px;
+}
+
+.titleS {
+    font-size: 1.5em;
+    color: rgb(44, 176, 163)
+}

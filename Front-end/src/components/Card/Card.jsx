@@ -27,7 +27,7 @@ export default function Card({ name, serie, measures, categories, price, image, 
 				>
 				<button className={s.cardbtn} type="submit">Agregar al carrito</button>
 				</Link>
-				<h2 className={s.cardprice}>$ {price}</h2>
+				<span className={s.cardprice}>$ {price}</span>
 			</div>
 		</div>
 	);
