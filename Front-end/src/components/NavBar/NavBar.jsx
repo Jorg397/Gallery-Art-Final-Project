@@ -4,10 +4,10 @@ import React from "react";
 import s from "./NavBar.module.css";
 
 export default function NavBar() {
-    const handleclicklogout=()=>{
-        localStorage.removeItem("token");
-        window.location.reload();
-    }
+  const handleclicklogout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
   return (
     <nav
       style={{
@@ -51,8 +51,11 @@ export default function NavBar() {
               Iniciar sesion
             </a>
           ) : (
-            <a onClick={handleclicklogout} className="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-12">
-              cliente
+            <a
+              onClick={handleclicklogout}
+              className="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-12"
+            >
+              Cerrar sesion
             </a>
           )}
           {!localStorage.getItem("token") ? (

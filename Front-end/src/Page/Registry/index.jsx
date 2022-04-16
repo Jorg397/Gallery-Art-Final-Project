@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 import Button from "../../components/Button/index";
 import google from "../../assets/icons/google.svg";
 import TextField from "../../components/TextField/index";
 import { validationsFields } from "../../utils/regularExpressions/validations";
+import { createCustomer } from "../../services/post/registry";
 import "./style.scss";
 
 const Registry = () => {
@@ -49,7 +50,7 @@ const Registry = () => {
       };
     });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       error.email.status ||
@@ -63,12 +64,22 @@ const Registry = () => {
       );
       return alert("Por favor verifica los campos, no pueden tener error");
     }
-    alert("Se ha enviado el formulario");
+    await createCustomer(GetDataRegistry)
+      .then((res) => {
+        console.log({ res });
+        alert(res.data.message);
+        localStorage.setItem("token", res.data.token);
+        window.location.href = "/home";
+      })
+      .catch((err) => console.log(err));
   };
+  if (localStorage.getItem("token")) {
+    return <Navigate to="/home" />;
+  }
   return (
     <div className="registry">
       <div className="header">
-        <h1>Gallery Art</h1>
+      <Link to="/home">Gallery Art</Link>
       </div>
       <div className="registry__container">
         <form className="registry__container__form" onSubmit={handleSubmit}>
@@ -107,14 +118,14 @@ const Registry = () => {
               width={"357px"}
               height={"50px"}
             />
-            <Button
+            {/* <Button
               name={"continuar con Google"}
               icon={google}
               version={"v2"}
               type={"button"}
               width={"357px"}
               height={"50px"}
-            />
+            /> */}
           </div>
         </form>
         <div className="registry__container__Login">

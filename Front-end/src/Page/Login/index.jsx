@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 import Button from "../../components/Button/index";
 import google from "../../assets/icons/google.svg";
 import TextField from "../../components/TextField/index";
 import { validationsFields } from "../../utils/regularExpressions/validations";
+import { login } from "../../services/post/login";
 import "./style.scss";
 
 const Login = () => {
@@ -28,7 +29,7 @@ const Login = () => {
         },
       };
     });
-  }
+  };
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
@@ -41,21 +42,34 @@ const Login = () => {
       };
     });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if(error.email.status || error.password.status){
+    if (error.email.status || error.password.status) {
       changeSetError("email", validationsField.email(GetDataLogin.email));
-      changeSetError("password", validationsField.password(GetDataLogin.password));
+      changeSetError(
+        "password",
+        validationsField.password(GetDataLogin.password)
+      );
       return alert("Por favor verifica los campos, no pueden tener error");
     }
-    localStorage.setItem("token","simulationtoken");
-    window.location.href = "/home";
+    await login(GetDataLogin)
+      .then((res) => {
+        console.log({ res });
+        alert(res.data.message);
+        localStorage.setItem("token", res.data.token);
+        window.location.href = "/home";
+      })
+      .catch((err) => console.log(err));
+  };
+
+  if (localStorage.getItem("token")) {
+    return <Navigate to="/home" />;
   }
 
   return (
     <div className="login">
       <div className="header">
-        <h1>Gallery Art</h1>
+        <Link to="/home">Gallery Art</Link>
       </div>
       <div className="login__container">
         <form className="login__container__form" onSubmit={handleSubmit}>
@@ -91,14 +105,14 @@ const Login = () => {
               <Link to="/login">¿Te olvidas tu contraseña?</Link>
             </div>
 
-            <Button
+            {/* <Button
               name={"continuar con Google"}
               icon={google}
               version={"v2"}
               type={"submit"}
               width={"357px"}
               height={"50px"}
-            />
+            /> */}
           </div>
         </form>
         <div className="login__container__Registry">
