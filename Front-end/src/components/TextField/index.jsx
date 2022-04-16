@@ -1,15 +1,23 @@
-import React from 'react';
+import React from "react";
 
-import './style.scss';
+import "./style.scss";
 
 const TextField = (props) => {
-    const {name, width, height} = props;
+  const { name, label, type,width, height, onChange, error,onBlur } = props;
   return (
     <div className="textField">
-        <label className="textField__label">{name}</label>
-        <input className="textField__input" type="text" />
+      {console.log("este es el error en ele fo¿ield: ", error)}
+      <label className="textField__label">{label}</label>
+      <input
+      onBlur={onBlur}
+        className={`textField__input ${error !=="" && "error"}`}
+        name={name}
+        type={type}
+        onChange={onChange}
+      />
+      {error!=="" && <p className="error">{error}</p>}
     </div>
-  )
-}
+  );
+};
 
 export default TextField;
