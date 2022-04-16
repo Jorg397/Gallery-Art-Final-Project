@@ -2,12 +2,14 @@ const { Router } = require("express");
 const products = require("./products");
 const product = require("./product");
 const categories = require("./categories");
+const customer = require("./customer");
 const page404 = require("./404");
 const router = Router();
 
 router.use("/products", products);
 router.use("/categories", categories);
 router.use("/product", product);
+router.use("/customer", customer);
 
 router.use("*", page404);
 
