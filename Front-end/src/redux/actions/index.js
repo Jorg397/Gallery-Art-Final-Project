@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const ADD_TO_CART = "ADD_TO_CART";
 export const ADD_LOCAL_STORAGE = "ADD_LOCAL_STORAGE";
+export const REMOVE_TO_CART = "REMOVE_TO_CART";
 
 export function fetchPaints() {
   return function (dispatch) {
@@ -68,5 +69,12 @@ export function addLocalStorage(cart) {
   return {
     type: ADD_LOCAL_STORAGE,
     payload: cart,
+  };
+}
+
+export function removeToCart(idProduct) {
+  return {
+    type: REMOVE_TO_CART,
+    payload: idProduct,
   };
 }
