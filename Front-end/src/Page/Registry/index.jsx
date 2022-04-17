@@ -71,7 +71,7 @@ const Registry = () => {
         localStorage.setItem("token", res.data.token);
         window.location.href = "/home";
       })
-      .catch((err) => console.log(err));
+      .catch((res) => alert("hay un error"));
   };
   if (localStorage.getItem("token")) {
     return <Navigate to="/home" />;
@@ -79,7 +79,7 @@ const Registry = () => {
   return (
     <div className="registry">
       <div className="header">
-      <Link to="/home">Gallery Art</Link>
+        <Link to="/home">Gallery Art</Link>
       </div>
       <div className="registry__container">
         <form className="registry__container__form" onSubmit={handleSubmit}>
