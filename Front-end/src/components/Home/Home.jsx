@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import About from "../About/About";
 import Destacado from "../Destacado/Destacado";
 import Footer from "../Footer/Footer";
@@ -12,6 +12,7 @@ import { fetchPaints, getCategories } from "../../redux/actions";
 import Slider from "../Slider/Slider";
 import NavBar from "../NavBar/NavBar";
 import Cart from "../Cart/Cart";
+import CartModal from "../CartModal/CartModal";
 import asd from "./Untitled.svg";
 import asd1 from "./Untitled1.svg";
 import asd2 from "./Untitled2.svg";
@@ -21,6 +22,11 @@ export default function Home() {
   const dispatch = useDispatch();
   const paints = useSelector((state) => state.filteredPaints);
   const categories = useSelector((state) => state.categories);
+  const [modalState, setmodalState] = useState(false);
+
+  function openModal() {
+    setmodalState(!modalState);
+  }
 
   useEffect(() => {
     dispatch(fetchPaints());
@@ -39,7 +45,8 @@ export default function Home() {
 				</div>
 			)} */}
       <NavBar />
-      <Cart />
+      <Cart openModal={openModal} />
+      <CartModal openModal={openModal} modalState={modalState} />
       <Slider paints={paints}></Slider>
       <h1
         style={{

@@ -4,14 +4,20 @@ import Cards from "../Cards/Cards";
 import s from "./detail.module.css";
 import { useDispatch } from "react-redux";
 import { fetchPaints, getDetail, addToCart } from "../../redux/actions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import Card from "../Cart/Cart";
 import Cart from "../Cart/Cart";
-
+import CartModal from "../CartModal/CartModal";
 const Detail = () => {
   const dispatch = useDispatch();
+  const [modalState, setmodalState] = useState(false);
+
+  function openModal() {
+    setmodalState(!modalState);
+  }
+
   useEffect(() => {
     dispatch(fetchPaints());
   }, [dispatch]);
@@ -25,7 +31,8 @@ const Detail = () => {
   return (
     <div>
       <NavBar></NavBar>
-      <Cart />
+      <Cart openModal={openModal} />
+      <CartModal openModal={openModal} modalState={modalState} />
       <section>
         <div className={`pt-32 flex justify-around pb-10`}>
           <div>

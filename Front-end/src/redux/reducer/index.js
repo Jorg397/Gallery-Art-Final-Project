@@ -1,4 +1,8 @@
-import { ADD_TO_CART, ADD_LOCAL_STORAGE } from "../actions/index";
+import {
+  ADD_TO_CART,
+  ADD_LOCAL_STORAGE,
+  REMOVE_TO_CART,
+} from "../actions/index";
 
 const initialState = {
   paints: [],
@@ -82,6 +86,13 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         cart: state.cart.concat(
           state.paints.filter((paint) => paint.idProduct === action.payload)
+        ),
+      };
+    case REMOVE_TO_CART:
+      return {
+        ...state,
+        cart: state.cart.filter(
+          (product) => product.idProduct !== action.payload
         ),
       };
     default:
