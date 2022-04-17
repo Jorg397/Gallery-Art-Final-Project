@@ -35,4 +35,14 @@
             font-size: size.$size_text;
         }
     }
+
+    .textField__input.error{
+        border: solid 2px;
+        border-color: color.$input_border_color_warning;
+    }
+
+    p{
+        font-size: 0.75rem;
+        color: color.$text_color_warning;
+    }
 }
