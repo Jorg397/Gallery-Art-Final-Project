@@ -26,15 +26,15 @@ export default function SliderCard({e}) {
 					onClick={()=>dispatch(getDetail(e.idProduct))}
 					to={`/details/${e.idProduct}`}
 				>
-				<button className={s.cardbtn}>Agregar al carrito</button>
+				<button className={s.cardbtn}>Detalles</button>
 				</Link>
         </div>
 
 
         <div className="box-border relative w-full max-w-md px-4 mt-10 mb-4 text-center bg-no-repeat bg-contain border-solid md:mt-0 md:max-w-none lg:mb-0 md:w-1/2">
             <span className='flex'  style={{marginTop:"30px",}}>
-                <img src={`${e.image[0]}`} style={{width:"450px", height:"450px", position:"relative", left:"20px", }} className="pl-4 sm:pr-10 xl:pl-10 lg:pr-32"/>
-                <img src={`${e.image[1]}`} style={{width:"450px", height:"450px", position:"relative", left:"-130px"}} className="pl-4 sm:pr-10 xl:pl-10 lg:pr-32"/>
+                <img src={`${e.image}`} style={{width:"450px", height:"450px", position:"relative", left:"20px", }} className="pl-4 sm:pr-10 xl:pl-10 lg:pr-32"/>
+                <img src={`${e.image}`} style={{width:"450px", height:"450px", position:"relative", left:"-130px"}} className="pl-4 sm:pr-10 xl:pl-10 lg:pr-32"/>
                 </span>
             
         </div>
@@ -42,3 +42,4 @@ export default function SliderCard({e}) {
 
   )
 }
+

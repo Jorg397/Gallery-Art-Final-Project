@@ -27,14 +27,17 @@ export default function Card({
   };
 
   return (
+  
     <div
       id={idProduct}
       className={s.card}
       style={{
-        background: `url(${image[0]}) no-repeat center center`,
+        background: `url(${image}) no-repeat center center`,
         backgroundSize: "cover",
-      }}
+      }}  
+      
     >
+      {console.log(name)}
       <div className={s.cardbody}>
         <Link
           key={idProduct}
