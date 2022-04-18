@@ -12,6 +12,7 @@ import Cart from "../Cart/Cart";
 import CartModal from "../CartModal/CartModal";
 const Detail = () => {
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
   const [modalState, setmodalState] = useState(false);
 
   function openModal() {
@@ -25,7 +26,13 @@ const Detail = () => {
   const resp = useSelector((state) => state.detail);
 
   const handleAddToCart = (idProduct) => {
-    dispatch(addToCart(idProduct));
+    const itsCart = cart.find((product) => product.idProduct === idProduct);
+    if (itsCart) {
+      alert("Ya esta en el carrito");
+    } else {
+      dispatch(addToCart(idProduct));
+      alert("Agregado al carrito");
+    }
   };
 
   return (
