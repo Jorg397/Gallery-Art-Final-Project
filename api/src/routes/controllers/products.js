@@ -1,6 +1,7 @@
 require("dotenv").config;
-const { Product } = require("../../db");
+const { Product,Category } = require("../../db");
 const { Op } = require("sequelize");
+
 
 module.exports = {
   async get(req, res) {
@@ -17,8 +18,7 @@ module.exports = {
 
       let query;
       if (req.query.name) {
-        const { name } = req.query;
-
+         const { name } = req.query;
         query = {
           where: {
             name: {
@@ -40,6 +40,21 @@ module.exports = {
           ],
           limit: 20,
           offset: page * 20,
+          include:[
+{
+    model:Category,
+   attributes:[
+     "id_category",
+      "name",
+
+   ],
+    through: {
+      attributes: [],
+    },
+}
+
+          ]
+          
         };
       } else {
         query = {
@@ -58,6 +73,22 @@ module.exports = {
           ],
           limit: 20,
           offset: page * 20,
+          include:[
+            {
+              model:Category,
+              attributes:[
+                "id_category",
+           "name",
+
+              ],
+            through: {
+            attributes: [],
+          } 
+         },
+           
+          ]
+        
+          
         };
       }
       const products = await getProducts(query);
