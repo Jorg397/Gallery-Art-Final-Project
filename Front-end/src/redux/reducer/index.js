@@ -85,14 +85,14 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         cart: state.cart.concat(
-          state.paints.filter((paint) => paint.idProduct === action.payload)
+          state.paints.filter((paint) => paint.id_product === action.payload)
         ),
       };
     case REMOVE_TO_CART:
       return {
         ...state,
         cart: state.cart.filter(
-          (product) => product.idProduct !== action.payload
+          (product) => product.id_product !== action.payload
         ),
       };
     default:

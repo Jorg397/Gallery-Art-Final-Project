@@ -23,12 +23,12 @@ const Detail = () => {
 
   useEffect(() => {
     dispatch(getDetail(id));
-  },[]);
+  }, []);
 
   const resp = useSelector((state) => state.detail);
 
   const handleAddToCart = (idProduct) => {
-    const itsCart = cart.find((product) => product.idProduct === idProduct);
+    const itsCart = cart.find((product) => product.id_product === idProduct);
     if (itsCart) {
       alert("Ya esta en el carrito");
     } else {
