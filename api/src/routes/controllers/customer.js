@@ -74,6 +74,7 @@ module.exports= {
             
         } catch (error) {
             console.log(error);
+            res.status(400).send('hubo un error ene le server');
         }
     },
 
