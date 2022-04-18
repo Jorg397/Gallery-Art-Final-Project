@@ -8,9 +8,9 @@ export function fetchPaints() {
   return function (dispatch) {
     dispatch({ type: "FETCH_PAINTS" });
     axios
-      .get("http://localhost:3010/products")
+      .get("http://localhost:3001/products")
       .then(function (response) {
-        dispatch({ type: "FETCH_PAINTS_SUCCESS", payload: response.data });
+        dispatch({ type: "FETCH_PAINTS_SUCCESS", payload: response.data.content });
       })
       .catch(function (err) {
         dispatch({ type: "FETCH_PAINTS_FAILURE", payload: err });
