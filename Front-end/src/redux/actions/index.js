@@ -22,7 +22,7 @@ export function getDetail(id) {
   return function (dispatch) {
     dispatch({ type: "FETCH_PAINT_DETAIL" });
     axios
-      .get("http://localhost:3010/products/" + id)
+      .get("http://localhost:3001/product/" + id)
       .then(function (response) {
         dispatch({ type: "FETCH_PAINT_DETAIL", payload: response.data });
       })

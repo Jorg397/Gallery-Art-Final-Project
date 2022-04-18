@@ -3,6 +3,7 @@ import arrowimg from "../../assets/arroww.png";
 import Cards from "../Cards/Cards";
 import s from "./detail.module.css";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { fetchPaints, getDetail, addToCart } from "../../redux/actions";
 import { useEffect, useState } from "react";
 import NavBar from "../NavBar/NavBar";
@@ -11,6 +12,7 @@ import Card from "../Cart/Cart";
 import Cart from "../Cart/Cart";
 import CartModal from "../CartModal/CartModal";
 const Detail = () => {
+  const { id } = useParams();
   const dispatch = useDispatch();
   const [modalState, setmodalState] = useState(false);
 
@@ -19,8 +21,8 @@ const Detail = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchPaints());
-  }, [dispatch]);
+    dispatch(getDetail(id));
+  },[]);
 
   const resp = useSelector((state) => state.detail);
 
@@ -37,16 +39,16 @@ const Detail = () => {
         <div className={`pt-32 flex justify-around pb-10`}>
           <div>
             <img
-              src={`${resp?.image[0]}`}
+              src={`${resp?.image}`}
               alt="picture"
               className={`${s.mainImage}`}
             />
 
-            <div className={`flex ${s.secondImagesContainer} justify-center`}>
+            {/* <div className={`flex ${s.secondImagesContainer} justify-center`}>
               <img src={`${resp?.image[0]}`} alt="" />
               <img src={`${resp?.image[0]}`} alt="" />
               <img src={`${resp?.image[0]}`} alt="" />
-            </div>
+            </div> */}
           </div>
           <div className="flex items-center">
             <img src={arrowimg} alt="" />
