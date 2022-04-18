@@ -57,7 +57,7 @@ function CartModal({ openModal, modalState }) {
                 <span className="font-semibold">{product.price}</span>
               </div>
               <div className="flex col-span-1 justify-end cursor-pointer">
-                <span onClick={() => handleDeleteToCart(product.idProduct)}>
+                <span onClick={() => handleDeleteToCart(product.id_product)}>
                   <img
                     className="img_remove"
                     src={buttonRemoveCart}

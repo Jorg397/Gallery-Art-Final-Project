@@ -17,7 +17,7 @@ export default function Card({
   const cart = useSelector((state) => state.cart);
 
   const handleAddToCart = (idProduct) => {
-    const itsCart = cart.find((product) => product.idProduct === idProduct);
+    const itsCart = cart.find((product) => product.id_product === idProduct);
     if (itsCart) {
       alert("Ya esta en el carrito");
     } else {
@@ -27,15 +27,13 @@ export default function Card({
   };
 
   return (
-  
     <div
       id={idProduct}
       className={s.card}
       style={{
         background: `url(${image}) no-repeat center center`,
         backgroundSize: "cover",
-      }}  
-      
+      }}
     >
       {console.log(name)}
       <div className={s.cardbody}>
