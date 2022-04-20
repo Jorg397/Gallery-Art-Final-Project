@@ -47,7 +47,7 @@ export default function Card({
 				<p className={s.cardsub}>{serie} </p>
 				<p className={s.cardmed}>{measures}</p>
 				<p className={s.cardcat}>
-					{categories.map((e) => `${e.name}  `)}
+					{categories.map((e) => `${e.name}  `) || categories}
 				</p>
 				<button
 					className={s.cardbtn}

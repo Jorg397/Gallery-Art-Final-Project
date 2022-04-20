@@ -10,6 +10,8 @@
     height: 50px;
     border-radius: 3px;
     background: url(https://i.ibb.co/jJvhP3Q/Sin-t-tulo-1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
     opacity: 70%;
     backdrop-filter: blur(7px);
     margin-bottom: 20px;
