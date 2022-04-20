@@ -1,0 +1,19 @@
+.selectInput {
+    background-color: #4a4e69;
+    width: 180px;
+    font-size: larger;
+    font-weight: 600;
+    text-align: center;
+    height: 40px;
+    border: 1px solid white;
+    border-radius: 10px;
+    transition: all 1s;
+}
+
+.selectInput:focus {
+    outline: none;
+}
+
+.container {
+    background: linear-gradient( 176.22deg, #22223b 8.98%, #4a4e69 26.95%, #9a8c98 48.87%, #c9ada7 68.51%, #c9ada7 80.38%, #292a44 96.55%);
+}
