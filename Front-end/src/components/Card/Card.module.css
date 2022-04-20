@@ -1,70 +1,71 @@
 .card {
-  width: 375px;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  height: 467px;
-  box-shadow: 8px 6px 16px 3px rgba(0, 0, 0, 0.7);
+    width: 375px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    height: 467px;
+    box-shadow: 8px 6px 16px 3px rgba(0, 0, 0, 0.7);
 }
 
 .cardbody {
-  height: 111px;
-  background: rgba(34, 34, 59, 0.72);
-  backdrop-filter: blur(7px);
-  border-radius: 20px 20px 0px 0px;
-  position: relative;
-  top: 356px;
-  color: white;
+    height: 111px;
+    background: rgba(34, 34, 59, 0.72);
+    backdrop-filter: blur(7px);
+    border-radius: 20px 20px 0px 0px;
+    position: relative;
+    top: 356px;
+    color: white;
 }
 
 .cardtitle {
-  position: relative;
-  top: 8px;
-  left: 15px;
-  font-size: 16px;
-  font-weight: 200;
-  color: white;
+    position: relative;
+    top: 8px;
+    left: 15px;
+    font-size: 16px;
+    font-weight: 200;
+    color: white;
 }
 
 .cardsub {
-  position: relative;
-  font-weight: lighter;
-  top: 6px;
-  left: 15px;
+    position: relative;
+    font-weight: lighter;
+    top: 6px;
+    left: 15px;
+    margin-bottom: 6px;
 }
 
 .cardmed {
-  position: relative;
-  font-weight: lighter;
-  left: 15px;
+    position: relative;
+    font-weight: lighter;
+    left: 15px;
 }
 
 .cardcat {
-  position: relative;
-  top: 8px;
-  left: 15px;
+    position: relative;
+    top: 8px;
+    left: 15px;
 }
 
 .cardbtn {
-  position: relative;
-  background-color: #4a4e69;
-  width: 145.46px;
-  font-size: small;
-  color: white;
-  height: 29.09px;
-  border: 1px solid white;
-  border-radius: 10px;
-  bottom: 65px;
-  left: 218px;
+    position: relative;
+    background-color: #4a4e69;
+    width: 145.46px;
+    font-size: small;
+    color: white;
+    height: 29.09px;
+    border: 1px solid white;
+    border-radius: 10px;
+    bottom: 65px;
+    left: 218px;
 }
 
 .cardbtn:hover {
-  background-color: #9a8c98;
-  transform: scale(1.05);
+    background-color: #9a8c98;
+    transform: scale(1.05);
 }
 
 .cardprice {
-  font-size: larger;
-  position: relative;
-  bottom: 20px;
-  left: 130px;
+    font-size: 28px;
+    position: relative;
+    bottom: 20px;
+    left: 130px;
 }

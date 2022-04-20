@@ -1,0 +1,15 @@
+.selectInput {
+    background-color: #4a4e69;
+    width: 180px;
+    font-size: larger;
+    font-weight: 600;
+    text-align: center;
+    height: 40px;
+    border: 1px solid white;
+    border-radius: 10px;
+    transition: all 1s;
+}
+
+.selectInput:focus {
+    outline: none;
+}
