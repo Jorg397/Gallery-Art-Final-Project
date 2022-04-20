@@ -8,6 +8,7 @@ import Landing from "./components/Landing/Landing";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { addLocalStorage } from "./redux/actions/index";
+import PaymentGateway from "./components/Payment";
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -35,6 +36,7 @@ function App() {
       <Route path="/home" element={<Home />} />
       <Route path="/" element={<Landing />} />
       <Route path="/details/:id" element={<Detail />} />
+      <Route path="/payment" element={<PaymentGateway />} />
     </Routes>
   );
 }
