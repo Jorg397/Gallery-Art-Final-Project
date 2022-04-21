@@ -1,10 +1,10 @@
 body {
-    background: linear-gradient(180deg, #1e2136, #9a8c98, #1e2136, #1e2136, #9a8c98, #1e2136);
+  background-color: #22223b;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
-::-webkit-scrollbar{
-    display: none;
+::-webkit-scrollbar {
+  display: none;
 }
