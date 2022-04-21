@@ -14,11 +14,13 @@
 .active {
   transition: "All 5s";
   transform: translateY(0%);
+  backdrop-filter: blur(7px);
 }
 
 .hidden {
   transition: "All 5s";
   transform: translateY(-100%);
+  backdrop-filter: blur(7px);
 }
 
 nav {

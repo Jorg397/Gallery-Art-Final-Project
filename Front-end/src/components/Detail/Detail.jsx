@@ -51,19 +51,18 @@ const Detail = () => {
 
   
   return (
-    <div>
+    <div className={s.containerG}>
       <NavBar></NavBar>
       <div className={s.containerRoute}>
         <div className={s.containerRoute__title}>
           <div>
             <NavLink to={'/home'} className={`${s.route}`}>Home  {'>'} </NavLink>
             <NavLink to={'/gallery'} className={`${s.route}`}>Galería  {'>'} </NavLink>
-            <NavLink to={'#'} className={`${s.route}`}>Arte Abstracto {'>'} </NavLink>
+            <NavLink to={'#'} className={`${s.route}`}>{resp?.name} {'>'} </NavLink>
           </div>
         </div>
-        <div >
-          <Cart openModal={openModal} />
-          <CartModal openModal={openModal} modalState={modalState} />
+        <div className={s.separator}>
+
         </div>
         
        
