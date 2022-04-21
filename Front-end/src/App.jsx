@@ -11,7 +11,7 @@ import { addLocalStorage } from "./redux/actions/index";
 import PaymentGateway from "./components/Payment";
 import Gallery from "./Page/Gallery";
 
-function App() {
+export default function App() {
 	const cart = useSelector((state) => state.cart);
 	const dispatch = useDispatch();
 
@@ -41,6 +41,4 @@ function App() {
       <Route path='/gallery' element={<Gallery />} />
     </Routes>
   );
-
-
-export default App;
+}

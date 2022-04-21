@@ -1,7 +1,10 @@
+.separator{
+    margin-top: 120px;
+}
 
 .containerRoute .containerRoute__title div{
     position: relative;
-    bottom: -30px;
+    bottom: -110px;
 }
 .route {
     margin: 0px 30px;
@@ -118,7 +121,7 @@ a {
 
 .arrowimg {
     margin-top: -100px;
-    margin-left: -200px;
+    margin-left: -100px;
     color: #c9ada7;
     font-size: 50px;
     border-radius: 50%;
