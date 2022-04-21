@@ -22,9 +22,9 @@ export default function SliderCard({e}) {
                {e.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, consequatur officia! Modi veritatis, ad doloribus eveniet distinctio fuga iste quidem animi laboriosam odio incidunt voluptatem vitae eos nam. Omnis, atque.lore Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut, non aspernatur! Reprehenderit, repudiandae dolore a non in id officia ipsum quas numquam suscipit corporis, culpa quia sit, facere corrupti soluta.
             </p>
             <h1 style={{fontSize:"30px", marginTop:"30px", marginBottom:"30px"}}>$ {e.price}</h1>
-            <Link key={e.idProduct}
-					onClick={()=>dispatch(getDetail(e.idProduct))}
-					to={`/details/${e.idProduct}`}
+            <Link key={e.id_product}
+					onClick={()=>dispatch(getDetail(e.id_product))}
+					to={`/details/${e.id_product}`}
 				>
 				<button className={s.cardbtn}>Detalles</button>
 				</Link>

@@ -14,7 +14,6 @@ function Cart({ openModal }) {
         </span>
         <img src={cartImage} alt="You Cart" />
       </div>
-      ;
     </div>
   );
 }

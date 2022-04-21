@@ -1,3 +1,33 @@
+
+.containerRoute .containerRoute__title div{
+    position: relative;
+    bottom: -30px;
+}
+.route {
+    margin: 0px 30px;
+    color: #fff;
+    padding-top: 20px;
+    bottom:  40px;
+    margin-right: -30px;
+    display: inline;
+    font-size: 20px;
+}
+
+
+
+.secondContainer{
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.principalContainer{
+    background-color: #ffffff4a;
+    margin-top: 20px;
+}
+
 .container {
     background-color: rgba(255, 255, 255, 0.023);
 }
@@ -10,16 +40,14 @@
 .detailsContainer {
     background-color: #c9ada7;
     width: 460px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 
-.arrow {
-    position: absolute;
-    bottom: 50%;
-    right: 50%;
-}
+
 
 .detailsContainer h3 {
     background-color: #22223b;
+    
 }
 
 .pSection span,
@@ -52,6 +80,24 @@ a {
     background-color: #22223b;
 }
 
+.containerIMG{
+    align-self: stretch;
+    width: 40%;
+
+}
+.containerIMG div:nth-child(1){
+    height: 65%;
+    width: 80%;
+    margin: auto;
+    margin-top: 40px;
+    display: flex;
+    align-items: flex-end;
+}
+.containerIMG img{
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
 .secondImagesContainer img {
     max-width: 60px;
     max-height: 60px;
@@ -69,3 +115,84 @@ a {
     background-color: #22223b;
     width: 100vw;
 }
+
+.arrowimg {
+    margin-top: -100px;
+    margin-left: -200px;
+    color: #c9ada7;
+    font-size: 50px;
+    border-radius: 50%;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+
+.particulas{
+    width: 7px;
+    height: 7px;
+    margin-top: 30px;
+    border-radius:50%;
+    box-shadow: 40px 0 0 #ffffff4a,
+    80px 0 0 #ffffff4a,
+    120px 0 0 #ffffff4a,
+    160px 0 0 #ffffff4a,
+    200px 0 0 #ffffff4a,
+    240px 0 0 #ffffff4a,
+    280px 0 0 #ffffff4a,
+    320px 0 0 #ffffff4a,
+    360px 0 0 #ffffff4a,
+    400px 0 0 #ffffff4a,
+    440px 0 0 #ffffff4a,
+    480px 0 0 #ffffff4a,
+    520px 0 0 #ffffff4a,
+    560px 0 0 #ffffff4a,
+    600px 0 0 #ffffff4a,
+    640px 0 0 #ffffff4a,
+    680px 0 0 #ffffff4a,
+    720px 0 0 #ffffff4a,
+    760px 0 0 #ffffff4a,
+    800px 0 0 #ffffff4a,
+    840px 0 0 #ffffff4a,
+    880px 0 0 #ffffff4a,
+    920px 0 0 #ffffff4a,
+    960px 0 0 #ffffff4a,
+    1000px 0 0 #ffffff4a,
+    1040px 0 0 #ffffff4a,
+    1080px 0 0 #ffffff4a,
+    1120px 0 0 #ffffff4a,
+    1160px 0 0 #ffffff4a,
+    1200px 0 0 #ffffff4a,
+    1240px 0 0 #ffffff4a,
+    1280px 0 0 #ffffff4a,
+    1320px 0 0 #ffffff4a,
+    1360px 0 0 #ffffff4a,
+    1400px 0 0 #ffffff4a,
+    1440px 0 0 #ffffff4a,
+    1480px 0 0 #ffffff4a,
+    1520px 0 0 #ffffff4a,
+    1560px 0 0 #ffffff4a,
+    1600px 0 0 #ffffff4a,
+    1640px 0 0 #ffffff4a,
+    1680px 0 0 #ffffff4a,
+    1720px 0 0 #ffffff4a,
+    1760px 0 0 #ffffff4a,
+    1800px 0 0 #ffffff4a,
+    1840px 0 0 #ffffff4a;
+
+}
+
+.hide{
+    display: none;
+}
+.show{
+    display: inline;
+}
+
+
+.leerSpans{
+    cursor: pointer;
+}
+
+
+
+
+
