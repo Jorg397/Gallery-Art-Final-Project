@@ -8,6 +8,7 @@ import Landing from "./components/Landing/Landing";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { addLocalStorage } from "./redux/actions/index";
+import PaymentGateway from "./components/Payment";
 import Gallery from "./Page/Gallery";
 
 function App() {
@@ -29,16 +30,17 @@ function App() {
 		}
 	}, [dispatch]);
 
-	return (
-		<Routes>
-			<Route path='/login' element={<Login />} />
-			<Route path='/registry' element={<Registry />} />
-			<Route path='/home' element={<Home />} />
-			<Route path='/' element={<Landing />} />
-			<Route path='/details/:id' element={<Detail />} />
-			<Route path='/gallery' element={<Gallery />} />
-		</Routes>
-	);
-}
+  return (
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/registry" element={<Registry />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/" element={<Landing />} />
+      <Route path="/details/:id" element={<Detail />} />
+      <Route path="/payment" element={<PaymentGateway />} />
+      <Route path='/gallery' element={<Gallery />} />
+    </Routes>
+  );
+
 
 export default App;

@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { removeToCart } from "../../redux/actions/index";
 import "./CartModal.scss";
 import background from "../../assets/background-cart-modal.png";
@@ -80,13 +81,13 @@ function CartModal({ openModal, modalState }) {
             </div>
           </div>
           <div className="col-start-6 col-span-2">
-            <Button
+           <Link to ='/payment'> <Button
               version="v1"
               width="200px"
               height="38px"
               type="button"
               name="Pagar"
-            />
+            /> </Link> 
           </div>
         </div>
       </div>
