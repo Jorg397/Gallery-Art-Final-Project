@@ -12,7 +12,6 @@ function Cart({ openModal }) {
         <img src={cartImage} alt="You Cart" />
         <span className="absolute top-0 place-self-center">{cart.length}</span>
       </div>
-      ;
     </div>
   );
 }
