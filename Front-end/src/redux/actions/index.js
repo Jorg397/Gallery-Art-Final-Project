@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const ADD_TO_CART = "ADD_TO_CART";
 export const ADD_LOCAL_STORAGE = "ADD_LOCAL_STORAGE";
@@ -68,6 +69,15 @@ export function filterByPrice(price) {
 }
 
 export function addToCart(idProduct) {
+    toast.success("Agregado al carrito", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
     return {
         type: ADD_TO_CART,
         payload: idProduct,
@@ -82,6 +92,15 @@ export function addLocalStorage(cart) {
 }
 
 export function removeToCart(idProduct) {
+    toast.success("Eliminado con éxito del carrito", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
     return {
         type: REMOVE_TO_CART,
         payload: idProduct,
