@@ -1,3 +1,4 @@
+
 require('dotenv').config();
 const axios = require('axios')
 const { Product, Category } = require('../../db');
@@ -44,26 +45,6 @@ module.exports= {
         }
     },
 
-    //TODO: Como usar el post? /product/ y le mandas la info por body de la siguiente forma
-    /*
-    {
-        sku: "111",
-        name: "titulo2",
-        serie: "test",
-        measures: "medidas",
-        categories: [
-            { "idCategory": 1},
-            { "idCategory": 2}
-        ],
-        price: 100,
-        description: "description",
-        technique: "tech",
-        released: "2002-01-01",
-        image: "http://lh6.ggpht.com/HlgucZ0ylJAfZgusynnUwxNIgIp5htNhShF559x3dRXiuy_UdP3UQVLYW6c=w454-h300-n-l64"
-    }
-
-    Recuerda mandar las categorias por idCategory literalmente como aparece en este ejemplo :D 
-    */
     post: async (req, res) => {
         const {name, description, technique, measures, image, price, sku, released, categories, serie} = req.body;
         if(name && description && technique && measures && image && price && sku && released && categories.length && serie) {
@@ -103,5 +84,57 @@ module.exports= {
         }else{
             res.status(400).send('Bad request missing parameters');
         }
+    },
+
+    put: async (req, res) => {
+        const {idProduct}=req.params;
+        const {name, description, technique, measures, image, price, sku, released, categories, serie} = req.body;
+
+        if(name && description && technique && measures && image && price && sku && released && categories.length && serie) {
+            try {
+
+                const cateDb = categories.map(c => 
+                    Category.findOne({
+                        where: {
+                            id_category: c,
+                        }
+                    }).then(cate => !cate? Promise.reject(`Category ${c.idCategory} not found`): cate)
+                )
+
+                Promise.all(cateDb)
+                    .then(async (categories) => {
+                         await Product.update({
+                            name: name.trim().toLowerCase().replace(/\b\w/g, l => l.toUpperCase()),
+                            description: description.trim(),
+                            technique: technique.trim(),
+                            measures: measures.trim(),
+                            image: image.trim(),
+                            price: price,
+                            sku: sku.trim(),
+                            serie: serie.trim(),
+                            released: released.trim(),
+                        },
+                        {
+                            where: {
+                                id_product:idProduct
+                            }
+                        }
+                                                )
+                    let picture=await Product.findByPk(idProduct)
+                    if(picture){await picture.setCategories(categories)
+                            res.status(201).send('Product updated')      
+                         }                    
+                    else res.status(400).send(err);
+            
+                    }).catch(err => {
+                        console.log(err)  })
+            } catch (error) {
+                console.log(error);
+                res.status(400).send('Bad request');
+            }
+        }else{
+            res.status(400).send('Bad request missing parameters');
+        }
     }
+
 } 
