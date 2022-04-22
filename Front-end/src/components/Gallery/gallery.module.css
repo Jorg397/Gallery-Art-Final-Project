@@ -12,3 +12,9 @@
 .btn:hover {
     background-color: #9a8c98;
 }
+
+.container {
+    background-image: url("../../assets/galeria-esplendida-rectangle.png");
+    background-repeat: no-repeat;
+    background-position: right bottom;
+}

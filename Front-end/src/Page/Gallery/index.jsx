@@ -37,7 +37,7 @@ const Gallery = () => {
 	return (
 		<>
 			<NavBar />
-			<div className={`text-white pt-24 ${s.container}`}>
+			<div className={`text-white pt-40 ${s.container}`}>
 				<h3 className='text-3xl border-b-2 inline-block ml-12'>
 					Gallery
 				</h3>

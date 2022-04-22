@@ -12,3 +12,21 @@
     background-color: #9a8c98;
     transform: scale(1.05);
 }
+
+.info {
+    margin-left: 58px;
+}
+
+.imageContainer {
+    margin-left: 250px;
+    margin-right: 60px;
+    align-self: center;
+    margin-top: 22px;
+}
+
+.imageContainer img {
+    width: 700px;
+    max-width: 700px;
+    height: 500px;
+    max-height: 500px;
+}

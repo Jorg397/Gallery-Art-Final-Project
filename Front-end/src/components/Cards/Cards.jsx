@@ -7,13 +7,12 @@ export default function Cards({ cards }) {
 	const isLoading = useSelector((state) => state.isLoading);
 
 	return (
-		<div className='container my-12 mx-auto px-4 md:px-12'>
+		<div className='container mx-auto px-4 md:px-12'>
 			<div className='flex flex-wrap -mx-1 lg:-mx-4'>
 				{isLoading ? (
 					<Loading />
 				) : (
 					cards?.map((e) => {
-						console.log(e);
 						return (
 							<div
 								className='my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3'
