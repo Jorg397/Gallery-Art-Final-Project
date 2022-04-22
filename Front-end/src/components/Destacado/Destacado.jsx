@@ -11,45 +11,55 @@ export default function Destacado({ cards }) {
 
 	return (
 		<div
-			style={{ marginTop: "90px" }}
-			className='box-border flex flex-col mb-48 items-center content-center px-8 mx-auto leading-6 text-black border-0 border-gray-300 border-solid md:mt-20 xl:mt-0 md:flex-row max-w-7xl lg:px-1'>
-			<div className='box-border w-full text-white border-solid md:w-1/2 md:pl-6 xl:pl-10'>
-				<h2 className='m-0 text-xl font-semibold leading-tight border-0 border-gray-300 lg:text-3xl md:text-2xl'>
-					Decora a tu estilo
-				</h2>
-				<h4 style={{ marginTop: "15px", fontWeight: "bold" }}>
-					{Destacado?.name}
-				</h4>
-				<p
-					style={{ fontWeight: "lighter" }}
-					className='pt-4 pb-8 m-0 leading-7 border-0 border-gray-300 sm:pr-10 lg:text-lg'>
-					{Destacado?.description} Lorem ipsum dolor sit amet
-					consectetur adipisicing elit. Nostrum porro tenetur quia
-					quis asperiores consequatur laboriosam. Laboriosam
-					voluptatem velit ipsum excepturi enim similique. Asperiores,
-					sequi. Soluta ipsum quidem maiores facere?
+			style={{ marginTop: "45px" }}
+			className={`box-border flex flex-col mb-48 px-8 mx-auto leading-6 text-black border-0 border-gray-300 border-solid  xl:mt-0 md:flex-row max-w-7xl lg:px-1 ${s.container} h-72`}>
+			<div
+				className={`box-border mt-32 pb-12 text-white border-solid md:w-2/4 md:pl-6 xl:pl-10 ${s.infoContainer}`}>
+				<h2 className='text-5xl mb-24'>Decora a tu estilo</h2>
+				<h4 className='text-2xl mb-24'>{Destacado?.name}</h4>
+				<p className='text-xl'>
+					Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+					Pariatur obcaecati molestiae natus consectetur officia
+					tempora dicta corrupti, nihil modi fugit, est facere nisi
+					ipsum voluptates odit quod esse animi ab laborum qui! Nisi
+					maxime velit voluptates? Est quis voluptas explicabo fugiat
+					nam illo unde. Quo saepe, alias harum aut quidem, eum error
+					commodi corporis nesciunt sint tempore cupiditate sunt
+					dolorem veritatis accusantium delectus amet fuga aliquid
+					minima voluptas consequatur necessitatibus! Beatae, error
+					modi! Maxime obcaecati, saepe voluptatem provident inventore
+					sapiente at aliquam, non, ad labore minus voluptatum. Quam
+					ullam beatae ab laborum voluptatum nisi, reiciendis
+					consequuntur voluptate expedita, corrupti quibusdam!
 				</p>
 				<Link
 					key={Destacado?.idProduct}
 					onClick={() => dispatch(getDetail(Destacado?.idProduct))}
 					to={`/details/${Destacado?.idProduct}`}>
-					<button className={s.btn}>Agregar al carrito</button>
+					<button className={`${s.btn}`}>Agregar al carrito</button>
 				</Link>{" "}
-				<a href='/home#gallery'>
+				<Link to={"/gallery"}>
 					<button
 						className={s.btn}
 						style={{ marginLeft: "70px", color: "white" }}>
 						Ver mas cuadros
 					</button>
-				</a>
+				</Link>
 			</div>
 
-			<div className='box-border relative w-full max-w-md px-4 mt-10 mb-4 text-center bg-no-repeat bg-contain border-solid md:mt-0 md:max-w-none lg:mb-0 md:w-1/2'>
+			<div className='max-w-md px-4 mt-10 mb-4 text-center  md:mt-0 md:max-w-none lg:mb-0 md:w-1/2'>
 				<img
 					src={Destacado?.image}
 					className='pl-4 sm:pr-10 xl:pl-10 lg:pr-32'
 				/>
-				<h1 className={s.price}>$ {Destacado?.price}.00</h1>
+				<div className='flex text-white'>
+					<div className='ml-10 mt-16 mr-64'>
+						<h3 className='text-5xl font-bold mb-10'>John, Doe</h3>
+						<p className='text-3xl -ml-24'>{Destacado?.name}</p>
+					</div>
+
+					<p className=' place-self-center mt-16	 text-6xl ml-64'>{`$${Destacado?.price}`}</p>
+				</div>
 			</div>
 		</div>
 	);
