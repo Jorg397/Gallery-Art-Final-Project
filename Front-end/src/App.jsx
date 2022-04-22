@@ -10,7 +10,6 @@ import { useEffect } from "react";
 import { addLocalStorage } from "./redux/actions/index";
 import PaymentGateway from "./components/Payment";
 import Gallery from "./Page/Gallery";
-
 export default function App() {
 	const cart = useSelector((state) => state.cart);
 	const dispatch = useDispatch();
@@ -30,15 +29,15 @@ export default function App() {
 		}
 	}, [dispatch]);
 
-  return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/registry" element={<Registry />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/" element={<Landing />} />
-      <Route path="/details/:id" element={<Detail />} />
-      <Route path="/payment" element={<PaymentGateway />} />
-      <Route path='/gallery' element={<Gallery />} />
-    </Routes>
-  );
+	return (
+		<Routes>
+			<Route path='/login' element={<Login />} />
+			<Route path='/registry' element={<Registry />} />
+			<Route path='/home' element={<Home />} />
+			<Route path='/' element={<Landing />} />
+			<Route path='/details/:id' element={<Detail />} />
+			<Route path='/payment' element={<PaymentGateway />} />
+			<Route path='/gallery' element={<Gallery />} />
+		</Routes>
+	);
 }

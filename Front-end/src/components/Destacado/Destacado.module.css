@@ -1,17 +1,16 @@
 .btn {
-    background-color: #4A4E69;
+    background-color: #4a4e69;
     width: 250px;
     font-size: medium;
     height: 40px;
-    color:white;
+    color: white;
     border: 1px solid white;
     border-radius: 10px;
-    ;
     margin-top: 10px;
 }
 
 .btn:hover {
-    background-color: #9A8C98;
+    background-color: #9a8c98;
     transform: scale(1.05);
 }
 
@@ -22,4 +21,15 @@
     left: 10px;
     top: 20px;
     font-size: xx-large;
+}
+
+.container {
+    background-image: url("../../assets/background-decora.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 573px;
+}
+
+.infoContainer p {
+    margin-bottom: 140px;
 }
