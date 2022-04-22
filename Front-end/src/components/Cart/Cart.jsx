@@ -6,13 +6,14 @@ function Cart({ openModal }) {
   return (
     <div className="grid pt-8 pr-6">
       <div
-        className="place-self-end absolute z-10 grid cursor-pointer"
+        className="place-self-end z-10 grid cursor-pointer"
         onClick={openModal}
       >
+        <span className="static -mb-6 z-10 place-self-center">
+          {cart.length}
+        </span>
         <img src={cartImage} alt="You Cart" />
-        <span className="absolute top-0 place-self-center">{cart.length}</span>
       </div>
-      ;
     </div>
   );
 }
