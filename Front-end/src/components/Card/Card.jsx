@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getDetail, addToCart } from "../../redux/actions";
 import s from "./Card.module.css";
+import { toast } from "react-toastify";
 
 export default function Card({
 	name,
@@ -21,10 +22,17 @@ export default function Card({
 			(product) => product.id_product === idProduct
 		);
 		if (itsCart) {
-			alert("Ya esta en el carrito");
+			toast.warn("Ya fue agregada al carrito!", {
+				position: "top-right",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
 		} else {
 			dispatch(addToCart(idProduct));
-			alert("Agregado al carrito");
 		}
 	};
 
