@@ -70,6 +70,7 @@ const Login = () => {
     <div className="login">
       <div className="header">
         <Link to="/home">Gallery Art</Link>
+        <p>{process.env.REACT_APP_API_URL}</p>
       </div>
       <div className="login__container">
         <form className="login__container__form" onSubmit={handleSubmit}>
