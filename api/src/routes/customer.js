@@ -6,4 +6,6 @@ router.route("/create").post(customerController.post);
 
 router.route("/login").post(customerController.loginPost);
 
+router.route("/googlelogin").post(customerController.googleloginPost);
+
 module.exports = router;
