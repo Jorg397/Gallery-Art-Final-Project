@@ -7,8 +7,7 @@ import s from "./Destacado.module.css";
 export default function Destacado({ cards }) {
 	const dispatch = useDispatch();
 	let Destacado = cards[4];
-	console.log(Destacado);
-
+	
 	return (
 		<div
 			style={{ marginTop: "45px" }}
