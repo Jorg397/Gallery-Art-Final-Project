@@ -44,8 +44,8 @@ function CartModal({ openModal, modalState }) {
           </span>
         </div>
         <div className="grid grid-cols-7 col-span-7 gap-4 row-span-2 items-center overflow-scroll">
-          {cart?.map((product) => (
-            <>
+          {cart?.map((product, i) => (
+            <div key={i}>
               <div className="col-span-4 flex items-center justify-between pr-16">
                 <span className="text-sm">{product.name}</span>
                 <img
@@ -66,7 +66,7 @@ function CartModal({ openModal, modalState }) {
                   />
                 </span>
               </div>
-            </>
+            </div>
           ))}
         </div>
         <div className="grid gap-y-4 grid-cols-7">

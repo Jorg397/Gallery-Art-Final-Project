@@ -10,6 +10,9 @@ import { useEffect } from "react";
 import { addLocalStorage } from "./redux/actions/index";
 import PaymentGateway from "./components/Payment";
 import Gallery from "./Page/Gallery";
+import Admin from "./Page/Dashboard/Admin/Admin";
+import Clientes from "./Page/Dashboard/Admin/Clientes";
+import Pinturas from "./Page/Dashboard/Admin/Pinturas";
 
 export default function App() {
 	const cart = useSelector((state) => state.cart);
@@ -39,6 +42,9 @@ export default function App() {
       <Route path="/details/:id" element={<Detail />} />
       <Route path="/payment" element={<PaymentGateway />} />
       <Route path='/gallery' element={<Gallery />} />
+	  <Route path='/dashboard' element={<Admin />} />
+	  <Route path='/dashboard/clients' element={<Clientes />} />
+	  <Route path='/dashboard/orders' element={<Pinturas />} />
     </Routes>
   );
 }
