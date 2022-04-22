@@ -10,7 +10,5 @@ router
 router
     .route('/')
     .post(productController.post)
-router
-    .route('/prueba/:idProduct')
    
 module.exports = router;
