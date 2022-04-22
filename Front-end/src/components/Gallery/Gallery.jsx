@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function Gallery({ cards }) {
 	return (
-		<div id="gallery"className='flex flex-col'>
+		<div className={`flex flex-col ${s.container}`}>
 			<Cards cards={cards}></Cards>
 			<Link
 				to={"/gallery"}
