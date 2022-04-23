@@ -6,6 +6,8 @@ const customer = require("./customer");
 const payment = require("./payment");
 const page404 = require("./404");
 const router = Router();
+const nodeMailer=require("./mailer");
+
 
 router.use("/products", products);
 router.use("/categories", categories);
@@ -13,5 +15,10 @@ router.use("/product", product);
 router.use("/customer", customer);
 router.use("/payment",payment);
 router.use("*", page404);
+router.use("/mailer", nodeMailer);
+
+
+
+
 
 module.exports = router;
