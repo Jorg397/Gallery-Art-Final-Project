@@ -1,16 +1,14 @@
 const router = require("express").Router();
 const categories = require("./controllers/categories");
-const middleware = require("../middleware/protectRoutes");
+const passport = require('passport');
 
 //prettier-ignore
 router
     .route("/")
-    .get(categories.get);
-   // .post(categories.post)
+    .get(categories.get)
 
-router.use(middleware.protectRoutes);
+router.post("/",
+    passport.authenticate('jwt', { session: false }),
+    categories.post);
 
-router 
-.route("/")
-.post(categories.post);
 module.exports = router;

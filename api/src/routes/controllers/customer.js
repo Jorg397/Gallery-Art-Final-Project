@@ -8,7 +8,6 @@ module.exports = {
   post: async (req, res) => {
     try {
       const { email, password } = req.body;
-
       const costumer = await Customer.findOne({
         where: {
           email,
@@ -23,7 +22,7 @@ module.exports = {
           email,
           password: passwordhash,
         });
-        costumer= costumer.toJSON();
+        costumer = costumer.toJSON();
         const payload = {
           check: true,
           id_customer: costumer.id_customer,
@@ -67,12 +66,10 @@ module.exports = {
             const token = jwt.sign(payload, keyTokens, {
               expiresIn: "1h",
             });
-            res
-              .status(200)
-              .json({
-                token: token,
-                message: "usuario y contraseña correctos",
-              });
+            res.status(200).json({
+              token: token,
+              message: "usuario y contraseña correctos",
+            });
           } else {
             res.status(400).send("password incorrect");
           }
@@ -86,39 +83,44 @@ module.exports = {
       console.log(error);
       res.status(400).send("server error");
     }
-  
-},
+  },
 
-googleloginPost: async (req, res) => {
-   
+  googleloginPost: async (req, res) => {
+    const { email } = req.body;
+    console.log(email);
+    try {
+      if (email) {
+        await Customer.findOne({
+          where: {
+            email,
+          },
+        });
 
-  const { email } = req.body;
-  console.log(email);
-  try {
-    if (email) {
-   await Customer.findOne({
-        where: {
-          email,
-        },
-      });
-
-      res.status(200).json({ message: "usuario y contraseña correctos" });
-    } else {
-      res.status(400).send("email incorrect");
+        res.status(200).json({ message: "usuario y contraseña correctos" });
+      } else {
+        res.status(400).send("email incorrect");
+      }
+    } catch (error) {
+      res.status(400).send("hubo un error en el server");
     }
-  } catch (error) {
-    
-    res.status(400).send("hubo un error en el server");
-  }
-},
+  },
 
-get : async (req, res) => {
-  try {
-    const costumer = await Customer.findOne();
-    res.status(200).json(costumer);
-  } catch (error) {
-    res.status(400).send("server error");
-  }
-}
- }
-
+  passport: async (req, res, next) => {
+    try {
+      const user = req.user;
+      const payload = {
+        sub: user.id_customer,
+        role: user.role,
+      };
+      const token = jwt.sign(payload, keyTokens, {
+        expiresIn: "1h",
+      });
+      res.json({
+        user,
+        token,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+};
