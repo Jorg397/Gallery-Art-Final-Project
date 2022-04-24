@@ -6,6 +6,9 @@ const {
     keyTokens,
   } = process.env;
 
+
+
+
 module.exports= {
 
     post: async (req, res) => {
@@ -77,5 +80,25 @@ module.exports= {
             res.status(400).send('hubo un error ene le server');
         }
     },
+    
+    passport: async (req, res, next) => {
+        try{
+            const user = req.user;
+            const payload = {
+                sub: user.id_customer,
+                role: user.role,
+            }
+            const token = jwt.sign(payload, keyTokens, {
+                expiresIn: '1h',
+            })
+            res.json({
+                user,
+                token,
+            });
+
+        }catch(error){
+            next(error);
+        }
+    }
 
 }
