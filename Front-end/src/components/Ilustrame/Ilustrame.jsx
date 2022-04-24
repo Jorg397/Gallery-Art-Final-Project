@@ -27,8 +27,15 @@ export default function Ilustrame() {
 						dedica a la imprenta) desconocido usó una galería de
 					</p>
 					<a href='https://www.whatsapp.com' target='_blank'>
-						<button type='button' className={s.cardbtn}>
-							Saber mas
+						<button
+							type='button'
+							className={`${s.cardbtn} flex justify-around py-12`}>
+							<p className=' self-center text-2xl	'>Contáctame</p>
+							<img
+								src='https://img.icons8.com/fluency/344/whatsapp.png'
+								alt='facebook'
+								className='w-12 self-center'
+							/>
 						</button>
 					</a>
 				</div>

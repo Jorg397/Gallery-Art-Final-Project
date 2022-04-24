@@ -20,6 +20,7 @@ export default function Slider({ paints }) {
 	return (
 		<>
 			<Swiper
+				id='slider'
 				style={{ paddingTop: "115px" }}
 				autoplay={{
 					delay: 3000,
