@@ -5,8 +5,8 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const ADD_LOCAL_STORAGE = "ADD_LOCAL_STORAGE";
 export const REMOVE_TO_CART = "REMOVE_TO_CART";
 
-//const apiUrl = "http://localhost:3001";
-const apiUrl = "https://15.228.78.162:3001/";
+const apiUrl = "http://localhost:3001";
+//const apiUrl = "https://15.228.78.162:3001/";
 
 export function fetchPaints() {
   return function (dispatch) {
