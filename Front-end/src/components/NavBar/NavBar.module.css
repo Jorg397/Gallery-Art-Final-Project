@@ -29,10 +29,10 @@ nav {
 }
 
 .background {
-  background-color: #ffffff66;
+  background-color: #615d5d66;
 }
 
 .background a,
 .background span {
-  color: black;
+  color: rgb(255, 255, 255);
 }
