@@ -87,7 +87,7 @@ const Registry = () => {
 				window.location.href = "/home";
 			})
 			.catch((res) =>
-				toast.error("Oops, ocurrió un error", {
+				toast.error("Oops, ya existe una cuenta con estos datos o ocurrió un error", {
 					position: "top-right",
 					autoClose: 3000,
 					hideProgressBar: false,

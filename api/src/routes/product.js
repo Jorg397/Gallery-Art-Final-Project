@@ -1,13 +1,11 @@
-const express = require('express');
-const router = require('express').Router();
-const productController = require('./controllers/product');
+const router = require("express").Router();
+const productController = require("./controllers/product");
+const middleware = require("../middleware/protectRoutes");
 
-router
-    .route('/:idProduct')
-    .get(productController.get);
+router.route("/:idProduct").get(productController.get);
 
-router
-    .route('/')
-    .post(productController.post);
+router.use(middleware.protectRoutes);
+
+router.route("/").post(productController.post);
 
 module.exports = router;

@@ -76,7 +76,7 @@ export default function NavBar() {
  */
   return (
     <nav
-      className={`flex items-center justify-between flex-wrap p-2 fixed w-screen z-10 ${
+      className={`flex items-center h-70 justify-between flex-wrap p-2 fixed w-screen z-10 ${
         background && s.background
       } ${show ? s.active : s.hidden}`}
     >

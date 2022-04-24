@@ -1,0 +1,51 @@
+@use '../../assets/VariablesStyle/color.scss'  as color;
+@use '../../assets/VariablesStyle/size.scss'  as size;
+@use '../../assets/VariablesStyle/fontFamily.scss'  as font;
+
+.profile{
+    width:100vw;
+    max-width: 1900px;
+    height: 100vh;
+    background-color: color.$color_primary;
+    position: relative;
+
+    .profile__container{
+        position: absolute;
+        width: 100%;
+        margin-top: 120px;
+        height: 80%;
+        padding: 0 100px;
+        .profile__container__title{
+            font-family: font.$font_text;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: color.$text_color_primary;
+        }
+        .profile__container__body{
+            width: 100%;
+            height: auto;
+            display: flex;
+            .profile__container__body-data{
+                width: 50%;
+                padding-top: 30px;
+                .profile__container__body-data-row{
+                    display: flex;
+                    justify-content: space-between;
+                    flex-wrap: wrap;
+                    margin-bottom: 30px;
+                    padding-right: 50px;
+                }
+            }
+            .profile__container__body-img{
+                width:50%;
+                display: flex;
+                justify-content: flex-end;
+                img{
+                    width: auto;
+                    height: 461px;
+                }
+
+            }
+        }
+    }
+}

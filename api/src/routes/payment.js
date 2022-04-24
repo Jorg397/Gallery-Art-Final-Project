@@ -1,10 +1,8 @@
 const router = require("express").Router();
 const paymentControllers = require("./controllers/payment.js");
+const middleware = require("../middleware/protectRoutes");
 
-//prettier-ignore
-router
-    .route('/')
+router.use(middleware.protectRoutes);
 
-    .post(paymentControllers.post);
-console.log('hola1')
+router.route("/").post(paymentControllers.post);
 module.exports = router;

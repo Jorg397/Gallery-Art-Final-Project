@@ -23,8 +23,10 @@ module.exports = {
           email,
           password: passwordhash,
         });
+        costumer= costumer.toJSON();
         const payload = {
           check: true,
+          id: costumer.id_customer,
         };
         const token = jwt.sign(payload, keyTokens, {
           expiresIn: "1h",
@@ -80,7 +82,7 @@ module.exports = {
       }
     } catch (error) {
       console.log(error);
-      res.status(400).send("hubo un error ene le server");
+      res.status(400).send("server error");
     }
   
 },
@@ -105,6 +107,15 @@ googleloginPost: async (req, res) => {
   } catch (error) {
     
     res.status(400).send("hubo un error en el server");
+  }
+},
+
+get : async (req, res) => {
+  try {
+    const costumer = await Customer.findOne();
+    res.status(200).json(costumer);
+  } catch (error) {
+    res.status(400).send("server error");
   }
 }
  }

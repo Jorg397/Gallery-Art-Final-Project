@@ -1,0 +1,49 @@
+@use '../../../assets/VariablesStyle/color.scss'  as color;
+@use '../../../assets/VariablesStyle/size.scss'  as size;
+@use '../../../assets/VariablesStyle/fontFamily.scss'  as font;
+
+.input{
+    position: relative;
+    .input__label{
+        color: color.$text_color_primary;
+        font-family: font.$font_text;
+        font-weight: 600;
+        font-size: 0.94rem;
+    }
+    .input__input{
+        font-family: font.$font_text;
+        background-color: color.$input_color_background;
+        border-radius: size.$size_corners_inputs;
+        font-weight: 400;
+        font-size: 0.88rem;
+        padding: 10px;
+        width: 100%;
+        &:focus{
+            outline: none;
+        }
+    }
+    .input__select{
+        font-family: font.$font_text;
+        background-color: color.$input_color_background;
+        border-radius: size.$size_corners_inputs;
+        font-weight: 400;
+        font-size: 0.88rem;
+        padding: 10px;
+        width: 100%;
+        &:focus{
+            outline: none;
+        }
+    }
+    span{
+        width: 25px;
+        position: absolute;
+        right: 10px;
+        top: 31px;
+        cursor: pointer;
+        transition: all 0.3s ease-in;
+        &:active{
+            transform: scale(0.8);
+        }
+    }
+
+}
