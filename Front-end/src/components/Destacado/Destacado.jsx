@@ -1,14 +1,34 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getDetail } from "../../redux/actions";
+import { addToCart } from "../../redux/actions";
 import s from "./Destacado.module.css";
+import { toast } from "react-toastify";
 
 export default function Destacado({ cards }) {
 	const dispatch = useDispatch();
 	let Destacado = cards[4];
-	console.log(Destacado);
 
+	const cart = useSelector((state) => state.cart);
+
+	const handleAddToCart = (idProduct) => {
+		const itsCart = cart.find(
+			(product) => product.id_product === idProduct
+		);
+		if (itsCart) {
+			toast.warn("Ya fue agregada al carrito!", {
+				position: "top-right",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		} else {
+			dispatch(addToCart(idProduct));
+		}
+	};
 	return (
 		<div
 			style={{ marginTop: "45px" }}
@@ -32,12 +52,13 @@ export default function Destacado({ cards }) {
 					ullam beatae ab laborum voluptatum nisi, reiciendis
 					consequuntur voluptate expedita, corrupti quibusdam!
 				</p>
-				<Link
-					key={Destacado?.idProduct}
-					onClick={() => dispatch(getDetail(Destacado?.idProduct))}
-					to={`/details/${Destacado?.idProduct}`}>
-					<button className={`${s.btn}`}>Agregar al carrito</button>
-				</Link>{" "}
+				<button
+					className={s.btn}
+					onClick={() => {
+						handleAddToCart(Destacado.id_product);
+					}}>
+					Agregar al carrito
+				</button>
 				<Link to={"/gallery"}>
 					<button
 						className={s.btn}

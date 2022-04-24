@@ -9,8 +9,12 @@ router.route("/create").post(customerController.post);
 
 router.route("/login").post(customerController.loginPost);
 
+
 router.post( '/prueba' ,
     passport.authenticate('local', { session: false }),
     customerController.passport);
+
+router.route("/googlelogin").post(customerController.googleloginPost);
+
 
 module.exports = router;

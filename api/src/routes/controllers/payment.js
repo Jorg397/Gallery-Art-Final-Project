@@ -3,6 +3,7 @@ require('dotenv').config();
   const express = require("express");
     const Stripe = require("stripe");
     const {STRIPE_BACK} = process.env;
+    console.log("este es strao",STRIPE_BACK);
     const stripe = new Stripe(`${STRIPE_BACK}`);
     //poner la clave secreta en back y clave publoca en front!!!!!
   
@@ -10,7 +11,7 @@ require('dotenv').config();
     const cors = require("cors");
      const app = express();
     app.use(express.json()); 
-  app.use(cors({ origin: "http://localhost:3000" }));
+  app.use(cors({ origin: "*" }));
   
   
     module.exports={

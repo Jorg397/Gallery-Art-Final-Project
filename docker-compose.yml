@@ -1,0 +1,51 @@
+version: "3.9"
+   
+
+services:
+  ##############################
+  # Back Container
+  ##############################
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=Alianza0606
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=gallery
+    volumes:
+      - ./data2:/tmp
+    ports:
+      - "5432:5432"
+      
+
+  api:
+    restart: always
+    image: hagidev/backappgallery:1.0
+    environment:
+      DB_USER: postgres
+      DB_PASSWORD: Alianza0606
+      DB_HOST: db
+      keyTokens: pepe
+      restart: always
+    depends_on:
+      - db 
+    ports:
+      - "3001:3001"
+
+  ##############################
+  # front Container
+  ##############################
+  front:
+    build:
+      context: ./Front-end
+      dockerfile: ./dockerfile
+    image: hagidev/frontappgallery:1.0
+    environment:
+      - API_BASE_URL='http://localhost:3001/'
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./client/nginx/certbot/conf:/etc/letsencrypt
+      - ./client/nginx/certbot/www:/var/www/certbot
+    tty: true  
