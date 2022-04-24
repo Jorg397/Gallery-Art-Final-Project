@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "../src/redux/store";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { Flip } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 
