@@ -26,7 +26,7 @@ module.exports = {
         costumer= costumer.toJSON();
         const payload = {
           check: true,
-          id: costumer.id_customer,
+          id_customer: costumer.id_customer,
         };
         const token = jwt.sign(payload, keyTokens, {
           expiresIn: "1h",
@@ -58,9 +58,11 @@ module.exports = {
             password,
             costumer.password
           );
+          costumer = costumer.toJSON();
           if (passwordMatch) {
             const payload = {
               check: true,
+              id_customer: costumer.id_customer,
             };
             const token = jwt.sign(payload, keyTokens, {
               expiresIn: "1h",

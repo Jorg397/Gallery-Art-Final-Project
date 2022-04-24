@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import About from "../About/About";
 import Destacado from "../Destacado/Destacado";
 import Footer from "../Footer/Footer";
@@ -16,6 +16,10 @@ export default function Home() {
 	const paints = useSelector((state) => state.filteredPaints);
 	const categories = useSelector((state) => state.categories);
 
+	const gallery = useRef(null);
+	const about = useRef(null);
+	const slider = useRef(null);
+
 	useEffect(() => {
 		dispatch(fetchPaints());
 		dispatch(getCategories());
@@ -23,7 +27,11 @@ export default function Home() {
 
 	return (
 		<div className={s.container}>
-			<NavBar />
+			<NavBar
+				gallerySection={gallery}
+				aboutSection={about}
+				sliderSection={slider}
+			/>
 			<div></div>
 
 			<Slider paints={paints}></Slider>
@@ -34,11 +42,15 @@ export default function Home() {
 			</div>
 			<Destacado cards={paints}></Destacado>
 			<Titulos titulo='Una galeria explendida'></Titulos>
-			<Gallery cards={paints} categories={categories}></Gallery>
+			<Gallery
+				cards={paints}
+				categories={categories}
+				innerRef={gallery}
+			/>
 			<Titulos titulo='Ilustramos tu personalidad'></Titulos>
 			<Ilustrame></Ilustrame>
 			<Titulos titulo='Sobre nosotros'></Titulos>
-			<About></About>
+			<About innerRef={about}></About>
 			<Titulos></Titulos>
 			<Footer></Footer>
 		</div>

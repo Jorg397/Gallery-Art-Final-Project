@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
 	fetchPaints,
 	filterByCategory,
+	filterByPrice,
 	getCategories,
 } from "../../redux/actions";
 import Cards from "../../components/Cards/Cards";
@@ -30,7 +31,10 @@ const Gallery = () => {
 			setFilter(false);
 			return dispatch(filterByCategory(value));
 		}
-
+		if (value === "MAX" || value === "MIN") {
+			setFilter(true);
+			return dispatch(filterByPrice(value));
+		}
 		dispatch(filterByCategory(value));
 		setFilter(true);
 	};
@@ -57,6 +61,10 @@ const Gallery = () => {
 									</option>
 								);
 							})}
+						</optgroup>
+						<optgroup label='Precio'>
+							<option value='MAX'>Max-Min</option>
+							<option value='MIN'>Min-Max</option>
 						</optgroup>
 					</select>
 				</div>

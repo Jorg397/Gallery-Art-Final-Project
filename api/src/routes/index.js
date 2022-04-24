@@ -6,6 +6,8 @@ const customer = require("./customer");
 const payment = require("./payment");
 const page404 = require("./404");
 const router = Router();
+const nodeMailer=require("./mailer");
+
 
 const middleware = require('../middleware/protectRoutes');
 const protect = Router();
@@ -18,5 +20,10 @@ router.use("/product", product);
 router.use("/customer", customer);
 router.use("/payment",payment);
 router.use("*", page404);
+router.use("/mailer", nodeMailer);
+
+
+
+
 
 module.exports = router;
