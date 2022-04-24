@@ -99,6 +99,12 @@ export default function NavBar({ gallerySection, aboutSection }) {
 						className='block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-12'>
 						Inicio
 					</Link>
+          <Link
+            to="/dashboard"
+            className="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-12"
+          >
+            Dashboard
+          </Link>
 					<Link
 						to={"/home#gallery"}
 						onClick={() => scrollToSection(gallerySection)}

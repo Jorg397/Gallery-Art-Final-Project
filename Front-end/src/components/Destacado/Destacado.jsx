@@ -29,7 +29,6 @@ export default function Destacado({ cards }) {
 			dispatch(addToCart(idProduct));
 		}
 	};
-
 	return (
 		<div
 			style={{ marginTop: "45px" }}
