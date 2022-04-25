@@ -30,14 +30,12 @@ module.exports = {
         const token = jwt.sign(payload, keyTokens, {
           expiresIn: "1h",
         });
-        res
-          .status(201)
-          .json({
-            token: token,
-            message: "usuario y contraseña correctos",
-            id_customer: costumer.id_customer,
-            name: costumer.name,
-          });
+        res.status(201).json({
+          token: token,
+          message: "usuario y contraseña correctos",
+          id_customer: costumer.id_customer,
+          name: costumer.name,
+        });
       } else {
         res.status(400).send("parameters missing");
       }
@@ -97,30 +95,47 @@ module.exports = {
     console.log(email);
     try {
       if (email) {
-        await Customer.findOne({
+        let customer = await Customer.findOne({
           where: {
             email,
           },
         });
-        let costumer = await Customer.findOne({
-          where: {
+        if (customer) {
+          customer = customer.toJSON();
+          const payload = {
+            check: true,
+            id_customer: customer.id_customer,
+          };
+          console.log("este es el customer ",customer);
+          const token = jwt.sign(payload, keyTokens, {
+            expiresIn: "1h",
+          });
+          return res.status(200).json({
+            message: "usuario y contraseña correctos",
+            token: token,
+            id_customer: customer.id_customer,
+            name : customer.name,
+          });
+        }else {
+          let customer = await Customer.create({
             email,
-          },
-        });
-        costumer = costumer.toJSON();
-        const payload = {
-          check: true,
-          id_customer: costumer.id_customer,
-        };
-        const token = jwt.sign(payload, keyTokens, {
-          expiresIn: "1h",
-        });
-        res.status(200).json({
-          message: "usuario y contraseña correctos",
-          token: token,
-          id_customer: costumer.id_customer,
-          
-        });
+          });
+          console.log("este es el customer create ",customer);
+          customer = customer.toJSON();
+          const payload = {
+            check: true,
+            id_customer: customer.id_customer,
+          };
+          const token = jwt.sign(payload, keyTokens, {
+            expiresIn: "1h",
+          });
+          return res.status(200).json({
+            message: "usuario y contraseña correctos",
+            token: token,
+            id_customer: customer.id_customer,
+            name : customer.name,
+          });
+        }
       } else {
         res.status(400).send("email incorrect");
       }
