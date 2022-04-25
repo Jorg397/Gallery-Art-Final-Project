@@ -1,0 +1,9 @@
+@use "../../assets/VariablesStyle/color.scss" as color;
+
+.color_secondary {
+  background-color: color.$color_secondary;
+}
+
+.color_quaternary {
+  background-color: color.$color_quaternary;
+}

@@ -1,73 +1,95 @@
-require('dotenv').config();
- 
-  const express = require("express");
-    const Stripe = require("stripe");
-    const {STRIPE_BACK} = process.env;
-    console.log("este es strao",STRIPE_BACK);
-    const stripe = new Stripe(`${STRIPE_BACK}`);
-    //poner la clave secreta en back y clave publoca en front!!!!!
-  
-                               
-    const cors = require("cors");
-     const app = express();
-    app.use(express.json()); 
-  app.use(cors({ origin: "*" }));
-  
-  
-    module.exports={
+require("dotenv").config();
+const { Order, Product } = require("../../db");
+const express = require("express");
+const Stripe = require("stripe");
+const { STRIPE_BACK } = process.env;
+const stripe = new Stripe(`${STRIPE_BACK}`);
+//poner la clave secreta en back y clave publoca en front!!!!!
 
-    
-    post:async (req, res) => {
-      // you can get more data to find in a database, and so on
-      
-  
-    
-      try {
-        const { id, amount } = req.body;
-   console.log('amount',amount)
-      console.log('id: ',id)
-      console.log('aqui llega')
+const cors = require("cors");
+const app = express();
+app.use(express.json());
+app.use(cors({ origin: "http://localhost:3000" }));
 
-        const payment = await stripe.paymentIntents.create({
-          amount,
-          currency: "USD",
-          description: "Gaming Keyboard",
-          payment_method: id,
-          confirm: true, //confirm the payment at the same time
+module.exports = {
+  post: async (req, res) => {
+    // you can get more data to find in a database, and so on
+
+    try {
+      const { id, amount, id_customer, shipping_address, products, cartTotal } =
+        req.body;
+      const productsId = products.map((product) => product.id_product);
+
+      const payment = await stripe.paymentIntents.create({
+        amount,
+        currency: "USD",
+        description: "Gaming Keyboard",
+        payment_method: id,
+        confirm: true, //confirm the payment at the same time
+      });
+
+      if (payment.status === "succeeded") {
+        const checkProduct = await Promise.allSettled([
+          Product.findAndCountAll({ where: { id_product: productsId } }).then(
+            (result) => result.count
+          ),
+        ]).then((counts) => {
+          const [{ value: countProduct }] = counts;
+          return countProduct === productsId.length ? true : false;
         });
-    
-        console.log('payment!!!!!!!!!!!!',payment);
-    
-        return res.status(200).json({ message: "Successful Payment" });
-      } catch (error) {
-        console.log(error);
-        return res.json({ message: error.raw.message });
+
+        if (checkProduct) {
+          let today = new Date();
+          today.toISOString().split("T")[0];
+
+          Order.create({
+            customerIdCustomer: id_customer,
+            amount: cartTotal,
+            order_date: today,
+            order_status: "Created",
+            observation: "",
+            shipping_address: shipping_address,
+          })
+            .then((order) => order.addProducts(productsId))
+            .then((result) => {
+              if (result.length === productsId.length) {
+                return Product.update(
+                  {
+                    state: "Sold",
+                  },
+                  {
+                    where: {
+                      id_product: productsId,
+                    },
+                  }
+                );
+              }
+            })
+            .then((result) => {
+              const response = result[0] === productsId.length ? true : false;
+
+              return res
+                .status(201)
+                .json({ completed: response, message: "Successful Payment" });
+            })
+            .catch((err) => {
+              res.status(500).send(err);
+            });
+
+          //guardar la orden en la db
+          //enviar correo axios
+          //console.log("payment!!!!!!!!!!!!", payment);
+          //console.log("Order result: ", order);
+        } else {
+          res.send({
+            completed: false,
+            message: "Alguno de los productos enviados no fue encontrado",
+          });
+        }
       }
+    } catch (error) {
+      console.log(error);
+      return res.json({ message: error });
     }
-    
-
-
-   }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  },
+};

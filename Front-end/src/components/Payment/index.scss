@@ -1,0 +1,18 @@
+@use "../../assets/VariablesStyle/color.scss" as color;
+@use "../../assets/VariablesStyle/size.scss" as size;
+.summaryTitle {
+}
+
+.summarySpan {
+  color: color.$color_background;
+  font-size: size.$size_text;
+  font-weight: bold;
+}
+
+.summarySpan p {
+  color: white;
+}
+
+.divide {
+  border-left: 3px dashed white;
+}
