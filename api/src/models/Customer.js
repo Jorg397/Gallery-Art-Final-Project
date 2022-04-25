@@ -11,6 +11,10 @@ module.exports = (sequelize) => {
       primaryKey: true,
       allowNull: false
     },
+    dni:{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -25,10 +29,10 @@ module.exports = (sequelize) => {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     phone: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: true,
     },
     country:{
@@ -44,6 +48,12 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+
+    role:{
+      type: DataTypes.ENUM('admin','user'),
+      allowNull: false,
+      defaultValue:'user'
+    }
   });
 };
 

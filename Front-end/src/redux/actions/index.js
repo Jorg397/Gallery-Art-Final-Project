@@ -1,18 +1,19 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import Api from "../../interceptors/base";
 
 export const ADD_TO_CART = "ADD_TO_CART";
 export const ADD_LOCAL_STORAGE = "ADD_LOCAL_STORAGE";
 export const REMOVE_TO_CART = "REMOVE_TO_CART";
+export const GET_PROFILE = "GET_PROFILE";
 
-const apiUrl = "http://localhost:3001/";
-//const apiUrl = "https://15.228.78.162:3001/";
+
 
 export function fetchPaints() {
   return function (dispatch) {
     dispatch({ type: "FETCH_PAINTS" });
-    axios
-      .get(`${apiUrl}products`)
+    Api
+      .get(`/products`)
       .then(function (response) {
         dispatch({
           type: "FETCH_PAINTS_SUCCESS",
@@ -28,8 +29,8 @@ export function fetchPaints() {
 export function getDetail(id) {
   return function (dispatch) {
     dispatch({ type: "FETCH_PAINT_DETAIL" });
-    axios
-      .get(`${apiUrl}product/${id}`)
+    Api
+      .get(`/product/${id}`)
       .then(function (response) {
         dispatch({
           type: "FETCH_PAINT_DETAIL",
@@ -45,8 +46,8 @@ export function getDetail(id) {
 export function getCategories() {
   return function (dispatch) {
     dispatch({ type: "FETCH_CATEGORIES" });
-    axios
-      .get(`${apiUrl}categories`)
+    Api
+      .get(`/categories`)
       .then(function (response) {
         dispatch({
           type: "FETCH_CATEGORIES_SUCCESS",
@@ -57,6 +58,19 @@ export function getCategories() {
         dispatch({ type: "FETCH_CATEGORIES_FAILURE", payload: err });
       });
   };
+}
+
+export function getProfile(id){
+  return function(dispatch){
+    Api
+      .get(`/customer/${id}`)
+      .then(function(response){
+        dispatch({
+          type: GET_PROFILE,
+          payload: response.data,
+        });
+      })
+  }
 }
 
 export function filterByCategory(category) {

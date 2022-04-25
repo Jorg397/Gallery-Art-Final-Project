@@ -8,6 +8,12 @@ import { validationsFields } from "../../utils/regularExpressions/validations";
 import { createCustomer } from "../../services/post/registry";
 import "./style.scss";
 import { toast } from "react-toastify";
+import { GoogleLogin } from "react-google-login";
+import { googlelogin } from "../../services/post/googleLogin";
+
+const PORT =
+  "395216086999-0eb8o2a0jcr870t9ndclcnik3fvt564e.apps.googleusercontent.com";
+
 
 const Registry = () => {
 	const [GetDataRegistry, setGetDataRegistry] = useState({
@@ -21,7 +27,20 @@ const Registry = () => {
 		password: { status: true, message: "" },
 		repeatPassword: { status: true, message: "" },
 	});
-
+	const responseGoogle = async (response) => {
+		console.log(response.profileObj);
+	
+		await googlelogin(response.profileObj)
+		  .then((res) => {
+			console.log({ res });
+			alert(res.data.message);
+			localStorage.setItem("token", res.data.token);
+			localStorage.setItem("id_customer", res.data.id_customer);
+			localStorage.setItem("name", res.data.name);
+			window.location.href = "/home";
+		  })
+		  .catch((res) => alert("Usuario o contraseña incorrectos"));
+	  };
 	const changeSetError = (field, value) => {
 		setError((prevState) => {
 			return {
@@ -84,10 +103,12 @@ const Registry = () => {
 				console.log({ res });
 				toast(res.data.message);
 				localStorage.setItem("token", res.data.token);
+				localStorage.setItem("id_customer", res.data.id_customer);
+				localStorage.setItem("name", res.data.name);
 				window.location.href = "/home";
 			})
 			.catch((res) =>
-				toast.error("Oops, ocurrió un error", {
+				toast.error("Oops, ya existe una cuenta con estos datos o ocurrió un error", {
 					position: "top-right",
 					autoClose: 3000,
 					hideProgressBar: false,
@@ -137,7 +158,7 @@ const Registry = () => {
 							onChange={handleChangeInput}
 						/>
 					</div>
-					<div className='registry__container__form__buttons'>
+					<div>
 						<Button
 							name={"Ingresar"}
 							version={"v1"}
@@ -145,14 +166,16 @@ const Registry = () => {
 							width={"357px"}
 							height={"50px"}
 						/>
-						{/* <Button
-              name={"continuar con Google"}
-              icon={google}
-              version={"v2"}
-              type={"button"}
-              width={"357px"}
-              height={"50px"}
-            /> */}
+
+						 <div>
+            <GoogleLogin 
+              clientId={PORT}
+              buttonText="Login"
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              cookiePolicy={"single_host_origin"}
+            />
+          </div>
 					</div>
 				</form>
 				<div className='registry__container__Login'>

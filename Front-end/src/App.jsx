@@ -13,25 +13,28 @@ import Gallery from "./Page/Gallery";
 import Admin from "./Page/Dashboard/Admin/Admin";
 import Clientes from "./Page/Dashboard/Admin/Clientes";
 import Pinturas from "./Page/Dashboard/Admin/Pinturas";
+import Profile from "./Page/Profile/index";
+import Shopping from "./Page/Shopping/index";
+import NavBar from "./components/NavBar/NavBar";
 
 export default function App() {
-	const cart = useSelector((state) => state.cart);
-	const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
-	useEffect(() => {
-		if (cart.length) {
-			localStorage.setItem("cart", JSON.stringify(cart));
-		}
-	}, [cart]);
+  useEffect(() => {
+    if (cart.length) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }, [cart]);
 
-	useEffect(() => {
-		const localStorageCart = localStorage.getItem("cart");
-		if (!localStorageCart) {
-			localStorage.setItem("cart", JSON.stringify([]));
-		} else {
-			dispatch(addLocalStorage(JSON.parse(localStorageCart)));
-		}
-	}, [dispatch]);
+  useEffect(() => {
+    const localStorageCart = localStorage.getItem("cart");
+    if (!localStorageCart) {
+      localStorage.setItem("cart", JSON.stringify([]));
+    } else {
+      dispatch(addLocalStorage(JSON.parse(localStorageCart)));
+    }
+  }, [dispatch]);
 
   return (
     <Routes>
@@ -45,7 +48,18 @@ export default function App() {
 	  <Route path='/dashboard' element={<Admin />} />
 	  <Route path='/dashboard/clients' element={<Clientes />} />
 	  <Route path='/dashboard/orders' element={<Pinturas />} />
+	  <Route path='/perfil' element={<Profile/>}/>
+	  <Route path='/shopping' element={<Shopping/>}/>
+      <Route
+        path="/payment"
+        element={
+          <>
+            <NavBar />
+            <PaymentGateway />
+          </>
+        }
+      />
+      {/* <Route path="/gallery" element={<Gallery />} /> */}
     </Routes>
   );
 }
-

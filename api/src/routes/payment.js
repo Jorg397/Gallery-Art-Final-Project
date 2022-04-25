@@ -1,10 +1,11 @@
 const router = require("express").Router();
 const paymentControllers = require("./controllers/payment.js");
+const passport = require('passport');
 
 //prettier-ignore
-router
-    .route('/')
-
+// router.post("/",
+//     passport.authenticate('jwt', { session: false }),
+//     paymentControllers.post);
+router.route('/')
     .post(paymentControllers.post);
-console.log('hola1')
 module.exports = router;
