@@ -35,6 +35,8 @@ const Registry = () => {
 			console.log({ res });
 			alert(res.data.message);
 			localStorage.setItem("token", res.data.token);
+			localStorage.setItem("id_customer", res.data.id_customer);
+			localStorage.setItem("name", res.data.name);
 			window.location.href = "/home";
 		  })
 		  .catch((res) => alert("Usuario o contraseña incorrectos"));
