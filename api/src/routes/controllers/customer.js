@@ -85,27 +85,56 @@ module.exports = {
   
 },
 
-googleloginPost: async (req, res) => {
-   
+  googleloginPost: async (req, res) => {
+    
 
-  const { email } = req.body;
-  console.log(email);
-  try {
-    if (email) {
-   await Customer.findOne({
+    const { email } = req.body;
+    console.log(email);
+    try {
+      if (email) {
+    await Customer.findOne({
+          where: {
+            email,
+          },
+        });
+
+        res.status(200).json({ message: "usuario y contraseña correctos" });
+      } else {
+        res.status(400).send("email incorrect");
+      }
+    } catch (error) {
+      
+      res.status(400).send("hubo un error en el server");
+    }
+  },
+  get: async (req, res) => {
+    try {
+      const costumer = await Customer.findAll();
+      delete costumer.password;
+      res.status(200).json(costumer);
+    } catch (error) {
+      console.log(error);
+      res.status(400).send("hubo un error en el server");
+    }
+  },
+  getById: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const costumer = await Customer.findOne({
         where: {
-          email,
+          id_customer: id,
         },
       });
-
-      res.status(200).json({ message: "usuario y contraseña correctos" });
-    } else {
-      res.status(400).send("email incorrect");
+      if(costumer){
+        delete costumer.dataValues.password;
+        res.status(200).json(costumer);
+      }else{
+        res.status(400).send("user not found");
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(400).send("bad request");
     }
-  } catch (error) {
-    
-    res.status(400).send("hubo un error en el server");
-  }
-}
+  },
  }
 
