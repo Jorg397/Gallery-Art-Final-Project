@@ -12,7 +12,7 @@ const responseInterceptors = (axiosInstance) => {
         toast.error("sesion expirada");
         window.location.href = "/login";
        } else {
-        
+       console.log({error}); 
       }
     });
     };

@@ -12,7 +12,7 @@ const initialState = {
     detail: [],
     cart: [],
     categories: [],
-    profile: {},
+    profile: [],
 };
 
 export default function rootReducer(state = initialState, action) {

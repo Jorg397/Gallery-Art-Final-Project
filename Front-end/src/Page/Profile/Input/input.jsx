@@ -27,13 +27,14 @@ const Input = (props) => {
           </select>
         )
       )}
-      {type === "text" && <span
+      {type === "text" && <button
         onClick={() => {
           onClick(name);
         }}
+        type={`${state ? "button" : "submit"}`}
       >
         <img src={icon} alt="edit/save" />
-      </span>}
+      </button>}
     </div>
   );
 };

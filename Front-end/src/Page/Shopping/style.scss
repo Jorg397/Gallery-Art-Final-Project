@@ -2,50 +2,38 @@
 @use '../../assets/VariablesStyle/size.scss'  as size;
 @use '../../assets/VariablesStyle/fontFamily.scss'  as font;
 
-.profile{
+.shopping{
     width:100vw;
     max-width: 1900px;
     height: 100vh;
     background-color: color.$color_primary;
     position: relative;
 
-    .profile__container{
+    .shopping__container{
         position: absolute;
         width: 100%;
         margin-top: 120px;
         height: 80%;
         padding: 0 100px;
-        .profile__container__title{
+        .shopping__container__title{
             font-family: font.$font_text;
             font-size: 1.5rem;
+            text-align: right;
             font-weight: 700;
             color: color.$text_color_primary;
         }
-        .profile__container__body{
+        .shopping__container__body{
             width: 100%;
             height: auto;
             display: flex;
-            .profile__container__body-data{
+            .shopping__container__body-data{
                 width: 50%;
                 padding-top: 30px;
-                .profile__container__body-data-row{
-                    display: flex;
-                    justify-content: space-between;
-                    flex-wrap: wrap;
-                    margin-bottom: 30px;
-                    padding-right: 50px;
-
-                    p{
-                        font-family: font.$font_text;
-                        font-size: 0.87rem;
-                        color: color.$text_color_primary;
-                    }
-                }
             }
-            .profile__container__body-img{
+            .shopping__container__body-img{
                 width:50%;
                 display: flex;
-                justify-content: flex-end;
+                justify-content: center;
                 img{
                     width: auto;
                     height: 461px;

@@ -5,24 +5,21 @@ import { useSelector, useDispatch } from "react-redux";
 
 import img from "../../assets/imgPerfil.png";
 import { getProfile } from "../../redux/actions";
+import { putProfile } from "../../services/put/profile";
+import { toast } from "react-toastify";
 import Input from "./Input/input";
 import "./style.scss";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
-  const data = {
-    name: "sofia",
-    lastName: "perez",
-    dni:'85692456',
-    phone: '988888888',
-  }
   const [state, setState] = React.useState({});
+  const [inputSate, setInputSate] = React.useState(false);
   const [editData, setEditData] = React.useState({
-    name: data.name,
-    lastName: data.lastName,
-    phone: data.phone,
-    dni: data.dni,
+    name: "",
+    lastName: "",
+    phone: "",
+    dni: "",
   });
   const handleClickIconInput = (name) => {
     setState(!state);
@@ -34,21 +31,48 @@ const Profile = () => {
     });
   };
 
-  const handleChangeInput = (value,name) => {
-    console.log("editData", editData);
+  const handleChangeInput = (value, name) => {
     setEditData((prevState) => {
       return {
         ...prevState,
         [name]: value,
       };
     });
-  }
+  };
 
-  React.useEffect(()=>{
-    dispatch(getProfile(localStorage.getItem('id_customer')));
-  },[]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await putProfile(
+      editData,
+      localStorage.getItem("id_customer")
+    )
+      .then((res) => {
+        toast(res.data.message);
+      })
+      .catch((err) => {
+        toast(err.response.data.message);
+      });
+    if (response.status === 200) {
+      dispatch(getProfile());
+    }
+  };
 
-  if (localStorage.getItem("token")=== null) {
+  React.useEffect(() => {
+    dispatch(getProfile(localStorage.getItem("id_customer")));
+  }, []);
+  React.useEffect(() => {
+    setEditData((prevState) => {
+      return {
+        ...prevState,
+        name: profile.name,
+        lastName: profile.lastName,
+        phone: profile.phone,
+        dni: profile.dni,
+      };
+    });
+  },[profile]);
+
+  if (localStorage.getItem("token") === null) {
     return <Navigate to="/login" />;
   }
 
@@ -59,7 +83,7 @@ const Profile = () => {
         <h1 className="profile__container__title">Mi Perfil</h1>
         <div className="profile__container__body">
           <div className="profile__container__body-data">
-            <div>
+            <form onSubmit={handleSubmit}>
               <div className="profile__container__body-data-row 1">
                 <Input
                   name={"dni"}
@@ -87,7 +111,7 @@ const Profile = () => {
                   name={"lastName"}
                   text={"Apellidos :"}
                   width={"250px"}
-                  value={editData.lastName}
+                  value={profile.lastName}
                   state={state["lastName"]}
                   type={"text"}
                   onClick={handleClickIconInput}
@@ -114,8 +138,9 @@ const Profile = () => {
                   type={"select"}
                   onClick={handleClickIconInput}
                 />
+                <p>Recuerda que podras modificar tu direccion con tu compra</p>
               </div>
-            </div>
+            </form>
           </div>
           <div className="profile__container__body-img">
             <img src={img} />

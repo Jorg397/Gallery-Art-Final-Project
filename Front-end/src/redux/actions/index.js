@@ -63,10 +63,10 @@ export function getCategories() {
 export function getProfile(id){
   return function(dispatch){
     Api
-      .get(`/profile/${id}`)
+      .get(`/customer/${id}`)
       .then(function(response){
         dispatch({
-          type: "GET_PROFILE_SUCCESS",
+          type: GET_PROFILE,
           payload: response.data,
         });
       })

@@ -34,15 +34,20 @@
             outline: none;
         }
     }
-    span{
+    button{
         width: 25px;
         position: absolute;
         right: 10px;
+        border: none;
+        background-color: transparent;
         top: 31px;
         cursor: pointer;
         transition: all 0.3s ease-in;
         &:active{
             transform: scale(0.8);
+        }
+        &:focus{
+            outline: none;
         }
     }
 

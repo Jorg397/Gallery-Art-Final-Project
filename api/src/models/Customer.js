@@ -11,6 +11,10 @@ module.exports = (sequelize) => {
       primaryKey: true,
       allowNull: false
     },
+    dni:{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -28,7 +32,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     phone: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: true,
     },
     country:{
