@@ -83,14 +83,17 @@ module.exports = {
       console.log(error);
       res.status(400).send("server error");
     }
-  },
+  
+},
 
   googleloginPost: async (req, res) => {
+    
+
     const { email } = req.body;
     console.log(email);
     try {
       if (email) {
-        await Customer.findOne({
+    await Customer.findOne({
           where: {
             email,
           },
@@ -101,7 +104,38 @@ module.exports = {
         res.status(400).send("email incorrect");
       }
     } catch (error) {
+      
       res.status(400).send("hubo un error en el server");
+    }
+  },
+  get: async (req, res) => {
+    try {
+      const costumer = await Customer.findAll();
+      delete costumer.password;
+      res.status(200).json(costumer);
+    } catch (error) {
+      console.log(error);
+      res.status(400).send("hubo un error en el server");
+    }
+  },
+
+  getById: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const costumer = await Customer.findOne({
+        where: {
+          id_customer: id,
+        },
+      });
+      if(costumer){
+        delete costumer.dataValues.password;
+        res.status(200).json(costumer);
+      }else{
+        res.status(400).send("user not found");
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(400).send("bad request");
     }
   },
 

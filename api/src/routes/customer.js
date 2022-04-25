@@ -16,5 +16,8 @@ router.post( '/prueba' ,
 
 router.route("/googlelogin").post(customerController.googleloginPost);
 
+router.get("/",customerController.get);
+
+router.get("/:id",customerController.getById);
 
 module.exports = router;
