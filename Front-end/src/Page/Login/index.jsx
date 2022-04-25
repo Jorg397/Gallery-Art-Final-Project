@@ -30,7 +30,6 @@ const Login = () => {
 
     await googlelogin(response.profileObj)
       .then((res) => {
-        console.log({ res });
         alert(res.data.message);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("id_customer", res.data.id_customer);
