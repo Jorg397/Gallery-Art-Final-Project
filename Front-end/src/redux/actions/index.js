@@ -5,6 +5,8 @@ import Api from "../../interceptors/base";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const ADD_LOCAL_STORAGE = "ADD_LOCAL_STORAGE";
 export const REMOVE_TO_CART = "REMOVE_TO_CART";
+export const GET_PROFILE = "GET_PROFILE";
+
 
 
 export function fetchPaints() {
@@ -56,6 +58,19 @@ export function getCategories() {
         dispatch({ type: "FETCH_CATEGORIES_FAILURE", payload: err });
       });
   };
+}
+
+export function getProfile(id){
+  return function(dispatch){
+    Api
+      .get(`/profile/${id}`)
+      .then(function(response){
+        dispatch({
+          type: "GET_PROFILE_SUCCESS",
+          payload: response.data,
+        });
+      })
+  }
 }
 
 export function filterByCategory(category) {

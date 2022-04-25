@@ -1,13 +1,29 @@
 import React from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import { Navigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 import img from "../../assets/imgPerfil.png";
+import { getProfile } from "../../redux/actions";
 import Input from "./Input/input";
 import "./style.scss";
 
 const Profile = () => {
+  const dispatch = useDispatch();
+  const profile = useSelector((state) => state.profile);
+  const data = {
+    name: "sofia",
+    lastName: "perez",
+    dni:'85692456',
+    phone: '988888888',
+  }
   const [state, setState] = React.useState({});
+  const [editData, setEditData] = React.useState({
+    name: data.name,
+    lastName: data.lastName,
+    phone: data.phone,
+    dni: data.dni,
+  });
   const handleClickIconInput = (name) => {
     setState(!state);
     setState(() => {
@@ -17,6 +33,20 @@ const Profile = () => {
       };
     });
   };
+
+  const handleChangeInput = (value,name) => {
+    console.log("editData", editData);
+    setEditData((prevState) => {
+      return {
+        ...prevState,
+        [name]: value,
+      };
+    });
+  }
+
+  React.useEffect(()=>{
+    dispatch(getProfile(localStorage.getItem('id_customer')));
+  },[]);
 
   if (localStorage.getItem("token")=== null) {
     return <Navigate to="/login" />;
@@ -35,39 +65,43 @@ const Profile = () => {
                   name={"dni"}
                   text={"Dni :"}
                   width={"250px"}
-                  value={"65325645"}
+                  value={editData.dni}
                   state={state["dni"]}
                   type={"text"}
+                  onchange={handleChangeInput}
                   onClick={handleClickIconInput}
                 />
                 <Input
                   name={"name"}
                   text={"Nombre :"}
                   width={"250px"}
-                  value={"Rias Maria"}
+                  value={editData.name}
                   state={state["name"]}
                   type={"text"}
                   onClick={handleClickIconInput}
+                  onchange={handleChangeInput}
                 />
               </div>
               <div className="profile__container__body-data-row 1">
                 <Input
-                  name={"lastname"}
+                  name={"lastName"}
                   text={"Apellidos :"}
                   width={"250px"}
-                  value={"Perez Ramires"}
-                  state={state["lastname"]}
+                  value={editData.lastName}
+                  state={state["lastName"]}
                   type={"text"}
                   onClick={handleClickIconInput}
+                  onchange={handleChangeInput}
                 />
                 <Input
                   name={"phone"}
                   text={"Telefono :"}
                   width={"250px"}
                   type={"text"}
-                  value={"+51 975695848"}
+                  value={editData.phone}
                   state={state["phone"]}
                   onClick={handleClickIconInput}
+                  onchange={handleChangeInput}
                 />
               </div>
               <div className="profile__container__body-data-row 1">

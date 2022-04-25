@@ -16,6 +16,9 @@ const Input = (props) => {
           type={type}
           className="input__input"
           value={value}
+          onChange={(e)=>{
+            onchange(e.target.value, name)
+          }}
         />
       ) : (
         type === "select" && (

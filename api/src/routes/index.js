@@ -8,12 +8,6 @@ const page404 = require("./404");
 const router = Router();
 const nodeMailer=require("./mailer");
 
-
-const middleware = require('../middleware/protectRoutes');
-const protect = Router();
-
-protect.use(middleware.protectRoutes);
-
 router.use("/products", products);
 router.use("/categories", categories);
 router.use("/product", product);

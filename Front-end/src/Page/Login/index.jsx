@@ -76,6 +76,7 @@ const Login = () => {
         console.log({ res });
         alert(res.data.message);
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("id_customer", res.data.user.id_customer);
         window.location.href = "/home";
       })
       .catch((res) => alert("Usuario o contraseña incorrectos"));

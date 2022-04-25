@@ -2,6 +2,7 @@ import {
     ADD_TO_CART,
     ADD_LOCAL_STORAGE,
     REMOVE_TO_CART,
+    GET_PROFILE,
 } from "../actions/index";
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
     detail: [],
     cart: [],
     categories: [],
+    profile: {},
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -44,6 +46,11 @@ export default function rootReducer(state = initialState, action) {
                 categories: action.payload,
                 loading: false,
             };
+        case GET_PROFILE: 
+            return {
+                ...state,
+                profile: action.payload,
+            }
         case "FETCH_CATEGORIES_FAILURE":
             return {
                 ...state,

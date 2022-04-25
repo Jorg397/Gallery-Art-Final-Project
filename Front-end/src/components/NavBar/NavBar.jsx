@@ -15,6 +15,7 @@ export default function NavBar({ gallerySection, aboutSection }) {
 
 	const handleclicklogout = () => {
 		localStorage.removeItem("token");
+		localStorage.removeItem("id_customer");
 		window.location.reload();
 	};
 
