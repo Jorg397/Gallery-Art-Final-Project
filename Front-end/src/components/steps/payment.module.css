@@ -1,0 +1,25 @@
+.inputYear {
+  padding: 11px 35%;
+  background-color: aliceblue;
+  justify-content: center;
+  align-items: stretch;
+  border-radius: 8px;
+  width: 100%;
+}
+.inputMonth {
+  padding: 11px 8%;
+  background-color: aliceblue;
+  justify-content: center;
+  align-items: stretch;
+  border-radius: 8px;
+  width: 30%;
+}
+
+.inputCvv {
+  padding: 11px 12%;
+  background-color: aliceblue;
+  justify-content: center;
+  align-items: stretch;
+  border-radius: 8px;
+  width: 30%;
+}
