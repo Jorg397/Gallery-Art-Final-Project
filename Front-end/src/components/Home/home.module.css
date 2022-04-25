@@ -1,11 +1,11 @@
 body {
-    background: linear-gradient( 176.22deg, #22223b 8.98%, #4a4e69 26.95%, #9a8c98 48.87%, #c9ada7 68.51%, #c9ada7 80.38%, #292a44 96.55%);
+  background-color: #22223b;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
