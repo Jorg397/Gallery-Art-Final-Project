@@ -12,4 +12,6 @@ router.get("/",customerController.get);
 
 router.get("/:id",customerController.getById);
 
+router.put("/:id",customerController.put);
+
 module.exports = router;

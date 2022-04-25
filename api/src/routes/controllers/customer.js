@@ -136,5 +136,35 @@ module.exports = {
       res.status(400).send("bad request");
     }
   },
+
+  
+  put: async (req, res) => {
+    const {id} = req.params;
+    const { name, lastName, email, phone, country, default_shipping_address, billing_address } = req.body;
+
+    if(email){
+      try{
+        await Customer.update({
+          name,
+          lastName,
+          email,
+          phone,
+          country,
+          default_shipping_address,
+          billing_address
+        },{
+          where: {
+            id_customer: id
+          }
+        })
+        res.status(200).json('customer updated')
+      }catch(err){
+        console.log(err);
+        res.status(400).send('error updating customer')
+      }
+    }else{
+      res.status(400).send('email is required')
+    }
+  }
  }
 
