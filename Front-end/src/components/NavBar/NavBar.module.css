@@ -1,8 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Bilbo&display=swap');
+
 .title {
-  font-size: 36px;
-  font-weight: 1000;
+  font-size: 4.5rem;
+  font-weight: 600;
   margin-left: 14px;
+  margin-top: 10px;
+  line-height: 0;
   position: relative;
+  font-family: 'Bilbo', cursive;
+  color: #22223B;
   bottom: 5px;
 }
 
