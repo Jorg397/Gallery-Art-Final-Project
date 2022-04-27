@@ -14,6 +14,8 @@ const initialState = {
   profile: [],
   cartTotal: 0,
   categories: [],
+  customers: [],
+  orders: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -121,6 +123,52 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         cart: products,
         cartTotal: state.cartTotal - removeProduct.price,
+      };
+    case "FETCH_CUSTOMERS_SUCCESS":
+      return {
+        ...state,
+        customers: action.payload,
+        loading: false,
+      };
+    case "FETCH_CUSTOMERS_FAILURE":
+      return {
+        ...state,
+        loading: false,
+      };
+    case "FETCH_ORDERS_SUCCESS":
+      return {
+        ...state,
+        orders: action.payload,
+        loading: false,
+      };
+    case "FETCH_ORDERS_FAILURE":
+      return {
+        ...state,
+        loading: false,
+      };
+    case "SEARCH_ALL_THAT_CONTAINS":
+      return {
+        ...state,
+        filteredPaints: [...state.paints].filter((paint) =>
+          paint.name.toLowerCase().includes(action.payload.toLowerCase()) ||
+          paint.description.toLowerCase().includes(action.payload.toLowerCase()) ||
+          paint.categories.map((e) => e.name).includes(action.payload) ||
+          paint.price.toString().includes(action.payload) ||
+          paint.sku.includes(action.payload)
+        ),
+      };
+    case "FILTER_STATE":
+      if(action.payload === "All"){
+        return {
+          ...state,
+          filteredPaints: [...state.paints],
+        };
+      }else 
+      return {
+        ...state,
+        filteredPaints: [...state.paints].filter((paint) =>
+          paint.state.toLowerCase().includes(action.payload.toLowerCase())
+        ),
       };
     default:
       return state;

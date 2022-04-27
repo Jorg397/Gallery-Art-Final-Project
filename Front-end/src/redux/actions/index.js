@@ -7,13 +7,13 @@ export const ADD_LOCAL_STORAGE = "ADD_LOCAL_STORAGE";
 export const REMOVE_TO_CART = "REMOVE_TO_CART";
 export const GET_PROFILE = "GET_PROFILE";
 
-
+const local = "http://localhost:3001"
 
 export function fetchPaints() {
   return function (dispatch) {
     dispatch({ type: "FETCH_PAINTS" });
     Api
-      .get(`/products`)
+      .get(`${local}/products`)
       .then(function (response) {
         dispatch({
           type: "FETCH_PAINTS_SUCCESS",
@@ -30,7 +30,7 @@ export function getDetail(id) {
   return function (dispatch) {
     dispatch({ type: "FETCH_PAINT_DETAIL" });
     Api
-      .get(`/product/${id}`)
+      .get(`${local}/product/${id}`)
       .then(function (response) {
         dispatch({
           type: "FETCH_PAINT_DETAIL",
@@ -47,7 +47,7 @@ export function getCategories() {
   return function (dispatch) {
     dispatch({ type: "FETCH_CATEGORIES" });
     Api
-      .get(`/categories`)
+      .get(`${local}/categories`)
       .then(function (response) {
         dispatch({
           type: "FETCH_CATEGORIES_SUCCESS",
@@ -63,7 +63,7 @@ export function getCategories() {
 export function getProfile(id){
   return function(dispatch){
     Api
-      .get(`/customer/${id}`)
+      .get(`${local}/customer/${id}`)
       .then(function(response){
         dispatch({
           type: GET_PROFILE,
@@ -122,4 +122,65 @@ export function removeToCart(idProduct) {
         type: REMOVE_TO_CART,
         payload: idProduct,
     };
+}
+export function createPaint(data) {
+  return function (dispatch) {
+    dispatch({ type: "CREATE_PAINT" });
+    Api
+      .post(`${local}/product`, data)
+      .then(function (response) {
+        dispatch({
+          type: "CREATE_PAINT_SUCCESS",
+          payload: response.data,
+        });
+      })
+      .catch(function (err) {
+        dispatch({ type: "CREATE_PAINT_FAILURE", payload: err });
+      });
+  };
+}
+export function filterState(state) {
+  return {
+    type: "FILTER_STATE",
+    payload: state,
+  };
+}
+export function searchAllThatContains(search) {
+  return {
+    type: "SEARCH_ALL_THAT_CONTAINS",
+    payload: search,
+  }
+}
+
+export function getCustomers() {
+  return function (dispatch) {
+    dispatch({ type: "FETCH_CUSTOMERS" });
+    Api
+      .get(`${local}/customer`)
+      .then(function (response) {
+        dispatch({
+          type: "FETCH_CUSTOMERS_SUCCESS",
+          payload: response.data,
+        });
+      })
+      .catch(function (err) {
+        dispatch({ type: "FETCH_CUSTOMERS_FAILURE", payload: err });
+      });
+  };
+}
+export function getOrders() {
+  return function (dispatch) {
+    dispatch({ type: "FETCH_ORDERS" });
+    Api
+      .get(`${local}/orders`)
+      .then(function (response) {
+        dispatch({
+          type: "FETCH_ORDERS_SUCCESS",
+          payload: response.data,
+        });
+      })
+      .catch(function (err) {
+        dispatch({ type: "FETCH_ORDERS_FAILURE", payload: err });
+      });
+  };
 }
