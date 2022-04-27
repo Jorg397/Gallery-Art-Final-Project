@@ -1,8 +1,15 @@
 const router = require("express").Router();
 
 const orders = require("./controllers/orders")
+const passport = require('passport');
+const { checkRoles } = require('./utils/models/models');
 
-router.route('/').get(orders.get)
+
+router
+    .get("/", 
+    passport.authenticate('jwt', { session: false }),
+    checkRoles( 'admin'),
+    orders.get)
 
 
 

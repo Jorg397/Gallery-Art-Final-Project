@@ -22,19 +22,8 @@ module.exports = {
           email,
           password: passwordhash,
         });
-        costumer = costumer.toJSON();
-        const payload = {
-          check: true,
-          id_customer: costumer.id_customer,
-        };
-        const token = jwt.sign(payload, keyTokens, {
-          expiresIn: "1h",
-        });
         res.status(201).json({
-          token: token,
-          message: "usuario y contraseña correctos",
-          id_customer: costumer.id_customer,
-          name: costumer.name,
+          message: "cuenta creada",
         });
       } else {
         res.status(400).send("parameters missing");
@@ -45,101 +34,36 @@ module.exports = {
     }
   },
 
-  loginPost: async (req, res) => {
-    const { email, password } = req.body;
-    console.log(email, password);
-    try {
-      if (email && password) {
-        let costumer = await Customer.findOne({
-          where: {
-            email,
-          },
-        });
-        if (costumer) {
-          const passwordMatch = await bcrypt.compare(
-            password,
-            costumer.password
-          );
-          costumer = costumer.toJSON();
-          if (passwordMatch) {
-            const payload = {
-              check: true,
-              id_customer: costumer.id_customer,
-            };
-            const token = jwt.sign(payload, keyTokens, {
-              expiresIn: "1h",
-            });
-            res.status(200).json({
-              token: token,
-              id_customer: costumer.id_customer,
-              message: "usuario y contraseña correctos",
-              name: costumer.name,
-            });
-          } else {
-            res.status(400).send("password incorrect");
-          }
-        } else {
-          res.status(400).send("email incorrect");
-        }
-      } else {
-        res.status(400).send("parameters missing");
-      }
-    } catch (error) {
-      console.log(error);
-      res.status(400).send("server error");
-    }
-  },
-
   googleloginPost: async (req, res) => {
-    const { email } = req.body;
-    console.log(email);
-    try {
-      if (email) {
-        let customer = await Customer.findOne({
+    const { email, name } = req.body;
+    try{
+      if(email){
+        const [user, created] = await Customer.findOrCreate({
           where: {
             email,
           },
-        });
-        if (customer) {
-          customer = customer.toJSON();
-          const payload = {
-            check: true,
-            id_customer: customer.id_customer,
-          };
-          console.log("este es el customer ",customer);
-          const token = jwt.sign(payload, keyTokens, {
-            expiresIn: "1h",
-          });
-          return res.status(200).json({
-            message: "usuario y contraseña correctos",
-            token: token,
-            id_customer: customer.id_customer,
-            name : customer.name,
-          });
-        }else {
-          let customer = await Customer.create({
+          defaults: {
+            name: name.split(" ")[0],
             email,
-          });
-          console.log("este es el customer create ",customer);
-          customer = customer.toJSON();
-          const payload = {
-            check: true,
-            id_customer: customer.id_customer,
-          };
-          const token = jwt.sign(payload, keyTokens, {
-            expiresIn: "1h",
-          });
-          return res.status(200).json({
-            message: "usuario y contraseña correctos",
-            token: token,
-            id_customer: customer.id_customer,
-            name : customer.name,
-          });
-        }
-      } else {
+          },
+        });
+        const payload = {
+          sub: user.id_customer,
+          role: user.role,
+        };
+        const token = jwt.sign(payload, keyTokens, {
+          expiresIn: "1h",
+        });
+        console.log({token});
+        res.json({
+          user,
+          token,
+        });
+      }else{
         res.status(400).send("email incorrect");
       }
-    } catch (error) {
+
+    }catch(error){
       res.status(400).send("hubo un error en el server");
     }
   },
