@@ -9,7 +9,7 @@ import NavAdmin from './NavAdmin'
 
 
 export default function Pinturas() {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState({});
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -116,11 +116,6 @@ export default function Pinturas() {
           <option value="Available">Disponible</option>
           <option value="Sold">Vendido</option>
         </select>
-
-        
-
-
-
         <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
           {/* Returns a table with all the orders */}
           <table style={{ width: "100%", borderRadius: "10px" }} >
@@ -140,37 +135,42 @@ export default function Pinturas() {
               </tr>
             </thead>
             <tbody>
-              {data.map((e) => (
-                <tr key={e.id_product} className="" style={{ backgroundColor: "#C9ADA7", fontWeight: "bold", borderTop:"10px solid #9A8C98" }} >
+              {data.map((e, index) => (
+                <tr key={index}  className="" style={{ backgroundColor: "#C9ADA7", fontWeight: "bold", borderTop:"10px solid #9A8C98" }}>
                   <td>{e.sku}</td>
                   <td>{e.name}</td>
                   <td>{e.technique}</td>
                   <td>{e.measures}</td>
-                  <td><button onClick={() => {
-                    setModalOpen(true);
-                  }}>Ver</button>
-                    {modalOpen && <ModalDesc desc={e.description} setOpenModal={setModalOpen} />}</td>
-                  <td>{e.released[0] + e.released[1] + e.released[2] + e.released[3]}</td>
-                  <td>
-                    <button onClick={() => {
-                      setModalOpen(true);
+                  <td><button
+                    onClick={() => {
+                      setModalOpen({
+                        [index]: true,
+                      });
                     }}>Ver</button>
-                    {modalOpen && <ModalCat cat={e.categories.map((e) => e.name + " " || e)} setOpenModal={setModalOpen} />}
-                  </td>
-                  <td>${e.price}</td>
+                    {modalOpen[index] && <ModalDesc desc={e.description} setOpenModal={setModalOpen}/>}</td>
+                  <td>{e.released.split('-')[0]}</td>
+                  <td><button
+                    onClick={() => {
+                      setModalOpen({
+                        [index]: true,
+                      });
+                    }}>Ver</button>
+                    {modalOpen[index] && <ModalCat cat={e.categories.map((e) => e.name + " " || e)} setOpenModal={setModalOpen} />}</td>
+                  <td>{e.price}</td>
                   <td><button id={e.id_product} onClick={(e) => {
-                    const idP = e.target.id
-                    handleModalImage(e)
-                    setModalOpen(true);
-                    
-                  }}>Ver</button>
-                    {modalOpen && <ModalImage img={e.image} setOpenModal={setModalOpen} />}</td>
-                  <td>
-                    <button><img src="https://i.ibb.co/g762MvW/update-arrow-svgrepo-com-1.png" alt="" style={{ width: "30px" }} /></button>
-                  </td>
-                  <td>
-                    <button ><img src="https://i.ibb.co/9bXyDbb/delete-svgrepo-com-1.png" alt="" style={{ width: "30px" }} /></button>
-                  </td>
+                      const idP = e.target.id
+                      handleModalImage(e)
+                      setModalOpen({
+                        [index]: true,
+                      });
+                    }}>Ver</button>
+                    {modalOpen[index] && <ModalImage img={e.image} setOpenModal={setModalOpen} />}</td>
+                    <td>
+                      <button><img src="https://i.ibb.co/g762MvW/update-arrow-svgrepo-com-1.png" alt="" style={{ width: "30px" }} /></button>
+                    </td>
+                    <td>
+                      <button ><img src="https://i.ibb.co/9bXyDbb/delete-svgrepo-com-1.png" alt="" style={{ width: "30px" }} /></button>
+                    </td>
                 </tr>
               ))}
             </tbody>

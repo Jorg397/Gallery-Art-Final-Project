@@ -6,7 +6,7 @@ export default function ModalCat({ setOpenModal, desc }) {
           <span>
           <button
             onClick={() => {
-              setOpenModal(false);
+              setOpenModal({});
             }}
           >
             X 
