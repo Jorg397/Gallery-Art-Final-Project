@@ -6,6 +6,7 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const ADD_LOCAL_STORAGE = "ADD_LOCAL_STORAGE";
 export const REMOVE_TO_CART = "REMOVE_TO_CART";
 export const GET_PROFILE = "GET_PROFILE";
+export const GET_ORDERS = "GET_ORDERS";
 
 
 
@@ -71,6 +72,22 @@ export function getProfile(id){
         });
       })
   }
+}
+
+export const getOrders = (idCustomer) => {
+  return function (dispatch) {
+    Api
+      .get(`/orders/${idCustomer}`)
+      .then(function (response) {
+        dispatch({
+          type: GET_ORDERS,
+          payload: response.data,
+        });
+      })
+      .catch(function (err) {
+        toast.error(err.response.data.message);
+      });
+  };
 }
 
 export function filterByCategory(category) {

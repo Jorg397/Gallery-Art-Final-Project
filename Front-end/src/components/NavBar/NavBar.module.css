@@ -8,7 +8,7 @@
   line-height: 0;
   position: relative;
   font-family: 'Bilbo', cursive;
-  color: #22223B;
+  color: white;
   bottom: 5px;
 }
 
@@ -32,13 +32,15 @@
 nav {
   border-radius: 10px;
   background-color: #ffffff4a;
+  transition: all 0.3s ease-in-out;
 }
 
 .background {
-  background-color: #615d5d66;
+  background-color: #4A4E69;
+  box-shadow: 5px 5px 5px #ffffff9a;
 }
 
 .background a,
 .background span {
-  color: rgb(255, 255, 255);
+  color: white;
 }

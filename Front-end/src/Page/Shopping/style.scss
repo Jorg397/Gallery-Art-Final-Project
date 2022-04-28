@@ -15,25 +15,46 @@
         margin-top: 120px;
         height: 80%;
         padding: 0 100px;
-        .shopping__container__title{
-            font-family: font.$font_text;
-            font-size: 1.5rem;
-            text-align: right;
-            font-weight: 700;
-            color: color.$text_color_primary;
-        }
         .shopping__container__body{
             width: 100%;
             height: auto;
             display: flex;
             .shopping__container__body-data{
-                width: 50%;
-                padding-top: 30px;
+                width: 750px;
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: column;
+                justify-content: space-between;
+                overflow: auto;
+                .shopping__table{
+                    width:100%;
+                    height:100%;
+                    .shopping__table-header{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: flex-start;
+                        margin-bottom: 1rem;
+
+                        h1{
+                            color: color.$text_color_primary;
+                            font-family: font.$font_text;
+                            font-size: 1.5rem;
+                            font-weight: 700;
+                        }
+
+                        select{
+                            width: 180px;
+                            height: 35px;
+                            border-radius: size.$size_corners_inputs;
+                            border: 2px solid color.$color_secondary;
+                        }
+                    }
+                }
             }
             .shopping__container__body-img{
                 width:50%;
                 display: flex;
-                justify-content: center;
+                justify-content: left;
                 img{
                     width: auto;
                     height: 461px;
@@ -42,4 +63,18 @@
             }
         }
     }
+}
+
+.css-16c50h-MuiInputBase-root-MuiTablePagination-select{
+    display: none !important;
+}
+.css-levciy-MuiTablePagination-displayedRows{
+    display: none !important;
+}
+.css-pdct74-MuiTablePagination-selectLabel{
+    display: none !important;
+}
+.css-1mbunh-MuiPaper-root{
+    overflow: auto !important;
+    height: 400px !important;
 }

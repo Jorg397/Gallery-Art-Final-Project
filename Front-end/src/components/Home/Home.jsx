@@ -4,6 +4,8 @@ import Destacado from "../Destacado/Destacado";
 import Footer from "../Footer/Footer";
 import Ilustrame from "../Ilustrame/Ilustrame";
 import Titulos from "../Titulos/Titulos";
+import fondoSotelino from "../../assets/sotelinofondo.png";
+import sotelino from "../../assets/sotelino.png";
 import s from "./home.module.css";
 import Gallery from "../Gallery/Gallery";
 import { useSelector, useDispatch } from "react-redux";
@@ -32,9 +34,14 @@ export default function Home() {
 				aboutSection={about}
 				sliderSection={slider}
 			/>
-			<div></div>
+			<div className={s.banner}>
+				<div className={s.banner__img}>
+					<img src={fondoSotelino} className={s.banner__img_fondo} alt="banner" />
+					<img src={sotelino} className={s.banner__img_sotelino} alt="autor" />
+				</div>
+			</div>
 
-			<Slider paints={paints}></Slider>
+			{/* <Slider paints={paints}></Slider> */}
 
 			<div style={{ textAlign: "center", borderTop: "2px solid gray" }}>
 				<p style={{ marginBottom: "70px" }}></p>

@@ -7,12 +7,13 @@ const responseInterceptors = (axiosInstance) => {
       return response;
     },(error) => {
        if (error.response.status === 401) {
-        localStorage.removeItem("token");
+        localStorage.removeItem('token');
         console.log({error});
         toast.error("sesion expirada");
         window.location.href = "/login";
        } else {
        console.log({error}); 
+        toast.error(error.response.data);
       }
     });
     };
