@@ -8,12 +8,13 @@ module.exports = {
   post: async (req, res) => {
     try {
       const { email, password } = req.body;
+      console.log(email,password)
       const costumer = await Customer.findOne({
         where: {
-          email,
+          email:email,
         },
       });
-
+console.log('costumer :',costumer)
       if (costumer) {
         res.status(400).send("Email already exists");
       } else if (email && password) {
