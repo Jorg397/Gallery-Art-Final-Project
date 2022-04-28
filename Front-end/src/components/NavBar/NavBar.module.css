@@ -1,8 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Bilbo&display=swap');
+
 .title {
-  font-size: 36px;
-  font-weight: 1000;
+  font-size: 4.5rem;
+  font-weight: 600;
   margin-left: 14px;
+  margin-top: 10px;
+  line-height: 0;
   position: relative;
+  font-family: 'Bilbo', cursive;
+  color: white;
   bottom: 5px;
 }
 
@@ -26,13 +32,15 @@
 nav {
   border-radius: 10px;
   background-color: #ffffff4a;
+  transition: all 0.3s ease-in-out;
 }
 
 .background {
-  background-color: #615d5d66;
+  background-color: #4A4E69;
+  box-shadow: 5px 5px 5px #ffffff9a;
 }
 
 .background a,
 .background span {
-  color: rgb(255, 255, 255);
+  color: white;
 }

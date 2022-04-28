@@ -23,19 +23,8 @@ console.log('costumer :',costumer)
           email,
           password: passwordhash,
         });
-        costumer = costumer.toJSON();
-        const payload = {
-          check: true,
-          id_customer: costumer.id_customer,
-        };
-        const token = jwt.sign(payload, keyTokens, {
-          expiresIn: "1h",
-        });
         res.status(201).json({
-          token: token,
-          message: "usuario y contraseña correctos",
-          id_customer: costumer.id_customer,
-          name: costumer.name,
+          message: "cuenta creada",
         });
       } else {
         res.status(400).send("parameters missing");
@@ -43,51 +32,6 @@ console.log('costumer :',costumer)
     } catch (error) {
       console.log(error);
       res.status(400).send(error);
-    }
-  },
-
-  loginPost: async (req, res) => {
-    const { email, password } = req.body;
-    console.log(email, password);
-    try {
-      if (email && password) {
-        let costumer = await Customer.findOne({
-          where: {
-            email,
-          },
-        });
-        if (costumer) {
-          const passwordMatch = await bcrypt.compare(
-            password,
-            costumer.password
-          );
-          costumer = costumer.toJSON();
-          if (passwordMatch) {
-            const payload = {
-              check: true,
-              id_customer: costumer.id_customer,
-            };
-            const token = jwt.sign(payload, keyTokens, {
-              expiresIn: "1h",
-            });
-            res.status(200).json({
-              token: token,
-              id_customer: costumer.id_customer,
-              message: "usuario y contraseña correctos",
-              name: costumer.name,
-            });
-          } else {
-            res.status(400).send("password incorrect");
-          }
-        } else {
-          res.status(400).send("email incorrect");
-        }
-      } else {
-        res.status(400).send("parameters missing");
-      }
-    } catch (error) {
-      console.log(error);
-      res.status(400).send("server error");
     }
   },
 

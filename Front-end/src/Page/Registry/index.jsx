@@ -101,11 +101,18 @@ const Registry = () => {
 		await createCustomer(GetDataRegistry)
 			.then((res) => {
 				console.log({ res });
-				toast(res.data.message);
-				localStorage.setItem("token", res.data.token);
-				localStorage.setItem("id_customer", res.data.id_customer);
-				localStorage.setItem("name", res.data.name);
-				window.location.href = "/home";
+				toast(res.data.message+", iniciar sesion", {
+					position: "top-center",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
+				setTimeout(() => {
+					window.location.href = "/login";
+				}, 3000);
 			})
 			.catch((res) =>
 				toast.error("Oops, ya existe una cuenta con estos datos o ocurrió un error", {

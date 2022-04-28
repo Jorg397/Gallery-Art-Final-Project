@@ -94,7 +94,7 @@ export default function NavBar({ gallerySection, aboutSection }) {
     >
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <span className={s.title}>
-          Art<span className={s.titleS}>.</span>Gallery
+          Sotelino
         </span>
       </div>
       <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">

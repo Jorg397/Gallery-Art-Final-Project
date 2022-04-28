@@ -7,10 +7,7 @@ require('./utils/auth');
 
 router.route("/create").post(customerController.post);
 
-router.route("/login").post(customerController.loginPost);
-
-
-router.post( '/prueba' ,
+router.post( '/login' ,
     passport.authenticate('local', { session: false }),
     customerController.passport);
 
