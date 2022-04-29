@@ -16,6 +16,7 @@ import Pinturas from "./Page/Dashboard/Admin/Pinturas";
 import Profile from "./Page/Profile/index";
 import Shopping from "./Page/Shopping/index";
 import NavBar from "./components/NavBar/NavBar";
+import { getProfile } from "./redux/actions/index";
 
 export default function App() {
   const cart = useSelector((state) => state.cart);
@@ -29,12 +30,16 @@ export default function App() {
 
   useEffect(() => {
     const localStorageCart = localStorage.getItem("cart");
+    if (localStorage.getItem("id_customer")) {
+      dispatch(getProfile(localStorage.getItem("id_customer")));
+    }
+
     if (!localStorageCart) {
       localStorage.setItem("cart", JSON.stringify([]));
     } else {
       dispatch(addLocalStorage(JSON.parse(localStorageCart)));
     }
-  }, [dispatch]);
+  }, []);
 
   return (
     <Routes>
@@ -43,13 +48,13 @@ export default function App() {
       <Route path="/home" element={<Home />} />
       <Route path="/" element={<Landing />} />
       <Route path="/details/:id" element={<Detail />} />
-      <Route path="/payment" element={<PaymentGateway />} />
-      <Route path='/gallery' element={<Gallery />} />
-	  <Route path='/dashboard' element={<Admin />} />
-	  <Route path='/dashboard/clients' element={<Clientes />} />
-	  <Route path='/dashboard/orders' element={<Pinturas />} />
-	  <Route path='/perfil' element={<Profile/>}/>
-	  <Route path='/shopping' element={<Shopping/>}/>
+
+      <Route path="/gallery" element={<Gallery />} />
+      <Route path="/dashboard" element={<Admin />} />
+      <Route path="/dashboard/clients" element={<Clientes />} />
+      <Route path="/dashboard/orders" element={<Pinturas />} />
+      <Route path="/perfil" element={<Profile />} />
+      <Route path="/shopping" element={<Shopping />} />
       <Route
         path="/payment"
         element={

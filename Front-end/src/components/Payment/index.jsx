@@ -1,22 +1,9 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import "./index.scss";
-
-import { loadStripe } from "@stripe/stripe-js"; //llama a stripe para cargar la conexion de la plataforma
-import {
-  Elements,
-  CardElement,
-  useStripe,
-  useElements,
-} from "@stripe/react-stripe-js"; //hooks de stripe: element envuelve a toda la funcion como un provider
-//CardElement es el input que recibimos desde stripe
-//useStripe hook que devuelve la conexion del stripe
-//useElements
 
 import axios from "axios";
 import Stepper from "../Stepper.jsx/Stepper";
 import StepperControl from "../StepperControl.ljsx/StepperControl";
-//poner la clave secreta en back y clave publoca en front!!!!!
 import Account from "../steps/Account";
 import Address from "../steps/Address";
 import Final from "../steps/Final";
@@ -25,61 +12,29 @@ import Summary from "../steps/Summary";
 import { StepperContext } from "../../contexts/StepperContext";
 import imgData from "../../assets/payments/datos.png";
 import imgPay from "../../assets/payments/rectangle.png";
-const stripePromise = loadStripe(
-  "pk_test_51Kqkf9FfyRC77Qc7fnEpF3BmxMcokBaXP6AwH1xvoSRXsUwDGE5JLkqQla0VkR88NGBmCgb2l3VTLD9aMLU3WhAV00I7lojf2G"
-);
-//const stripePromise = loadStripe("<your public key here>");
-const CheckoutForm = () => {
-  const stripe = useStripe();
-  const elements = useElements();
+import { useSelector } from "react-redux";
 
-  const [loading, setLoading] = useState(false);
+const validate = (input, data) => {
+  //const validText = /^[A-za-z0-9]+[A-za-z0-9-,;!?:.&\s]+$/;
+  const validText = /^[A-za-z]{1,15}$/;
+  const validNumber = /^[A-za-z0-9]{8,9}$/;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
-      card: elements.getElement(CardElement),
-    });
-    setLoading(true);
-
-    if (!error) {
-      // console.log(paymentMethod)
-      const { id } = paymentMethod;
-      try {
-        const { data } = await axios.post("http://localhost:3001/payment", {
-          id,
-          amount: 10000, //cents
-        });
-        console.log(data);
-
-        elements.getElement(CardElement).clear();
-      } catch (error) {
-        console.log(error);
-      }
-      setLoading(false);
-    }
-  };
-
-  console.log(!stripe || loading);
-
-  return (
-    <form className="card card-body" onSubmit={handleSubmit}>
-      {/* Product Information */}
-
-      <h3 className="lg:flex  lg:mt-3 md:mx-12 lg:mx-28 lg:justify-center ">
-        Price: 100$
-      </h3>
-
-      {/* User Card Input */}
-      <div className="form-group">
-        <CardElement />
-      </div>
-
-      <button disabled={!stripe}>Buy</button>
-    </form>
-  );
+  switch (input) {
+    case "name":
+      console.log(data[input]);
+      return validText.test(data[input]);
+    case "lastName":
+      return validText.test(data[input]);
+    case "dni":
+      //console.log(validDni.test(data[input]));
+      return validNumber.test(data[input]);
+    case "phone":
+      return validNumber.test(data[input]);
+    case "default_shipping_address":
+      return validText.test(data[input]);
+    case "id_customer":
+      return true;
+  }
 };
 
 function Payment() {
@@ -93,6 +48,8 @@ function Payment() {
   ];
   const [userData, setUserData] = useState("");
   const [finalData, setFinalData] = useState([]);
+  const profile = useSelector((state) => state.profile);
+  const cart = useSelector((state) => state.cart);
 
   const displayStep = (step) => {
     switch (step) {
@@ -103,7 +60,7 @@ function Payment() {
       case 3:
         return <Summary />;
       case 4:
-        return <Payments userData={userData} handleClick={handleClick} />;
+        return <Payments />;
       case 5:
         return <Final />;
     }
@@ -111,8 +68,72 @@ function Payment() {
   const handleClick = (direction) => {
     let newStep = currentStep;
     direction === "next" ? newStep++ : newStep--;
-    newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
+    if (
+      currentStep === 1 &&
+      errors.name.validity &&
+      errors.lastName.validity &&
+      errors.dni.validity &&
+      errors.phone.validity
+    ) {
+      newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
+    }
+    if (currentStep === 2 && errors.default_shipping_address.validity) {
+      newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
+    }
+    if (currentStep === 3 && cart.length) {
+      newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
+    }
+
+    if (direction !== "next" || currentStep > 3) {
+      newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
+    }
   };
+
+  useEffect(() => {
+    if (profile.default_shipping_address) {
+      const {
+        id_customer,
+        name,
+        lastName,
+        dni,
+        phone,
+        email,
+        default_shipping_address,
+      } = profile;
+      setUserData({
+        id_customer,
+        name,
+        lastName,
+        dni,
+        phone,
+        email,
+        default_shipping_address,
+      });
+    }
+  }, [profile]);
+
+  const errorsInitialValue = {
+    name: { validity: validate("name", userData), msg: "Name is required" },
+    lastName: {
+      validity: validate("lastName", userData),
+      msg: "lastName is required",
+    },
+    id_customer: {
+      validity: validate("id_customer", userData),
+      msg: "id is Required",
+    },
+    dni: { validity: validate("dni", userData), msg: "Dni is Required" },
+    phone: {
+      validity: validate("phone", userData),
+      msg: "phone is Required",
+    },
+    default_shipping_address: {
+      validity: validate("default_shipping_address", userData),
+      msg: "Shipping Address is Required",
+    },
+  };
+
+  const [errors, setErrors] = useState(errorsInitialValue);
 
   return (
     <div className="">
@@ -132,13 +153,17 @@ function Payment() {
                 setUserData,
                 finalData,
                 setFinalData,
+                validate,
+                errors,
+                setErrors,
+                handleClick,
               }}
             >
               {displayStep(currentStep)}
             </StepperContext.Provider>
 
             <div
-              className={`grid justify-center ${
+              className={`grid justify-between pl-10 ${
                 currentStep === 3 ? "divide" : null
               }`}
             >
@@ -150,26 +175,22 @@ function Payment() {
                     Datos
                   </div>
                   <span className="summarySpan flex justify-between">
-                    Nombre: <p>{userData.nombre}</p>
+                    Nombre: <p>{userData.name}</p>
                   </span>
                   <span className="summarySpan flex justify-between">
                     DNI: <p>{userData.dni}</p>
                   </span>
                   <span className="summarySpan flex justify-between">
-                    Telefono: <p>{userData.telefono}</p>
+                    Telefono: <p>{userData.phone}</p>
                   </span>
                   <span className="summarySpan">
                     Dirección de envio:{" "}
-                    <p>
-                      {userData.pais}, {userData.estado}, {userData.ciudad},{" "}
-                      {userData.codigo}, {userData.direccion}
-                    </p>
+                    <p>{userData.default_shipping_address}</p>
                   </span>
                 </>
               ) : (
                 <img src={imgData} alt="" className="max-w-xs" />
               )}
-              {console.log(userData)}
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import {
   ADD_LOCAL_STORAGE,
   REMOVE_TO_CART,
   GET_PROFILE,
+  CLEAN_CART,
 } from "../actions/index";
 
 const initialState = {
@@ -121,6 +122,12 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         cart: products,
         cartTotal: state.cartTotal - removeProduct.price,
+      };
+    case CLEAN_CART:
+      return {
+        ...state,
+        cart: action.payload,
+        cartTotal: 0,
       };
     default:
       return state;

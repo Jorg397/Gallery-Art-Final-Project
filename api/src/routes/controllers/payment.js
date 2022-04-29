@@ -8,6 +8,8 @@ const stripe = new Stripe(`${STRIPE_BACK}`);
 
 const cors = require("cors");
 const app = express();
+const axios = require("axios");
+
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000" }));
 
@@ -16,8 +18,19 @@ module.exports = {
     // you can get more data to find in a database, and so on
 
     try {
-      const { id, amount, id_customer, shipping_address, products, cartTotal } =
-        req.body;
+      const {
+        id,
+        amount,
+        id_customer,
+        shipping_address,
+        products,
+        name,
+        lastName,
+        dni,
+        phone,
+        email,
+        country,
+      } = req.body;
       const productsId = products.map((product) => product.id_product);
 
       const payment = await stripe.paymentIntents.create({
@@ -38,19 +51,43 @@ module.exports = {
           return countProduct === productsId.length ? true : false;
         });
 
-        if (checkProduct) {
+        const updateUser = await axios.put(
+          `http://localhost:3001/customer/${id_customer}`,
+          {
+            dni,
+            name,
+            lastName,
+            phone,
+            country,
+            default_shipping_address: shipping_address,
+          }
+        );
+
+        if (checkProduct && updateUser.data.message === "user updated") {
           let today = new Date();
           today.toISOString().split("T")[0];
 
           Order.create({
             customerIdCustomer: id_customer,
-            amount: cartTotal,
+            amount,
             order_date: today,
             order_status: "Created",
             observation: "",
             shipping_address: shipping_address,
           })
-            .then((order) => order.addProducts(productsId))
+            .then((order) => {
+              //console.log("order id: ", order.id_order);
+              axios.post("http://localhost:3001/mailer", {
+                email,
+                emailType: 1,
+                nombreCompleto: `${name} ${lastName}`,
+                numeroDeOrden: order.id_order,
+                productos: products,
+                total: amount,
+              });
+
+              return order.addProducts(productsId);
+            })
             .then((result) => {
               if (result.length === productsId.length) {
                 return Product.update(
@@ -75,11 +112,6 @@ module.exports = {
             .catch((err) => {
               res.status(500).send(err);
             });
-
-          //guardar la orden en la db
-          //enviar correo axios
-          //console.log("payment!!!!!!!!!!!!", payment);
-          //console.log("Order result: ", order);
         } else {
           res.send({
             completed: false,
