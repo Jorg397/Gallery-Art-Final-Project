@@ -33,6 +33,7 @@ const Login = () => {
     await googlelogin(response.profileObj).then((res) => {
       alert(res.data.message);
       localStorage.setItem("token", res.data.token);
+      console.log(res.data.token);
       localStorage.setItem("id_customer", res.data.id_customer);
       setName(res.data.name);
       window.location.href = "/home";

@@ -168,7 +168,7 @@ module.exports = {
         role: user.role,
       };
       const token = jwt.sign(payload, keyTokens, {
-        expiresIn: "1h",
+        expiresIn: "1d",
       });
       res.json({
         user,
