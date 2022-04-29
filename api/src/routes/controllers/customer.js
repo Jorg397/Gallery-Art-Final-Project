@@ -133,7 +133,7 @@ module.exports = {
 
     // if(email){
     try {
-      await Customer.update(
+      let customer =await Customer.update(
         {
           dni,
           name,
@@ -150,7 +150,7 @@ module.exports = {
           },
         }
       );
-      res.status(200).json({ message: "user updated" });
+      res.status(200).json({ message: "user updated", name: customer.name });
     } catch (err) {
       console.log(err);
       res.status(400).send({ message: "error updating customer" });

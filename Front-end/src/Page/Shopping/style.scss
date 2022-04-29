@@ -26,6 +26,8 @@
                 flex-direction: column;
                 justify-content: space-between;
                 overflow: auto;
+                animation: TablaShopping 1s ease-in-out;
+                animation-iteration-count: 1;
                 .shopping__table{
                     width:100%;
                     height:100%;
@@ -49,12 +51,22 @@
                             border: 2px solid color.$color_secondary;
                         }
                     }
+                    span{
+                        cursor: pointer;
+                        &:active{
+                            svg{
+                                transform: scale(0.9);
+                            }
+                        }
+                    }
                 }
             }
             .shopping__container__body-img{
                 width:50%;
                 display: flex;
                 justify-content: left;
+                animation: imgShopping 1s ease-in-out;
+                animation-iteration-count: 1;
                 img{
                     width: auto;
                     height: 461px;
@@ -77,4 +89,25 @@
 .css-1mbunh-MuiPaper-root{
     overflow: auto !important;
     height: 400px !important;
+}
+
+@keyframes imgShopping{
+    0%{
+        transform: translateX(-200px);
+        opacity: 0.1;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+@keyframes TablaShopping{
+    0%{
+        transform: translateX(200px);
+        opacity: 0.1;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
 }

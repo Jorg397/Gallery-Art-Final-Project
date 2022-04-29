@@ -21,6 +21,7 @@
   transition: "All 5s";
   transform: translateY(0%);
   backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
 }
 
 .hidden {
