@@ -1,6 +1,14 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { cleanCart } from "../../redux/actions";
 
 export default function Final() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(cleanCart());
+    localStorage.setItem("cart", "[]");
+  }, []);
   return (
     <div className="container md:mt-10">
       <div className="flex flex-col items-center">

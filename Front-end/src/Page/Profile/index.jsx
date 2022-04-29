@@ -65,9 +65,6 @@ const Profile = () => {
   };
 
   React.useEffect(() => {
-    dispatch(getProfile(localStorage.getItem("id_customer")));
-  }, []);
-  React.useEffect(() => {
     setEditData((prevState) => {
       return {
         ...prevState,

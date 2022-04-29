@@ -3,6 +3,7 @@ import { removeToCart } from "../../redux/actions/index";
 import s from "./summary.module.css";
 import backgroundTitle from "../../assets/background-cart-modal-title.png";
 import buttonRemoveCart from "../../assets/button_cart_remove.png";
+import React from "react";
 
 function Summary({ openModal, modalState }) {
   const cart = useSelector((state) => state.cart);
@@ -18,12 +19,22 @@ function Summary({ openModal, modalState }) {
       className={` grid grid-cols-1 grid-rows-4 my-10 relative h-64 rounded-3xl justify-end text-white`}
     >
       <div className="grid grid-cols-7 col-span-7 justify-between bg-no-repeat bg-center">
-        <span className="col-span-5 font-semibold text-base">Producto</span>
-        <span className="col-span-2 pr-3 font-semibold text-base">Precio</span>
-      </div>
-      <div className="grid grid-cols-7 col-span-7 gap-4 row-span-2 items-center overflow-scroll">
-        {cart?.map((product) => (
+        {cart.length ? (
           <>
+            <span className="col-span-5 font-semibold text-base">Producto</span>
+            <span className="col-span-2 pr-3 font-semibold text-base">
+              Precio
+            </span>
+          </>
+        ) : (
+          <span className="grid col-span-7 justify-center font-semibold text-base">
+            No tiene productos en el carrito
+          </span>
+        )}
+      </div>
+      <div className="grid grid-cols-7 col-span-7 gap-2 row-span-2 items-center overflow-scroll">
+        {cart?.map((product) => (
+          <React.Fragment key={product.id_product}>
             <div className="col-span-4 flex items-center justify-between pr-16">
               <span className="text-sm">{product.name}</span>
               <img
@@ -44,15 +55,17 @@ function Summary({ openModal, modalState }) {
                 />
               </span>
             </div>
-          </>
+          </React.Fragment>
         ))}
       </div>
       <div className="grid gap-y-4 grid-cols-7">
         <div className="grid col-start-6 col-span-2">
-          <div className="flex justify-between font-semibold">
-            <span>Total: </span>
-            <span>{cartTotal}</span>
-          </div>
+          {cart.length ? (
+            <div className="flex justify-between font-semibold">
+              <span>Total: </span>
+              <span>{cartTotal}</span>
+            </div>
+          ) : undefined}
         </div>
       </div>
     </div>

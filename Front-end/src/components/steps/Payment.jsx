@@ -1,11 +1,9 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useContext, useEffect, useRef, useState } from "react";
 import style from "./payment.module.css";
 import { loadStripe } from "@stripe/stripe-js"; //llama a stripe para cargar la conexion de la plataforma
 import {
   Elements,
   CardElement,
-  PaymentElement,
   CardNumberElement,
   CardExpiryElement,
   CardCvcElement,
@@ -18,19 +16,26 @@ import {
 
 import axios from "axios";
 import Button from "../Button";
+import { useSelector } from "react-redux";
+import { StepperContext } from "../../contexts/StepperContext";
+
 //poner la clave secreta en back y clave publoca en front!!!!!
 
 const stripePromise = loadStripe(
   "pk_test_51Kqkf9FfyRC77Qc7fnEpF3BmxMcokBaXP6AwH1xvoSRXsUwDGE5JLkqQla0VkR88NGBmCgb2l3VTLD9aMLU3WhAV00I7lojf2G"
 );
 //const stripePromise = loadStripe("<your public key here>");
-const CheckoutForm = ({ userData, handleClick }) => {
+const CheckoutForm = () => {
+  const { userData, handleClick } = useContext(StepperContext);
+
   const cart = useSelector((state) => state.cart);
   const cartTotal = useSelector((state) => state.cartTotal);
   const stripe = useStripe();
   const elements = useElements();
 
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const mountedRef = useRef(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,51 +46,45 @@ const CheckoutForm = ({ userData, handleClick }) => {
       card: elements.getElement(CardExpiryElement),
       card: elements.getElement(CardCvcElement),
     });
-    /*     const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
-      card: elements.getElement(CardElement),
-    }); */
-
-    /* const result = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: "http://localhost:3000/",
-      },
-    }); */
     setLoading(true);
 
     if (!error) {
-      // console.log(paymentMethod)
+      setError("");
       const { id } = paymentMethod;
       try {
         const { data } = await axios.post("http://localhost:3001/payment", {
           id,
-          amount: 10000, //cents
-          id_customer: "23d03928-f875-42f8-be35-5cf023be49f9", //debe tomarse desde la sesion el usuario
-          cartTotal: cartTotal,
-          shipping_address: `${userData.pais}, ${userData.estado}, ${userData.ciudad}, ${userData.codigo}, ${userData.direccion}`,
+          amount: cartTotal, //cents
+          id_customer: userData.id_customer,
+          shipping_address: userData.default_shipping_address,
           products: cart,
+          name: userData.name,
+          lastName: userData.lastName,
+          dni: userData.dni,
+          phone: userData.phone,
+          email: userData.email,
+          country: userData.country,
         });
         if (data.completed) {
           handleClick("next");
-          elements.getElement(CardElement).clear();
+          //elements.getElement(CardElement).clear();
         }
       } catch (error) {
         console.log(error);
       }
       setLoading(false);
+    } else {
+      setLoading(false);
+      setError(error.message);
+      console.log(error);
     }
   };
-  /*   const CardElementContainer = styled.div`
-    height: 40px;
-    display: flex;
-    align-items: center;
-    & .StripeElement {
-      width: 100%;
-      padding: 15px;
-    }
-  `;
- */
+
+  useEffect(() => {
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
   const CardElementOptions = {
     style: {
       base: {
@@ -110,6 +109,7 @@ const CheckoutForm = ({ userData, handleClick }) => {
     },
     hidePostalCode: true,
   };
+
   return (
     <form id="formPay" className="card card-body" onSubmit={handleSubmit}>
       {/* Product Information */}
@@ -121,6 +121,10 @@ const CheckoutForm = ({ userData, handleClick }) => {
 
       {/* User Card Input */}
       <div className={`form-group`}>
+        <div className="flex items-center justify-center text-red-500">
+          <p>{error}</p>
+        </div>
+
         <div className={`items-center h-10 ${style.inputYear}`}>
           <CardNumberElement options={CardElementOptions} />
         </div>
@@ -142,19 +146,19 @@ const CheckoutForm = ({ userData, handleClick }) => {
               loading ? (
                 <>
                   <svg
-                    class="animate-spin h-5 w-5 mr-3 ..."
+                    className="animate-spin h-5 w-5 mr-3 ..."
                     viewBox="0 0 24 24"
                   >
                     <circle
-                      class="opacity-25"
+                      className="opacity-25"
                       cx="12"
                       cy="12"
                       r="10"
                       stroke="currentColor"
-                      stroke-width="4"
+                      strokeWidth="4"
                     ></circle>
                     <path
-                      class="opacity-75"
+                      className="opacity-75"
                       fill="currentColor"
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     ></path>
@@ -167,22 +171,19 @@ const CheckoutForm = ({ userData, handleClick }) => {
             }
           />
         </div>
-        {/* <CardElement options={CardElementOptions} /> */}
-        {/* <PaymentElement /> */}
       </div>
-
       {/* deshabilitar el boton mientras se cargar stripe disabled={!stripe} */}
     </form>
   );
 };
 
-function Payments({ userData, handleClick }) {
+function Payments() {
   return (
     <Elements stripe={stripePromise}>
       <div>
         <div>
           <div>
-            <CheckoutForm userData={userData} handleClick={handleClick} />
+            <CheckoutForm />
           </div>
         </div>
       </div>

@@ -8,9 +8,10 @@ module.exports = {
   post: async (req, res) => {
     try {
       const { email, password } = req.body;
+
       const costumer = await Customer.findOne({
         where: {
-          email,
+          email:email,
         },
       });
 
@@ -36,7 +37,7 @@ module.exports = {
 
   googleloginPost: async (req, res) => {
     const { email } = req.body;
-    console.log(email);
+  
     try {
       if (email) {
         let customer = await Customer.findOne({
@@ -50,7 +51,7 @@ module.exports = {
             check: true,
             id_customer: customer.id_customer,
           };
-          console.log("este es el customer ",customer);
+      
           const token = jwt.sign(payload, keyTokens, {
             expiresIn: "1h",
           });
@@ -64,7 +65,7 @@ module.exports = {
           let customer = await Customer.create({
             email,
           });
-          console.log("este es el customer create ",customer);
+    
           customer = customer.toJSON();
           const payload = {
             check: true,
@@ -155,9 +156,7 @@ module.exports = {
       console.log(err);
       res.status(400).send({ message: "error updating customer" });
     }
-    //}else{
-    // res.status(400).send('email is required')
-    //}
+  
   },
 
   passport: async (req, res, next) => {

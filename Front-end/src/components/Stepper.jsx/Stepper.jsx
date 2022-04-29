@@ -66,6 +66,7 @@ const Stepper = ({ steps, currentStep }) => {
   const stepsDisplay = newStep.map((step, index) => {
     return (
       <div
+        key={index}
         className={`text-center w-40 text-xs font-medium uppercase mx-1 p-1 color_secondary ${
           index === 0 ? "rounded-l-lg" : ""
         } ${index === steps.length - 1 ? "rounded-r-lg" : ""} ${
