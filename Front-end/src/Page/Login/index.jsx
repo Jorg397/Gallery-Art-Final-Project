@@ -73,12 +73,9 @@ const Login = () => {
     }
     await login(GetDataLogin)
       .then((res) => {
-        console.log({ res });
-        console.log("esto viene en login ",res.data);
-        alert(res.data.message);
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("id_customer", res.data.id_customer);
-        localStorage.setItem("name", res.data.name);
+        localStorage.setItem("id_customer", res.data.user.id_customer);
+        localStorage.setItem("name", res.data.user.name);
         window.location.href = "/home";
       })
       .catch((res) => alert("Usuario o contraseña incorrectos"));

@@ -5,8 +5,12 @@ import Api from "../../interceptors/base";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const ADD_LOCAL_STORAGE = "ADD_LOCAL_STORAGE";
 export const REMOVE_TO_CART = "REMOVE_TO_CART";
-export const GET_PROFILE = "GET_PROFILE";
+export const GET_PROFILE = "GET_PROFILE"
 export const CLEAN_CART = "CLEAN_CART";
+export const GET_ORDERS = "GET_ORDERS";
+
+
+
 
 export function fetchPaints() {
   return function (dispatch) {
@@ -64,6 +68,22 @@ export function getProfile(id) {
         payload: response.data,
       });
     });
+  };
+}
+
+export const getOrders = (idCustomer) => {
+  return function (dispatch) {
+    Api
+      .get(`/orders/${idCustomer}`)
+      .then(function (response) {
+        dispatch({
+          type: GET_ORDERS,
+          payload: response.data,
+        });
+      })
+      .catch(function (err) {
+        toast.error(err.response.data.message);
+      });
   };
 }
 

@@ -9,3 +9,81 @@ html {
 ::-webkit-scrollbar {
   display: none;
 }
+
+
+.banner{
+  width: 100vw;
+}
+
+.banner__img{
+  width: 100%;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.banner__img_fondo{
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  margin: 0 auto;
+  animation: sotelinoBackhround 10s infinite linear; 
+  animation-direction: alternate;
+
+}
+
+.banner__img_sotelino{
+  width: 78%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  animation: sotelino  20s infinite linear; 
+  animation-direction: alternate;
+}
+
+@keyframes sotelinoBackhround{
+  0%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.1);
+  }
+  100%{
+    transform: scale(1.2);
+  }
+}
+
+
+/* @keyframes sotelino{
+  0%{
+    width: 78%;
+  }
+  25%{
+    width: 77%;
+  }
+  50%{
+    width: 76%;
+  }
+  75%{
+    width: 74%;
+  }
+  100%{
+    width: 74%;
+  }
+} */
+
+/* @keyframes sotelino{
+  0%{
+    transform: scale(1);
+    left: 0;
+  }
+  50%{
+    transform: scale(0.9);
+    left: 0;
+  }
+  100%{
+    transform: scale(0.8);
+    left: 0;
+  }
+} */

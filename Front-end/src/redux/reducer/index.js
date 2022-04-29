@@ -4,6 +4,8 @@ import {
   REMOVE_TO_CART,
   GET_PROFILE,
   CLEAN_CART,
+  GET_ORDERS,
+
 } from "../actions/index";
 
 const initialState = {
@@ -15,6 +17,7 @@ const initialState = {
   profile: [],
   cartTotal: 0,
   categories: [],
+  orders: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -47,6 +50,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         detail: action.payload,
         loading: false,
+      };
+    case GET_ORDERS:
+      return {
+        ...state,
+        orders: action.payload,
       };
     case "FETCH_CATEGORIES_SUCCESS":
       return {
