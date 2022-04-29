@@ -58,9 +58,6 @@ const Profile = () => {
   };
 
   React.useEffect(() => {
-    dispatch(getProfile(localStorage.getItem("id_customer")));
-  }, []);
-  React.useEffect(() => {
     setEditData((prevState) => {
       return {
         ...prevState,
@@ -70,7 +67,7 @@ const Profile = () => {
         dni: profile.dni,
       };
     });
-  },[profile]);
+  }, [profile]);
 
   if (localStorage.getItem("token") === null) {
     return <Navigate to="/login" />;

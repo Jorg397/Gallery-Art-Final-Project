@@ -1,10 +1,18 @@
 const express = require('express');
 const router = require('express').Router();
-const orderController = require('./controllers/order.js');
+const productController = require('./controllers/order.js');
+const passport = require('passport');
+const { checkRoles } = require('./utils/models/models.js');
 
-router.route('/:idOrder').get(orderController.get);
+router.get('/:idOrder',
+    passport.authenticate('jwt', { session: false }),
+    checkRoles('admin', 'user'),
+    productController.get);
 
-router.route('/:idOrder').put(orderController.put);
+router.put('/:idOrder', 
+    passport.authenticate('jwt', { session: false }),
+    checkRoles('admin', 'user'),
+    productController.put);
 
 
 module.exports = router;
