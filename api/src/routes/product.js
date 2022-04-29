@@ -16,6 +16,4 @@ router.put('/:idProduct',
     checkRoles( 'admin' ),
     productController.put);
 
-router.route("/").post(productController.post);
-
 module.exports = router;
