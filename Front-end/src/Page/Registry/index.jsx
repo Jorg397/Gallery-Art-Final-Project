@@ -12,8 +12,8 @@ import { GoogleLogin } from "react-google-login";
 import { googlelogin } from "../../services/post/googleLogin";
 
 const PORT =
-  "395216086999-0eb8o2a0jcr870t9ndclcnik3fvt564e.apps.googleusercontent.com";
-
+  //"395216086999-0eb8o2a0jcr870t9ndclcnik3fvt564e.apps.googleusercontent.com";
+  "293035429788-03unmah7i2rd3vpsihdplp6jqc2o5br9.apps.googleusercontent.com";
 
 const Registry = () => {
 	const [GetDataRegistry, setGetDataRegistry] = useState({
