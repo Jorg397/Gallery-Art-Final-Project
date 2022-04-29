@@ -9,4 +9,10 @@ router.get('/:idOrder',
     checkRoles('admin', 'user'),
     productController.get);
 
+router.put('/:idOrder', 
+    passport.authenticate('jwt', { session: false }),
+    checkRoles('admin', 'user'),
+    productController.put);
+
+
 module.exports = router;
