@@ -1,10 +1,10 @@
 const express = require('express');
 const router = require('express').Router();
-const productController = require('./controllers/order.js');
+const orderController = require('./controllers/order.js');
 
-router
-    .route('/:idOrder')
-    .get(productController.get);
+router.route('/:idOrder').get(orderController.get);
+
+router.route('/:idOrder').put(orderController.put);
 
 
 module.exports = router;

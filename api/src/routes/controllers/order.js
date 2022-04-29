@@ -66,8 +66,24 @@ products: order.products.map(c =>{
         }else{
             res.status(400).send('Bad request');
         }
-    }
+    },
 
    
 
+    put: async (req, res) => {
+  const id_order = req.params.idOrder
+
+  const {order_status} = req.body
+
+  if(order_status === "Created" ||order_status === "Pending" ||order_status ==="Delivered" ) {
+
+      const ordenado = await Order.findByPk(id_order)
+     
+      ordenado.update({order_status:order_status})
+      res.send("Estado cambiado con exito")
+  } else{
+      res.send("Error del estado")
+  }
+    
+}
 }
