@@ -1,0 +1,103 @@
+// .author-path {
+//     display: block;
+//     margin: 0 auto;
+//     position: absolute;
+//     top: calc(20% + 20px);
+// }
+
+// .author-path {
+//     stroke-dasharray: 2600;
+//     stroke-dashoffset: 2600;
+// }
+
+// .underline {
+//     stroke-width: 20;
+//     animation: letter-animation 5s linear forwards;
+//     animation-delay: 5.1s;
+// }
+
+// .i-2 { /* Mar(i)na */
+//     stroke-width: 12;
+//     animation: letter-animation 15s linear forwards;
+//     animation-delay: 4.8s;
+// }
+
+// .aa-2 { /* Marin(a) */
+//     stroke-width: 30;
+//     animation: letter-animation 10s linear forwards;
+//     animation-delay: 4.25s;
+// }
+
+// .aa-1 { /* Marin(a) */
+//     stroke-width: 10;
+//     animation: letter-animation 8s linear forwards;
+//     animation-delay: 4s;
+// }
+
+// .n-2 { /* Mari(n)a */
+//     stroke-width: 15;
+//     animation: letter-animation 10s linear forwards;
+//     animation-delay: 3.5s;
+// }
+
+// .n-1 { /* Mari(n)a */
+//     stroke-width: 10;
+//     animation: letter-animation 8s linear forwards;
+//     animation-delay: 3.3s;
+// }
+
+// .i-1 { /* Mar(i)na */
+//     stroke-width: 9;
+//     animation: letter-animation 8s linear forwards;
+//     animation-delay: 3s;
+// }
+
+// .r-2 { /* Ma(r)ina */
+//     stroke-width: 12;
+//     animation: letter-animation 8s linear forwards;
+//     animation-delay: 2.7s;
+// }
+
+// .r-1 { /* Ma(r)ina */
+//     stroke-width: 9;
+//     animation: letter-animation 8s linear forwards;
+//     animation-delay: 2.45s;
+// }
+
+// .a-2 { /* M(a)rina */
+//     stroke-width: 8;
+//     animation: letter-animation 8s linear forwards;
+//     animation-delay: 2.25s;
+// }
+
+// .a-1 { /* M(a)rina */
+//     stroke-width: 10;
+//     animation: letter-animation 8s linear forwards;
+//     animation-delay: 2s;
+// }
+
+// .M-3 { /* (M)arina */
+//     stroke-width: 20;
+//     animation: letter-animation 5s linear forwards;
+//     animation-delay: 1.53s;
+// }
+
+// .M-2 { /* (M)arina */
+//     stroke-width: 20;
+//     animation: letter-animation 5s linear forwards;
+//     animation-delay: 1.05s;
+// }
+
+// .M-1 { /* (M)arina */
+//     stroke-width: 18;
+//     animation: letter-animation 5s linear forwards;
+// }
+
+// @keyframes letter-animation {
+//     0% {
+//         stroke-dashoffset: 2600;
+//     }
+//     100% {
+//         stroke-dashoffset: 0;
+//     }
+// }

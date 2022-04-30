@@ -103,6 +103,18 @@
                         }
                     }
                 }
+                button{
+                    width: 357px;
+                    height: 50px;
+                    border-radius: size.$size_corners_button !important;
+                    justify-content: center;
+                    color: color.$text_color_secondary !important;
+                    opacity: 1 !important;
+                    font-family: font.$font_text !important;
+                    font-weight: 900 !important;
+                    font-size: 1rem !important;
+                    border: 1px solid color.$color_secondary !important;
+                }
             }
         }
 

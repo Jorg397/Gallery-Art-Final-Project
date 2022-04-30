@@ -10,11 +10,13 @@ import { login } from "../../services/post/login";
 import { GoogleLogin } from "react-google-login";
 import "./style.scss";
 import { googlelogin } from "../../services/post/googleLogin";
+import { useLocalStorage } from "../../utils/customerHooks/useLocalStorage";
 
 const PORT =
   //"395216086999-0eb8o2a0jcr870t9ndclcnik3fvt564e.apps.googleusercontent.com";
   "293035429788-03unmah7i2rd3vpsihdplp6jqc2o5br9.apps.googleusercontent.com";
 const Login = () => {
+  const [name, setName] = useLocalStorage("name", "");
   const [GetDataLogin, setGetDataLogin] = useState({
     email: "",
     password: "",
@@ -28,14 +30,14 @@ const Login = () => {
   const responseGoogle = async (response) => {
     console.log(response.profileObj);
 
-    await googlelogin(response.profileObj)
-      .then((res) => {
-        alert(res.data.message);
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("id_customer", res.data.id_customer);
-        localStorage.setItem("name", res.data.name);
-        window.location.href = "/home";
-      })
+    await googlelogin(response.profileObj).then((res) => {
+      alert(res.data.message);
+      localStorage.setItem("token", res.data.token);
+      console.log(res.data.token);
+      localStorage.setItem("id_customer", res.data.id_customer);
+      setName(res.data.name);
+      window.location.href = "/home";
+    });
   };
 
   const changeSetError = (field, value) => {
@@ -75,7 +77,7 @@ const Login = () => {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("id_customer", res.data.user.id_customer);
-        localStorage.setItem("name", res.data.user.name);
+        setName(res.data.user.name);
         window.location.href = "/home";
       })
       .catch((res) => alert("Usuario o contraseña incorrectos"));
@@ -112,26 +114,24 @@ const Login = () => {
               onChange={handleChangeInput}
             />
           </div>
-
-          <div className="login__container__buttons-login">
-            <Button
-              name={"Ingresar"}
-              version={"v1"}
-              type={"submit"}
-              width={"357px"}
-              height={"50px"}
-            />
-            <Link to="/login">¿Te olvidas tu contraseña?</Link>
-          </div>
-
-          <div>
-            <GoogleLogin
-              clientId={PORT}
-              buttonText="Login"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-              cookiePolicy={"single_host_origin"}
-            />
+          <div className="login__container__form__buttons">
+            <div className="login__container__buttons-login">
+              <Button
+                name={"Ingresar"}
+                version={"v1"}
+                type={"submit"}
+                width={"357px"}
+                height={"50px"}
+              />
+              <Link to="/login">¿Te olvidas tu contraseña?</Link>
+            </div>
+              <GoogleLogin
+                clientId={PORT}
+                buttonText="Continuar con Google"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={"single_host_origin"}
+              />
           </div>
         </form>
         <div className="login__container__Registry">
