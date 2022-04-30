@@ -3,6 +3,7 @@ import About from "../About/About";
 import Destacado from "../Destacado/Destacado";
 import Footer from "../Footer/Footer";
 import Ilustrame from "../Ilustrame/Ilustrame";
+import Button from "../Button";
 import Author from "../Autor/index";
 import Titulos from "../Titulos/Titulos";
 import fondoSotelino from "../../assets/sotelinofondo.png";
@@ -12,13 +13,19 @@ import Gallery from "../Gallery/Gallery";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPaints, getCategories } from "../../redux/actions";
 import Slider from "../Slider/Slider";
+import ArrowDown from "../ArrowDown/index";
 import NavBar from "../NavBar/NavBar";
 
 export default function Home() {
   const dispatch = useDispatch();
   const paints = useSelector((state) => state.filteredPaints);
   const categories = useSelector((state) => state.categories);
-
+  const scrollToSection = (sectionref) => {
+    window.scrollTo({
+      top: sectionref.current.offsetTop,
+      behavior: "smooth",
+    });
+  };
   const gallery = useRef(null);
   const about = useRef(null);
   const slider = useRef(null);
@@ -27,6 +34,14 @@ export default function Home() {
     dispatch(fetchPaints());
     dispatch(getCategories());
   }, [dispatch]);
+
+  const handleClickPicture = () => {
+    window.location.href = "/gallery";
+  };
+
+  const handleClickAbout = () => {
+    scrollToSection("about");
+  };
 
   return (
     <div className={s.container}>
@@ -44,10 +59,34 @@ export default function Home() {
           />
           <img src={sotelino} className={s.banner__img_sotelino} alt="autor" />
         </div>
-		<div>
-			<Author/>
-			<p>un artista muy enfocado a pintar cuadros de paisaje y naturaleza, te invito a ver mis obras en la siguentes secciones. </p>
-		</div>
+        <div className={s.banner__text}>
+          <h1>Hola, soy Hugo Sotelino</h1>
+          <p>
+            un artista muy enfocado a pintar cuadros de paisaje y naturaleza, te
+            invito a ver mis obras en la siguentes secciones.{" "}
+          </p>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              marginTop: "50px",
+            }}
+          >
+            <div className={s.banner__text_scrol}>
+              <ArrowDown />
+            </div>
+            <p
+              style={{
+                color: "white",
+                fontFamily: "mulish",
+                fontSize: "0.87rem",
+              }}
+            >
+              ver mas
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* <Slider paints={paints}></Slider> */}

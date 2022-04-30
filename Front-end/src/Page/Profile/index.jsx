@@ -8,12 +8,10 @@ import { getProfile } from "../../redux/actions";
 import { putProfile } from "../../services/put/profile";
 import { toast } from "react-toastify";
 import Button from "../../components/Button/index";
-import { useLocalStorage } from "../../utils/customerHooks/useLocalStorage";
 import Input from "./Input/input";
 import "./style.scss";
 
 const Profile = () => {
-  const [name, setName] = useLocalStorage("name", "");
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
   const [state, setState] = React.useState({});
@@ -52,14 +50,12 @@ const Profile = () => {
     const response = await putProfile(
       editData,
       localStorage.getItem("id_customer")
-    )
-      .then((res) => {
-        setName(editData.name);
-        toast(res.data.message);
-        dispatch(getProfile());
-        window.location.reload();
-      })
-    if(!inputSate){
+    ).then((res) => {
+      toast(res.data.message);
+      dispatch(getProfile());
+      window.location.reload();
+    });
+    if (!inputSate) {
       window.location.reload();
     }
   };
@@ -87,7 +83,7 @@ const Profile = () => {
         <h1 className="profile__container__title">Mi Perfil</h1>
         <div className="profile__container__body">
           <div className="profile__container__body-data">
-            { profile.lastName && profile.name && (
+            {profile.lastName && profile.name && (
               <form onSubmit={handleSubmit}>
                 <div className="profile__container__body-data-row 1">
                   <Input
@@ -223,39 +219,36 @@ const Profile = () => {
                   />
                 </div>
                 <Button
-                    version={"v2"}
-                    width="200px"
-                    type="submit"
-                    name="Actualizar datos"
-                    height="45px"
-                    onClick={handleSubmit}
-                  />
-              </form>
-              
-            )}
-            {console.log("state" ,editData)}
-            {!profile.lastName && !profile.name && (
-              <div
-                className="profile__container__body-buttonForm"
-                style={
-                  inputSate
-                    ? {
-                        display: "block",
-                      }
-                    : { display: "none" }
-                }
-              >
-                <h1></h1>
-                <Button
-                  version={"v1"}
-                  width="300px"
-                  type="button"
-                  name="Completar datos"
-                  height="40px"
-                  onClick={handleVisibleForm}
+                  version={"v2"}
+                  width="200px"
+                  type="submit"
+                  name="Actualizar datos"
+                  height="45px"
+                  onClick={handleSubmit}
                 />
-              </div>
+              </form>
             )}
+            {console.log("state", editData)}
+            <div
+              className="profile__container__body-buttonForm"
+              style={
+                inputSate && (profile.lastName || !profile.name) 
+                  ? {
+                      display: "block",
+                    }
+                  : { display: "none" }
+              }
+            >
+              <h1></h1>
+              <Button
+                version={"v1"}
+                width="300px"
+                type="button"
+                name="Completar datos"
+                height="40px"
+                onClick={handleVisibleForm}
+              />
+            </div>
           </div>
           <div className="profile__container__body-img">
             <img src={img} />

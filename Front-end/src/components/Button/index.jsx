@@ -3,7 +3,7 @@ import React from "react";
 import "./style.scss";
 
 const Button = (props) => {
-  const { version, width, type, name, height, icon, onClick, className } =
+  const { version, width, type, name, height, icon, onClick, className, comp } =
     props;
   return (
     <div className="button">
