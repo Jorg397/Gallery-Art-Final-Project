@@ -1,11 +1,12 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import MaterialTable from "material-table";
-import tableIcons from "../../assets/icons/tableIcons";
 import { useDispatch, useSelector } from "react-redux";
 import { ThemeProvider, createTheme } from "@mui/material";
+import { toast } from "react-toastify";
 
 import NavBar from "../../components/NavBar/NavBar";
+import tableIcons from "../../assets/icons/tableIcons";
 import imgShopping from "../../assets/imgShopping.png";
 import { filterData } from "../../utils/filter/filter";
 import { getOrders } from "../../redux/actions";
@@ -108,7 +109,10 @@ const Shopping = () => {
           <p>
             {rowData.codeSend} {rowData.companySend}
             {
-              rowData.codeSend !== null && <span>
+              rowData.codeSend !== null && <span onClick={()=>{
+                navigator.clipboard.writeText(rowData.codeSend);
+                return toast.success("Copiado numeros de envio");
+              }}>
               <Copy />
             </span>
             }
@@ -203,13 +207,14 @@ const Shopping = () => {
                           <div
                             style={{
                               fontSize: "15px",
-                              margin: "10px 0",
+                              padding: "10px 5px",
                               fontFamily: "mulish",
                               fontWeight: "400",
-                              textAlign: "center",
+                              textAlign: "left",
                               display: "flex",
-                              justifyContent: "flex-start",
+                              justifyContent: "left",
                               color: "#22223b",
+                              background: "#fff",
                             }}
                           >
                             <table>
@@ -221,7 +226,7 @@ const Shopping = () => {
                                     </p>
                                   </td>
                                 </tr>
-                                {dataProducts.map((product,index) => {
+                                {rowData.products.map((product,index) => {
                                   let idproduct = product.id_product.slice(-3);
                                   return (
                                     <tr key={index}>

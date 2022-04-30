@@ -1,6 +1,5 @@
-const { Customer } = require('../../../db');
-const boom = require('@hapi/boom');
-
+const { Customer } = require("../../../db");
+const boom = require("@hapi/boom");
 
 module.exports = {
     async findByEmail(email) {

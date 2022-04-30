@@ -14,12 +14,19 @@ html {
 .banner{
   width: 100vw;
 }
+/* .banner__text{
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+} */
 
 .banner__img{
   width: 100%;
   position: relative;
   height: 100vh;
   overflow: hidden;
+  max-height: 900px;
   margin: 0 auto;
 }
 
@@ -27,6 +34,7 @@ html {
   width: 100%;
   height: auto;
   object-fit: cover;
+  min-height: 900px;
   margin: 0 auto;
   animation: sotelinoBackhround 10s infinite linear; 
   animation-direction: alternate;
@@ -35,6 +43,7 @@ html {
 
 .banner__img_sotelino{
   width: 78%;
+  min-height: 670px;
   position: absolute;
   left: 0;
   bottom: 0;

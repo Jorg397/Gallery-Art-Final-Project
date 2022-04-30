@@ -1,3 +1,4 @@
+
 require('dotenv').config();
 const { Product, Order, Customer } = require('../../db');
 const { todayDate } = require('../utils/models/models');
@@ -138,6 +139,4 @@ module.exports= {
         }
     },
 
-   
-
-}
+};

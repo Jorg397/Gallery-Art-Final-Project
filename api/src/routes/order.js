@@ -14,7 +14,8 @@ router.post('/',
     checkRoles('admin', 'user'),
     productController.post);
 
-router.put('/:idOrder',
+
+router.put('/:idOrder', 
     passport.authenticate('jwt', { session: false }),
     checkRoles('admin', 'user'),
     productController.put);
@@ -25,6 +26,9 @@ router.put('/status/:idOrder',
     productController.putStatus);
 
 router.delete('/:idOrder',
+    passport.authenticate('jwt', { session: false }),
+    checkRoles('admin', 'user'),
     productController.delete);
+
 
 module.exports = router;
