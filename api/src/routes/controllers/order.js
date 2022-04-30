@@ -29,41 +29,53 @@ module.exports = {
               name: c.dataValues.name,
               price: c.dataValues.price,
               description: c.dataValues.description,
-
-              technique: c.dataValues.technique,
-              released: c.dataValues.released,
-              image: c.dataValues.image,
-              state: c.dataValues.state,
             };
-            return prod;
           }),
+          // let data = {
+          //     idProduct: product.dataValues.id_product,
+          //     sku: product.dataValues.sku,
+          //     name: product.dataValues.name,
+          //     serie: product.dataValues.serie,
+          //     measures: product.dataValues.measures,
+          //     categories: product.categories.map(c =>{
+          //         let ord = {
+          //             idOrder: c.dataValues.id_order,
+          //             name: c.dataValues.name,
+          //         }
+          //         return cate;
+          //     }),
+          //     price: product.dataValues.price,
+          //     description: product.dataValues.description,
+          //     technique: product.dataValues.technique,
+          //     released: product.dataValues.released,
+          //     image: product.dataValues.image,
+          //     state: product.dataValues.state,
         };
-        // let data = {
-        //     idProduct: product.dataValues.id_product,
-        //     sku: product.dataValues.sku,
-        //     name: product.dataValues.name,
-        //     serie: product.dataValues.serie,
-        //     measures: product.dataValues.measures,
-        //     categories: product.categories.map(c =>{
-        //         let ord = {
-        //             idOrder: c.dataValues.id_order,
-        //             name: c.dataValues.name,
-        //         }
-        //         return cate;
-        //     }),
-        //     price: product.dataValues.price,
-        //     description: product.dataValues.description,
-        //     technique: product.dataValues.technique,
-        //     released: product.dataValues.released,
-        //     image: product.dataValues.image,
-        //     state: product.dataValues.state,
-        // }
         res.status(200).json(data);
       } catch (error) {
         res.status(404).send("Product not found");
       }
     } else {
       res.status(400).send("Bad request");
+    }
+  },
+
+  put: async (req, res) => {
+    const id_order = req.params.idOrder;
+
+    const { order_status } = req.body;
+
+    if (
+      order_status === "Created" ||
+      order_status === "Pending" ||
+      order_status === "Delivered"
+    ) {
+      const ordenado = await Order.findByPk(id_order);
+
+      ordenado.update({ order_status: order_status });
+      res.send("Estado cambiado con exito");
+    } else {
+      res.send("Error del estado");
     }
   },
 };
