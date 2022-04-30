@@ -50,6 +50,8 @@ module.exports = {
           const payload = {
             check: true,
             id_customer: customer.id_customer,
+            sub: customer.id_customer,
+            role: customer.role,
           };
       
           const token = jwt.sign(payload, keyTokens, {
