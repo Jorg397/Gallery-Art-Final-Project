@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
 import Button from "../../components/Button/index";
 // import google from "../../assets/icons/google.svg";
 import TextField from "../../components/TextField/index";
@@ -29,12 +29,17 @@ const Login = () => {
     console.log(response.profileObj);
 
     await googlelogin(response.profileObj).then((res) => {
-      alert(res.data.message);
+      setTimeout(() => {
+        window.location.href = "/home";
+      },10)
+      console.log("entra aca login 1",res.data);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("id_customer", res.data.id_customer);
-      localStorage.setItem("name", res.data.user.name);
-      window.location.href = "/home";
-    });
+      localStorage.setItem("name", res.data.name);
+      console.log("entra aca login 2",res.data);
+      console.log("entra aca login 3",res.data);
+    })
+    .catch((err) => {return toast.error(err.response.data.message)});
   };
 
   const changeSetError = (field, value) => {

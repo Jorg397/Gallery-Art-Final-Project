@@ -20,6 +20,7 @@ export default function NavBar({ gallerySection, aboutSection }) {
   const handleclicklogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("id_customer");
+    localStorage.removeItem("name");
     window.location.reload();
   };
 
@@ -93,7 +94,7 @@ export default function NavBar({ gallerySection, aboutSection }) {
 
   return (
     <nav
-      className={`flex items-center justify-between flex-wrap p-2 fixed w-screen z-10 ${
+      className={`flex items-center justify-between flex-wrap p-2 fixed w-screen z-10 w-full ${
         background && s.background
       } ${show ? s.active : s.hidden}`}
     >
@@ -146,7 +147,7 @@ export default function NavBar({ gallerySection, aboutSection }) {
                 onClick={handleClickOptions}
                 className="focus:outline-none text-base block mt-4 lg:inline-block lg:mt-0 text-white underline hover:text-white mr-12 cursor-pointer "
               >
-                {localStorage.getItem("name") === null
+                {localStorage.getItem("name") === "null"
                   ? "usuario"
                   : localStorage.getItem("name")}
               </button>

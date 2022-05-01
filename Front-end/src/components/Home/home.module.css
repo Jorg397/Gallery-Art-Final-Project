@@ -81,8 +81,9 @@ html {
 }
 
 .banner__img_sotelino{
-  width: 78%;
+  width: auto;
   min-height: 670px;
+  height: 670px;
   position: absolute;
   left: 0;
   bottom: 0;

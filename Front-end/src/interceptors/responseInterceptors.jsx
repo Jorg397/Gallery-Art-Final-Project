@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 const responseInterceptors = (axiosInstance) => {
     axiosInstance.interceptors.response.use((response) => {
       //Response Successful
-      console.log(response);
+      console.log("esponse en base ",response);
       return response;
     },(error) => {
        if (error.response.status === 401) {
