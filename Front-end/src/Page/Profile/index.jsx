@@ -6,12 +6,14 @@ import { useSelector, useDispatch } from "react-redux";
 import img from "../../assets/imgPerfil.png";
 import { getProfile } from "../../redux/actions";
 import { putProfile } from "../../services/put/profile";
+import {useLocalStorage} from "../../utils/customerHooks/useLocalStorage";
 import { toast } from "react-toastify";
 import Button from "../../components/Button/index";
 import Input from "./Input/input";
 import "./style.scss";
 
 const Profile = () => {
+  const [name, setName] = useLocalStorage("");
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
   const [state, setState] = React.useState({});
@@ -53,6 +55,7 @@ const Profile = () => {
     ).then((res) => {
       toast(res.data.message);
       dispatch(getProfile());
+      setName(editData.name);
       window.location.reload();
     });
     if (!inputSate) {

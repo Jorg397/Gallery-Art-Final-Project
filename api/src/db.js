@@ -45,8 +45,8 @@ Category.belongsToMany(Product,{through:"product_category"})
 Comment.hasMany(Image)
 Image.belongsTo(Comment)
 
-Order.hasOne(Comment)
-Comment.belongsTo(Order);
+Customer.hasOne(Comment)
+Comment.belongsTo(Customer);
 
 
 module.exports = {

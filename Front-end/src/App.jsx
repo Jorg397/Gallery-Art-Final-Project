@@ -17,6 +17,7 @@ import Profile from "./Page/Profile/index";
 import Shopping from "./Page/Shopping/index";
 import NavBar from "./components/NavBar/NavBar";
 import { getProfile } from "./redux/actions/index";
+import Comments from "./Page/Comments/index";
 
 export default function App() {
   const cart = useSelector((state) => state.cart);
@@ -55,6 +56,7 @@ export default function App() {
       <Route path="/dashboard/orders" element={<Pinturas />} />
       <Route path="/perfil" element={<Profile />} />
       <Route path="/shopping" element={<Shopping />} />
+      <Route path="/comentarios" element={<Comments />} />
       <Route
         path="/payment"
         element={

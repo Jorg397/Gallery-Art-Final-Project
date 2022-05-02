@@ -7,6 +7,7 @@ const payment = require("./payment");
 const page404 = require("./404");
 const router = Router();
 const nodeMailer=require("./mailer");
+const imageComments = require("./imageComments");
 const orderById=require("./order")
 const ordersGet=require("./orders");
 const commentGet=require("./comments");
@@ -27,6 +28,7 @@ router.use("/comments", commentGet);
 router.use("/comment", commentPost);
 router.use("/comment", commentPut);
 router.use("/comment", commentDelete);
+router.use("/imagecomments", imageComments);
 
 
 
