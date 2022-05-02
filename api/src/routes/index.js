@@ -29,15 +29,4 @@ router.use("/comment", comment);
 router.use("*", page404);
 
 
-
-
-
-
-
-module.exports = router;
-
-
-
-
-
 module.exports = router;
