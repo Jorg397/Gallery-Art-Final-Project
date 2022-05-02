@@ -51,8 +51,8 @@ Category.belongsToMany(Product,{through:"product_category"})
 Comment.hasMany(Image)
 Image.belongsTo(Comment)
 
-Order.hasOne(Comment);
-Comment.belongsTo(Order);
+Customer.hasMany(Comment);
+Comment.belongsTo(Customer);
 
 Cart.belongsToMany(Product,{through:"cart_product"});
 Product.belongsToMany(Cart,{through:"cart_product"})

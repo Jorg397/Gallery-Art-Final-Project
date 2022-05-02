@@ -1,52 +1,60 @@
 require("dotenv").config();
 const axios = require("axios");
-const { Comment, Image } = require("../../db");
+const { Comment, Image, Customer } = require("../../db");
 
 module.exports = {
   post: async (req, res) => {
     try {
-      const { description, validated, orderIdOrder, urlImage } = req.body;
+      const { description, validated, customerIdCustomer, urlImage } = req.body;
 
-      const comentario = await Comment.findOne({
-        where: {
-          orderIdOrder: orderIdOrder,
-        },
+      // await Comment.findAll({
+      //   where: {
+      //     customerIdCustomer: customerIdCustomer,
+      //   },
+      //   attributes: ["id_comment","description","validated","customerIdCustomer"],
+      // });
+
+      let coment = await Comment.create({
+        description: description,
+        validated: validated,
+        customerIdCustomer: customerIdCustomer,
       });
 
-      if (comentario) {
-        res.status(400).send("El comentario ya existe");
-      } else {
-        let coment = await Comment.create({
-          description: description,
-          validated: validated,
-          orderIdOrder: orderIdOrder,
+      for (let i = 0; i < urlImage.length; i++) {
+        let aux = "";
+        aux = urlImage[i];
+        await Image.create({
+          urlImage: aux,
+          commentIdComment: coment.dataValues.id_comment,
         });
-
-        for (let i = 0; i < urlImage.length; i++) {
-          let aux = "";
-          aux = urlImage[i];
-          await Image.create({
-            urlImage: aux,
-            commentIdComment: coment.dataValues.id_comment,
-          });
-        }
-
-        res.status(201).json("Comentario guardado");
       }
+      res.status(201).json("Comentario guardado");
     } catch (error) {
       res.status(400).send(error);
     }
   },
+
+
   put: async (req, res) => {
     let aux = req.params.idComment;
 
-    const { description, urlImage } = req.body;
+    const { description, urlImage,validated} = req.body;
 
     try {
-      await Comment.update(
+      await Comment.update({ 
+        validated
+      },
+       
         {
-          description,
-        },
+          where: {
+            id_comment: aux,
+          },
+        }
+      );
+      await Comment.update({ 
+        description
+      },
+       
         {
           where: {
             id_comment: aux,
@@ -74,9 +82,10 @@ module.exports = {
     }
   },
 
+  
   delete: async (req, res) => {
-    let aux = req.params.idComment;
-
+    const aux = req.params.idComment;
+console.log(aux)
     try {
       Comment.findOne({
         where: {
