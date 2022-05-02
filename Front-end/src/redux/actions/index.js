@@ -5,17 +5,16 @@ import Api from "../../interceptors/base";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const ADD_LOCAL_STORAGE = "ADD_LOCAL_STORAGE";
 export const REMOVE_TO_CART = "REMOVE_TO_CART";
-export const GET_PROFILE = "GET_PROFILE"
+export const GET_PROFILE = "GET_PROFILE";
 export const CLEAN_CART = "CLEAN_CART";
 export const GET_ORDERS = "GET_ORDERS";
 
-
-
+const local = "http://localhost:3001";
 
 export function fetchPaints() {
   return function (dispatch) {
     dispatch({ type: "FETCH_PAINTS" });
-    Api.get(`/products`)
+    Api.get(`${local}/products`)
       .then(function (response) {
         dispatch({
           type: "FETCH_PAINTS_SUCCESS",
@@ -31,7 +30,7 @@ export function fetchPaints() {
 export function getDetail(id) {
   return function (dispatch) {
     dispatch({ type: "FETCH_PAINT_DETAIL" });
-    Api.get(`/product/${id}`)
+    Api.get(`${local}/product/${id}`)
       .then(function (response) {
         dispatch({
           type: "FETCH_PAINT_DETAIL",
@@ -47,7 +46,7 @@ export function getDetail(id) {
 export function getCategories() {
   return function (dispatch) {
     dispatch({ type: "FETCH_CATEGORIES" });
-    Api.get(`/categories`)
+    Api.get(`${local}/categories`)
       .then(function (response) {
         dispatch({
           type: "FETCH_CATEGORIES_SUCCESS",
@@ -73,8 +72,7 @@ export function getProfile(id) {
 
 export const getOrders = (idCustomer) => {
   return function (dispatch) {
-    Api
-      .get(`/orders/${idCustomer}`)
+    Api.get(`${local}/customer/${id}`)
       .then(function (response) {
         dispatch({
           type: GET_ORDERS,
@@ -85,7 +83,7 @@ export const getOrders = (idCustomer) => {
         toast.error(err.response.data.message);
       });
   };
-}
+};
 
 export function filterByCategory(category) {
   return function (dispatch) {
@@ -141,5 +139,138 @@ export function cleanCart() {
   return {
     type: CLEAN_CART,
     payload: [],
+  };
+}
+export function createPaint(data) {
+  return function (dispatch) {
+    dispatch({ type: "CREATE_PAINT" });
+    Api.post(`${local}/product`, data)
+      .then(function (response) {
+        dispatch({
+          type: "CREATE_PAINT_SUCCESS",
+          payload: response.data,
+        });
+      })
+      .catch(function (err) {
+        dispatch({ type: "CREATE_PAINT_FAILURE", payload: err });
+      });
+  };
+}
+export function filterState(state) {
+  return {
+    type: "FILTER_STATE",
+    payload: state,
+  };
+}
+export function searchAllThatContains(search) {
+  return {
+    type: "SEARCH_ALL_THAT_CONTAINS",
+    payload: search,
+  };
+}
+
+export function getCustomers() {
+  return function (dispatch) {
+    dispatch({ type: "FETCH_CUSTOMERS" });
+    Api.get(`${local}/customer`)
+      .then(function (response) {
+        dispatch({
+          type: "FETCH_CUSTOMERS_SUCCESS",
+          payload: response.data,
+        });
+      })
+      .catch(function (err) {
+        dispatch({ type: "FETCH_CUSTOMERS_FAILURE", payload: err });
+      });
+  };
+}
+
+export function filterUserState(state) {
+  return {
+    type: "FILTER_USER_STATE",
+    payload: state,
+  };
+}
+export function switchUserState(state) {
+  return {
+    type: "SWITCH_USER_STATE",
+    payload: state,
+  };
+}
+export function getOrder(id) {
+  return function (dispatch) {
+    dispatch({ type: "FETCH_ORDER" });
+    Api.get(`${local}/order/${id}`)
+      .then(function (response) {
+        dispatch({
+          type: "FETCH_ORDER_SUCCESS",
+          payload: response.data,
+        });
+      })
+      .catch(function (err) {
+        dispatch({ type: "FETCH_ORDER_FAILURE", payload: err });
+      });
+  };
+}
+export function searchUserThatContains(search) {
+  return {
+    type: "SEARCH_USER_THAT_CONTAINS",
+    payload: search,
+  };
+}
+export function searchPaintThatContains(search) {
+  return {
+    type: "SEARCH_PAINT_THAT_CONTAINS",
+    payload: search,
+  };
+}
+export function getCustomerById(id) {
+  return function (dispatch) {
+    dispatch({ type: "FETCH_CUSTOMER_BY_ID" });
+    Api.get(`${local}/customer/${id}`)
+      .then(function (response) {
+        dispatch({
+          type: "FETCH_CUSTOMER_BY_ID_SUCCESS",
+          payload: response.data,
+        });
+      })
+      .catch(function (err) {
+        dispatch({ type: "FETCH_CUSTOMER_BY_ID_FAILURE", payload: err });
+      });
+  };
+}
+
+export function createProduct(formImage, productData) {
+  return async function () {
+    try {
+      const uploadImage = await axios.post(
+        "https://api.cloudinary.com/v1_1/djuzewizj/upload",
+        formImage
+      );
+
+      productData.image = uploadImage.data.secure_url;
+
+      const addProduct = await axios.post(
+        "http://localhost:3001/product",
+        productData
+      );
+
+      toast.success("Producto Guardado", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      return {
+        status: addProduct.status === 201 && true,
+        message: addProduct.statusText,
+      };
+    } catch (error) {
+      return { status: false, message: error };
+    }
   };
 }
