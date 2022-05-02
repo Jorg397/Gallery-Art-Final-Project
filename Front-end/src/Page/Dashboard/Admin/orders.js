@@ -5,8 +5,8 @@ const orders = [{
     order_status: "Pending",
     observation: "",
     shipping_address: "",
-    codeSend: "",
-    companySend: "",
+    codeSend: "456sdfg45",
+    companySend: "American Express",
     products: [{
         sku: "sku1",
         name: "Product 1",
@@ -24,8 +24,8 @@ const orders = [{
     order_status: "Pending",
     observation: "",
     shipping_address: "",
-    codeSend: "",
-    companySend: "",
+    codeSend: "456sdfg45",
+    companySend: "American Express",
     products: [{
         sku: "sku1",
         price: 300,
@@ -42,8 +42,8 @@ const orders = [{
     order_status: "Pending",
     observation: "",
     shipping_address: "",
-    codeSend: "",
-    companySend: "",
+    codeSend: "456sdfg45",
+    companySend: "American Express",
     products: [{
         sku: "sku1",
         name: "Product 1",
@@ -61,8 +61,8 @@ const orders = [{
     order_status: "Pending",
     observation: "",
     shipping_address: "",
-    codeSend: "",
-    companySend: "",
+    codeSend: "456sdfg45",
+    companySend: "American Express",
     products: [{
         sku: "sku1",
         name: "Product 1",
@@ -80,8 +80,8 @@ const orders = [{
     order_status: "Pending",
     observation: "",
     shipping_address: "",
-    codeSend: "",
-    companySend: "",
+    codeSend: "456sdfg45",
+    companySend: "American Express",
     products: [{
         sku: "sku1",
         name: "Product 1",
@@ -90,7 +90,7 @@ const orders = [{
         billing_number: "123",
 
     }],
-    customerIdCustomer: "c1e702cb-fce1-4582-8e96-4234f44df56e"
+    customerIdCustomer: "6780604e-3143-4ca7-8ce2-b2122d4bd953"
 },
 ]
 export default orders

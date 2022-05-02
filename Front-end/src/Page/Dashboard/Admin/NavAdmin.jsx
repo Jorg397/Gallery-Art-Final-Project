@@ -6,7 +6,7 @@ import s from './NavAdmin.module.css'
 
 export default function NavAdmin() {
     return (
-        <div style={{ background: "#ffffff4a", padding:"28px" }} className="flex justify-between items-center p-4">
+        <div id="admin"style={{ background: "#ffffff4a", padding:"28px" }} className="flex justify-between items-center p-4">
             <div className="flex items-center flex-shrink-0 text-white mr-6">
                 <Link to="/home"
                     className="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-12">
@@ -17,6 +17,13 @@ export default function NavAdmin() {
             </div>
             <div className="text-sm lg:flex-grow"></div>
             <div className="flex justify-center items-center content-center">
+            <Link
+                    to="/home"
+                    className="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-12 "
+
+                >
+                    Inicio
+                </Link>
                 <Link
                     to="/dashboard"
                     className="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-12 "

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { filterUserState, getCustomers, searchUserThatContains, switchUserState } from '../../../redux/actions';
+import ModalClient from './ModalClient';
 import NavAdmin from './NavAdmin'
 
 
@@ -113,7 +114,7 @@ export default function Clientes() {
                 </tr>
               </thead>
               <tbody> 
-                {data?.map((e) => (
+                {data?.map((e, index) => (
                   <tr key={e.id_customer} className="" style={{ backgroundColor: "#C9ADA7", fontWeight: "bold", borderTop:"10px solid #9A8C98", }} >
                     <td>{e.dni}</td>
                     <td>{e.name + " " + e.lastName}</td>
@@ -122,17 +123,13 @@ export default function Clientes() {
                     <td>{e.country + " " + e.billing_address}</td>
                     <td>{e.role}</td>
                     <td>{e.status|| "No status model"}</td>
-                    <td>
-                      <input 
-                      type="checkbox"
-                       name="status"
-                       id={e.id_customer} 
-                        onChange={(e) => dispatch(switchUserState(e.target.id))}
-                        checked={e.status === "active" ? true : false}
+                    <td><button id={e.id_customer} onClick={(e) => {
+                      setModalOpen({
+                        [index]: true,
+                      });
 
-                      
-                      />
-                    </td>
+                    }}>Ver</button>
+                      {modalOpen[index] && <ModalClient client={e.id_customer} setOpenModal={setModalOpen} />}</td>
 
                   </tr>
                 ))}

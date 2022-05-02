@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 export default function Destacado({ cards }) {
 	const dispatch = useDispatch();
-	let Destacado = cards[4];
+	let Destacado = cards[0];
 
 	const cart = useSelector((state) => state.cart);
 
@@ -16,7 +16,7 @@ export default function Destacado({ cards }) {
 			(product) => product.id_product === idProduct
 		);
 		if (itsCart) {
-			toast.warn("Ya fue agregada al carrito!", {
+			toast.warn("Ya fue agregado al carrito!", {
 				position: "top-right",
 				autoClose: 5000,
 				hideProgressBar: false,
@@ -30,58 +30,41 @@ export default function Destacado({ cards }) {
 		}
 	};
 	return (
-		<div
-			style={{ marginTop: "45px" }}
-			className={`box-border flex flex-col mb-48 px-8 mx-auto leading-6 text-black border-0 border-gray-300 border-solid  xl:mt-0 md:flex-row max-w-7xl lg:px-1 ${s.container} h-72`}>
-			<div
-				className={`box-border mt-32 pb-12 text-white border-solid md:w-2/4 md:pl-6 xl:pl-10 ${s.infoContainer}`}>
-				<h2 className='text-5xl mb-24'>Decora a tu estilo</h2>
-				<h4 className='text-2xl mb-24'>{Destacado?.name}</h4>
-				<p className='text-xl'>
-					Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-					Pariatur obcaecati molestiae natus consectetur officia
-					tempora dicta corrupti, nihil modi fugit, est facere nisi
-					ipsum voluptates odit quod esse animi ab laborum qui! Nisi
-					maxime velit voluptates? Est quis voluptas explicabo fugiat
-					nam illo unde. Quo saepe, alias harum aut quidem, eum error
-					commodi corporis nesciunt sint tempore cupiditate sunt
-					dolorem veritatis accusantium delectus amet fuga aliquid
-					minima voluptas consequatur necessitatibus! Beatae, error
-					modi! Maxime obcaecati, saepe voluptatem provident inventore
-					sapiente at aliquam, non, ad labore minus voluptatum. Quam
-					ullam beatae ab laborum voluptatum nisi, reiciendis
-					consequuntur voluptate expedita, corrupti quibusdam!
-				</p>
-				<button
+<section class="py-20 bg-gray-50">
+  <div class="container items-center max-w-6xl px-4 px-10 mx-auto sm:px-20 md:px-32 lg:px-16">
+    <div class="flex flex-wrap items-center -mx-3">
+      <div class="order-1 w-full px-3 lg:w-1/2 lg:order-0">
+        <div class="w-full lg:max-w-md">
+          <h2 class="mb-4 text-3xl text-white font-bold leading-tight tracking-tight sm:text-4xl font-heading">{Destacado?.name}</h2>
+          <p class="mb-4 font-medium tracking-tight text-gray-400 xl:mb-6">{Destacado?.description}</p>
+          <ul>
+            <li class="flex items-center text-center py-2 space-x-4 xl:py-3">
+              
+              <span style={{fontSize:"24px"}} class="text-white text-center">${Destacado?.price}.00</span>
+            </li>
+            <li class="flex items-center py-2 space-x-4 xl:py-3">
+			<button
 					className={s.btn}
 					onClick={() => {
 						handleAddToCart(Destacado.id_product);
 					}}>
 					Agregar al carrito
 				</button>
-				<Link to={"/gallery"}>
+			<Link to={"/gallery"}>
 					<button
 						className={s.btn}
-						style={{ marginLeft: "70px", color: "white" }}>
+						style={{ maxWidth:"220px" }}>
+						
 						Ver mas cuadros
 					</button>
-				</Link>
-			</div>
-
-			<div className='max-w-md px-4 mt-10 mb-4 text-center  md:mt-0 md:max-w-none lg:mb-0 md:w-1/2'>
-				<img
-					src={Destacado?.image}
-					className='pl-4 sm:pr-10 xl:pl-10 lg:pr-32'
-				/>
-				<div className='flex text-white'>
-					<div className='ml-10 mt-16 mr-64'>
-						<h3 className='text-5xl font-bold mb-10'>John, Doe</h3>
-						<p className='text-3xl -ml-24'>{Destacado?.name}</p>
-					</div>
-
-					<p className=' place-self-center mt-16	 text-6xl ml-64'>{`$${Destacado?.price}`}</p>
-				</div>
-			</div>
-		</div>
+				</Link>	
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="w-full px-3 mb-12 lg:w-1/2 order-0 lg:order-1 lg:mb-0"><img class="mx-auto sm:max-w-sm lg:max-w-full" src={Destacado?.image} alt="feature image"/></div>
+    </div>
+  </div>
+</section>
 	);
 }

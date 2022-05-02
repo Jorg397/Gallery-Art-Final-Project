@@ -20,6 +20,10 @@ const Gallery = () => {
 	const [search, setSearch] = useState("");
 	const paints = useSelector((state) => state.filteredPaints);
 
+
+	let filterAviablePaints = paints.filter((paint) => paint.state === "Available");
+
+
 	const [filter, setFilter] = useState(false);
 
 	useEffect(() => {
@@ -80,7 +84,7 @@ const Gallery = () => {
 					</select>
 				</div>
 
-				<Cards cards={paints} />
+				<Cards cards={filterAviablePaints} />
 
 				{filter ? null : (
 					<>
@@ -93,7 +97,7 @@ const Gallery = () => {
 									<img src={divider} className='w-full' />
 
 									<Cards
-										cards={paints.filter(
+										cards={filterAviablePaints.filter(
 											(paint) =>
 												paint.categories[0]?.name ===
 													category.name ||

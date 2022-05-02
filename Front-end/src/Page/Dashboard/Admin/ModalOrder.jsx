@@ -63,9 +63,9 @@ export default function ModalCat({ setOpenModal, modalState, order }) {
           <p>Datos de envio:
             {order.products?.map((p, i) => (
               <p key={i} >
-                  <p>Direccion: {p.billing_address}</p>
-                  <p>Numero de envio: {p.billing_number}</p>
                   </p>))}
+                  <p>Compañia: {order.companySend}</p>
+                  <p>Numero de envio: {order.codeSend}</p>
           </p>
           </div>
 

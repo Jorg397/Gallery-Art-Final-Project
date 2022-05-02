@@ -103,7 +103,7 @@ export default function Pinturas() {
               color: "#9A8C98",
             }}
           >
-            <option value="All">Estado</option>
+            <option value="All">Todas las pinturas</option>
             <option value="Pending">Pendiente</option>
             <option value="Available">Disponible</option>
             <option value="Sold">Vendido</option>
@@ -120,7 +120,7 @@ export default function Pinturas() {
                 <tr style={{ backgroundColor: "#4A4E69", color: "white", textAlign: "left" }}>
                   <th>Codigo</th>
                   <th>Nombre</th>
-                  <th>Técnica</th>
+                  <th>Disponibilidad</th>
                   <th>Medidas</th>
                   <th>Descripcion</th>
                   <th>Año</th>
@@ -136,7 +136,7 @@ export default function Pinturas() {
                   <tr key={e.id_product} className="" style={{ backgroundColor: "#C9ADA7", fontWeight: "bold", borderTop: "10px solid #9A8C98" }} >
                     <td>{e.sku}</td>
                     <td>{e.name}</td>
-                    <td>{e.technique}</td>
+                    <td>{e.state}</td>
                     <td>{e.measures}</td>
                     <td><button onClick={() => {
                       setModalOpen({

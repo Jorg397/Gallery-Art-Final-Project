@@ -19,6 +19,7 @@ const initialState = {
   categories: [],
   customers: [],
   orders: [],
+  customer: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -202,6 +203,11 @@ export default function rootReducer(state = initialState, action) {
           paint.released.toString().includes(action.payload)
         ),
       };
+      case "FETCH_CUSTOMER_BY_ID_SUCCESS":
+        return {
+          ...state,
+          customer: action.payload,
+        };
 
 
     default:

@@ -235,3 +235,19 @@ export function searchPaintThatContains(search) {
 
   }
 }
+export function getCustomerById(id) {
+  return function (dispatch) {
+    dispatch({ type: "FETCH_CUSTOMER_BY_ID" });
+    Api
+      .get(`${local}/customer/${id}`)
+      .then(function (response) {
+        dispatch({
+          type: "FETCH_CUSTOMER_BY_ID_SUCCESS",
+          payload: response.data,
+        });
+      })
+      .catch(function (err) {
+        dispatch({ type: "FETCH_CUSTOMER_BY_ID_FAILURE", payload: err });
+      });
+  };
+}
