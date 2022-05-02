@@ -10,13 +10,11 @@ import { login } from "../../services/post/login";
 import { GoogleLogin } from "react-google-login";
 import "./style.scss";
 import { googlelogin } from "../../services/post/googleLogin";
-import { useLocalStorage } from "../../utils/customerHooks/useLocalStorage";
 
 const PORT =
   //"395216086999-0eb8o2a0jcr870t9ndclcnik3fvt564e.apps.googleusercontent.com";
   "293035429788-03unmah7i2rd3vpsihdplp6jqc2o5br9.apps.googleusercontent.com";
 const Login = () => {
-  const [name, setName] = useLocalStorage("name", "");
   const [GetDataLogin, setGetDataLogin] = useState({
     email: "",
     password: "",
@@ -33,9 +31,8 @@ const Login = () => {
     await googlelogin(response.profileObj).then((res) => {
       alert(res.data.message);
       localStorage.setItem("token", res.data.token);
-      console.log(res.data.token);
       localStorage.setItem("id_customer", res.data.id_customer);
-      setName(res.data.name);
+      localStorage.setItem("name", res.data.user.name);
       window.location.href = "/home";
     });
   };
@@ -77,7 +74,7 @@ const Login = () => {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("id_customer", res.data.user.id_customer);
-        setName(res.data.user.name);
+        localStorage.setItem("name", res.data.user.name);
         window.location.href = "/home";
       })
       .catch((res) => alert("Usuario o contraseña incorrectos"));

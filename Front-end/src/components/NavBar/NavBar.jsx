@@ -4,10 +4,8 @@ import Cart from "../Cart/Cart";
 import s from "./NavBar.module.css";
 import { useState, useEffect, useRef } from "react";
 import CartModal from "../CartModal/CartModal";
-import { useLocalStorage } from "../../utils/customerHooks/useLocalStorage";
 
 export default function NavBar({ gallerySection, aboutSection }) {
-  const [name, setName] = useLocalStorage("name", "");
   const [perfilOptions, setPerfilOptions] = useState(false);
   const scrollToSection = (sectionref) => {
     window.scrollTo({
@@ -148,9 +146,9 @@ export default function NavBar({ gallerySection, aboutSection }) {
                 onClick={handleClickOptions}
                 className="focus:outline-none text-base block mt-4 lg:inline-block lg:mt-0 text-white underline hover:text-white mr-12 cursor-pointer "
               >
-                {name === ""
+                {localStorage.getItem("name") === null
                   ? "usuario"
-                  : name}
+                  : localStorage.getItem("name")}
               </button>
               <div
                 className={`${
