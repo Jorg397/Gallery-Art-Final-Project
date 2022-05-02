@@ -113,7 +113,7 @@ export default function NavBar({ gallerySection, aboutSection }) {
             Inicio
           </Link>
           <Link
-            to="/dashboard"
+            to="/dashboard#admin"
             className="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-12"
           >
             Dashboard
@@ -148,7 +148,7 @@ export default function NavBar({ gallerySection, aboutSection }) {
                 className="focus:outline-none text-base block mt-4 lg:inline-block lg:mt-0 text-white underline hover:text-white mr-12 cursor-pointer "
               >
                 {localStorage.getItem("name") === "null"
-                  ? "usuario"
+                  ? "Usuario"
                   : localStorage.getItem("name")}
               </button>
               <div
@@ -172,7 +172,7 @@ export default function NavBar({ gallerySection, aboutSection }) {
                   </li>
                   <li>
                     <Link className="mb-2.5 mt-2.5" to="/shopping">
-                      compras
+                      Compras
                     </Link>
                   </li>
                 </ul>

@@ -32,7 +32,7 @@ export default function Ilustrame() {
 							className={`${s.cardbtn} flex justify-around py-12`}>
 							<p className=' self-center text-2xl	'>Contáctame</p>
 							<img
-								src='https://img.icons8.com/fluency/344/whatsapp.png'
+								src='https://cdn-icons-png.flaticon.com/512/1384/1384007.png'
 								alt='facebook'
 								className='w-12 self-center'
 							/>

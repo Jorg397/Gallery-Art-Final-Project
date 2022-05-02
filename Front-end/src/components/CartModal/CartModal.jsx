@@ -58,7 +58,7 @@ function CartModal({ openModal, modalState }) {
                 />
               </div>
               <div className="col-start-6 col-span-1">
-                <span className="font-semibold">{product.price}</span>
+                <span className="font-semibold">${product.price}.00</span>
               </div>
               <div className="flex col-span-1 justify-end cursor-pointer">
                 <span onClick={() => handleDeleteToCart(product.id_product)}>
@@ -76,7 +76,7 @@ function CartModal({ openModal, modalState }) {
           <div className="grid col-start-6 col-span-2">
             <div className="flex justify-between font-semibold">
               <span>Total: </span>
-              <span>{cartTotal}</span>
+              <span>${cartTotal}.00</span>
             </div>
           </div>
           <div className="col-start-6 col-span-2">

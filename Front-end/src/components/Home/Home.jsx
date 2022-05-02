@@ -19,6 +19,7 @@ import NavBar from "../NavBar/NavBar";
 export default function Home() {
   const dispatch = useDispatch();
   const paints = useSelector((state) => state.filteredPaints);
+  let filterAviablePaints = paints.filter((paint) => paint.state === "Available");
   const categories = useSelector((state) => state.categories);
   const scrollToSection = (sectionref) => {
     window.scrollTo({
@@ -95,9 +96,9 @@ export default function Home() {
         <p style={{ marginBottom: "70px" }}></p>
         <Titulos titulo="Cuadros decorativos"></Titulos>
       </div>
-      <Destacado cards={paints}></Destacado>
+      <Destacado cards={filterAviablePaints}></Destacado>
       <Titulos titulo="Una galeria explendida"></Titulos>
-      <Gallery cards={paints} categories={categories} innerRef={gallery} />
+      <Gallery cards={filterAviablePaints} categories={categories} innerRef={gallery} />
       <Titulos titulo="Ilustramos tu personalidad"></Titulos>
       <Ilustrame></Ilustrame>
       <Titulos titulo="Sobre nosotros"></Titulos>
