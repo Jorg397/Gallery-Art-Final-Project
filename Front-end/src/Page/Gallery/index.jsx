@@ -54,10 +54,10 @@ const Gallery = () => {
 						onChange={(e) => handleSelect(e)}>
 						<option value='All'>All</option>
 						<optgroup label='Categorias'>
-							{categories.map((category) => {
+							{categories?.map((category) => {
 								return (
-									<option value={category.name}>
-										{category.name}
+									<option value={category?.name}>
+										{category?.name}
 									</option>
 								);
 							})}
@@ -73,20 +73,20 @@ const Gallery = () => {
 
 				{filter ? null : (
 					<>
-						{categories.map((category) => {
+						{categories?.map((category) => {
 							return (
 								<div>
 									<h3 className='text-3xl border-b-2 inline-block ml-12'>
-										{category.name}
+										{category?.name}
 									</h3>
 									<img src={divider} className='w-full' />
 
 									<Cards
 										cards={paints.filter(
 											(paint) =>
-												paint.categories[0].name ===
+												paint.categories[0]?.name ===
 													category.name ||
-												paint.categories[1].name ===
+												paint.categories[1]?.name ===
 													category.name
 										)}
 									/>
