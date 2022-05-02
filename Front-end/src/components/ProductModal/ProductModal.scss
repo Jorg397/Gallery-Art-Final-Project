@@ -1,0 +1,37 @@
+@use "../../assets/VariablesStyle/color.scss" as color;
+
+.productContainer {
+  width: 80%;
+  height: 95%;
+  border: 4px solid #3a3f42;
+  background-color: color.$color_background;
+  grid-template-rows: repeat(1, minmax(0, 0.1fr));
+}
+
+.btn-primary {
+  background-color: color.$color_button_background_primary;
+}
+
+.detailContainer {
+  background-color: color.$color_tertiary;
+}
+.productContainer span {
+  color: white;
+}
+
+.img_product {
+  width: 54px;
+  height: 68px;
+  box-shadow: 8px 6px 16px 3px rgba(0, 0, 0, 0.7);
+  border-radius: 0px;
+}
+.img_remove {
+  width: 22px;
+  height: 27px;
+}
+
+.closeBtn {
+  width: 25px;
+  height: 25px;
+  background-color: #3d4245;
+}

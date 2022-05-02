@@ -1,22 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchPaints, filterState, searchAllThatContains } from '../../../redux/actions';
-import ModalPaint from './ModalPaint';
-import NavAdmin from './NavAdmin'
-
-
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchPaints,
+  filterState,
+  searchAllThatContains,
+} from "../../../redux/actions";
+import ModalPaint from "./ModalPaint";
+import NavAdmin from "./NavAdmin";
+import { getCategories } from "../../../redux/actions/index";
+import ProductModal from "../../../components/ProductModal/ProductModal";
 
 export default function Pinturas() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalProduct, setmodalProduct] = useState(false);
+
+  function openModalProduct() {
+    setmodalProduct(!modalProduct);
+  }
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchPaints());
+    dispatch(getCategories());
   }, [dispatch]);
 
   const pinturas = useSelector((state) => state.filteredPaints);
-  const [name, setName] = useState('');
-  let data = pinturas
+  const [name, setName] = useState("");
+  let data = pinturas;
 
   function handleChange(e) {
     e.preventDefault();
@@ -24,31 +35,35 @@ export default function Pinturas() {
     dispatch(searchAllThatContains(e.target.value));
   }
 
-
   function handleState(e) {
     dispatch(filterState(e));
-
   }
-
-
 
   return (
     <div>
-
       <NavAdmin></NavAdmin>
+      <ProductModal
+        modalProduct={modalProduct}
+        openModalProduct={openModalProduct}
+      />
       <div
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
-          marginTop: "50px"
+          marginTop: "50px",
         }}
-
       >
-
-
-        <div className="" style={{ backgroundColor: "#9A8C98", paddingBottom: "80px", width: "1310px", borderRadius: "10px" }}>
+        <div
+          className=""
+          style={{
+            backgroundColor: "#9A8C98",
+            paddingBottom: "80px",
+            width: "1310px",
+            borderRadius: "10px",
+          }}
+        >
           <span
             style={{
               fontSize: "30px",
@@ -57,8 +72,13 @@ export default function Pinturas() {
               marginTop: "20px",
               marginBottom: "20px",
             }}
-          >Pinturas</span>
-          <input type="text" placeholder="🔍" onChange={(e) => handleChange(e)}
+          >
+            Pinturas
+          </span>
+          <input
+            type="text"
+            placeholder="🔍"
+            onChange={(e) => handleChange(e)}
             style={{
               width: "300px",
               height: "40px",
@@ -73,23 +93,27 @@ export default function Pinturas() {
               color: "#9A8C98",
             }}
           />
-          <a href="/postPaint">
-            <button className="bg-white border-2"
-              style={{
-                marginLeft: "20px",
-                marginTop: "20px",
-                marginBottom: "20px",
-                padding: "5px",
-                borderRadius: "10px",
-                width: "180px",
-                color: "#fff",
-                backgroundColor: "#4A4E69",
-                border: "1px solid #fff",
 
-              }}
-            >Registrar pintura</button>
-          </a>
-          <select onChange={(e) => handleState(e.target.value)}
+          <button
+            className="bg-white border-2"
+            style={{
+              marginLeft: "20px",
+              marginTop: "20px",
+              marginBottom: "20px",
+              padding: "5px",
+              borderRadius: "10px",
+              width: "180px",
+              color: "#fff",
+              backgroundColor: "#4A4E69",
+              border: "1px solid #fff",
+            }}
+            onClick={() => openModalProduct()}
+          >
+            Registrar pintura
+          </button>
+
+          <select
+            onChange={(e) => handleState(e.target.value)}
             style={{
               width: "300px",
               height: "40px",
@@ -109,15 +133,23 @@ export default function Pinturas() {
             <option value="Sold">Vendido</option>
           </select>
 
-
-
-
-
-          <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "10px",
+            }}
+          >
             {/* Returns a table with all the orders */}
-            <table style={{ width: "100%", borderRadius: "10px" }} >
+            <table style={{ width: "100%", borderRadius: "10px" }}>
               <thead>
-                <tr style={{ backgroundColor: "#4A4E69", color: "white", textAlign: "left" }}>
+                <tr
+                  style={{
+                    backgroundColor: "#4A4E69",
+                    color: "white",
+                    textAlign: "left",
+                  }}
+                >
                   <th>Codigo</th>
                   <th>Nombre</th>
                   <th>Disponibilidad</th>
@@ -133,48 +165,112 @@ export default function Pinturas() {
               </thead>
               <tbody>
                 {data.map((e, index) => (
-                  <tr key={e.id_product} className="" style={{ backgroundColor: "#C9ADA7", fontWeight: "bold", borderTop: "10px solid #9A8C98" }} >
+                  <tr
+                    key={e.id_product}
+                    className=""
+                    style={{
+                      backgroundColor: "#C9ADA7",
+                      fontWeight: "bold",
+                      borderTop: "10px solid #9A8C98",
+                    }}
+                  >
                     <td>{e.sku}</td>
                     <td>{e.name}</td>
                     <td>{e.state}</td>
                     <td>{e.measures}</td>
-                    <td><button onClick={() => {
-                      setModalOpen({
-                        [index]: true,
-                      });
-                    }}>Ver</button>
-                      {modalOpen[index] && <ModalPaint name={e.name} img={e.image} cat={e.categories.map((e) => e.name + " " || e)} desc={e.description} setOpenModal={setModalOpen} />}</td>
-                    <td>{e.released[0] + e.released[1] + e.released[2] + e.released[3]}</td>
                     <td>
-                      <button onClick={() => {
-                        setModalOpen({
-                          [index]: true,
-                        });
-                      }}>Ver</button>
-                      {modalOpen[index] && <ModalPaint name={e.name} img={e.image} cat={e.categories.map((e) => e.name + " " || e)} desc={e.description} setOpenModal={setModalOpen} />}
+                      <button
+                        onClick={() => {
+                          setModalOpen({
+                            [index]: true,
+                          });
+                        }}
+                      >
+                        Ver
+                      </button>
+                      {modalOpen[index] && (
+                        <ModalPaint
+                          name={e.name}
+                          img={e.image}
+                          cat={e.categories.map((e) => e.name + " " || e)}
+                          desc={e.description}
+                          setOpenModal={setModalOpen}
+                        />
+                      )}
+                    </td>
+                    <td>
+                      {e.released[0] +
+                        e.released[1] +
+                        e.released[2] +
+                        e.released[3]}
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => {
+                          setModalOpen({
+                            [index]: true,
+                          });
+                        }}
+                      >
+                        Ver
+                      </button>
+                      {modalOpen[index] && (
+                        <ModalPaint
+                          name={e.name}
+                          img={e.image}
+                          cat={e.categories.map((e) => e.name + " " || e)}
+                          desc={e.description}
+                          setOpenModal={setModalOpen}
+                        />
+                      )}
                     </td>
                     <td>${e.price}</td>
-                    <td><button id={e.id_product} onClick={(e) => {
-                      setModalOpen({
-                        [index]: true,
-                      });
-
-                    }}>Ver</button>
-                      {modalOpen[index] && <ModalPaint  name={e.name} img={e.image} cat={e.categories.map((e) => e.name + " " || e)} desc={e.description} setOpenModal={setModalOpen} />}</td>
                     <td>
-                      <button><img src="https://i.ibb.co/g762MvW/update-arrow-svgrepo-com-1.png" alt="" style={{ width: "30px" }} /></button>
+                      <button
+                        id={e.id_product}
+                        onClick={(e) => {
+                          setModalOpen({
+                            [index]: true,
+                          });
+                        }}
+                      >
+                        Ver
+                      </button>
+                      {modalOpen[index] && (
+                        <ModalPaint
+                          name={e.name}
+                          img={e.image}
+                          cat={e.categories.map((e) => e.name + " " || e)}
+                          desc={e.description}
+                          setOpenModal={setModalOpen}
+                        />
+                      )}
                     </td>
                     <td>
-                      <button ><img src="https://i.ibb.co/9bXyDbb/delete-svgrepo-com-1.png" alt="" style={{ width: "30px" }} /></button>
+                      <button>
+                        <img
+                          src="https://i.ibb.co/g762MvW/update-arrow-svgrepo-com-1.png"
+                          alt=""
+                          style={{ width: "30px" }}
+                        />
+                      </button>
+                    </td>
+                    <td>
+                      <button>
+                        <img
+                          src="https://i.ibb.co/9bXyDbb/delete-svgrepo-com-1.png"
+                          alt=""
+                          style={{ width: "30px" }}
+                        />
+                      </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
-
             </table>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
