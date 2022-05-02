@@ -17,7 +17,9 @@ const initialState = {
   profile: [],
   cartTotal: 0,
   categories: [],
+  customers: [],
   orders: [],
+  customer: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -131,12 +133,83 @@ export default function rootReducer(state = initialState, action) {
         cart: products,
         cartTotal: state.cartTotal - removeProduct.price,
       };
-    case CLEAN_CART:
+    case "FETCH_CUSTOMERS_SUCCESS":
       return {
         ...state,
-        cart: action.payload,
-        cartTotal: 0,
+        customers: action.payload,
+        loading: false,
       };
+    case "FETCH_CUSTOMERS_FAILURE":
+      return {
+        ...state,
+        loading: false,
+      };
+    case "FETCH_ORDERS_SUCCESS":
+      return {
+        ...state,
+        orders: action.payload,
+        loading: false,
+      };
+    case "FETCH_ORDERS_FAILURE":
+      return {
+        ...state,
+        loading: false,
+      };
+    case "SEARCH_ALL_THAT_CONTAINS":
+      return {
+        ...state,
+        filteredPaints: [...state.paints].filter((paint) =>
+        paint.name.toLowerCase().includes(action.payload.toLowerCase()) ||
+        paint.description.toLowerCase().includes(action.payload.toLowerCase()) ||
+        paint.categories.map((e) => e.name.toLowerCase()).includes(action.payload.toLowerCase()) ||
+        paint.price.toString().includes(action.payload) ||
+        paint.sku.includes(action.payload) ||
+        paint.measures.toString().includes(action.payload) ||
+        paint.technique.toLowerCase().includes(action.payload.toLowerCase()) ||
+        paint.released.toString().includes(action.payload)
+        ),
+      };
+    case "FILTER_STATE":
+      if(action.payload === "All"){
+        return {
+          ...state,
+          filteredPaints: [...state.paints],
+        };
+      }else 
+      return {
+        ...state,
+        filteredPaints: [...state.paints].filter((paint) =>
+          paint.state.toLowerCase().includes(action.payload.toLowerCase())
+        ),
+      };
+    case "SEARCH_USER_THAT_CONTAINS":
+      return {
+        ...state,
+        customers: [...state.customers].filter((customer) =>
+          customer.email.toLowerCase().includes(action.payload.toLowerCase())
+        ),
+      };
+    case "SEARCH_PAINT_THAT_CONTAINS":
+      return {
+        ...state,
+        filteredPaints: [...state.paints].filter((paint) =>
+          paint.name.toLowerCase().includes(action.payload.toLowerCase()) ||
+          paint.description.toLowerCase().includes(action.payload.toLowerCase()) ||
+          paint.categories.map((e) => e.name.toLowerCase()).includes(action.payload.toLowerCase()) ||
+          paint.price.toString().includes(action.payload) ||
+          paint.sku.includes(action.payload) ||
+          paint.measures.toString().includes(action.payload) ||
+          paint.technique.toLowerCase().includes(action.payload.toLowerCase()) ||
+          paint.released.toString().includes(action.payload)
+        ),
+      };
+      case "FETCH_CUSTOMER_BY_ID_SUCCESS":
+        return {
+          ...state,
+          customer: action.payload,
+        };
+
+
     default:
       return state;
   }

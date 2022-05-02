@@ -21,6 +21,9 @@
   transition: "All 5s";
   transform: translateY(0%);
   backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border-radius: 0;
+  width: 100vw;
 }
 
 .hidden {

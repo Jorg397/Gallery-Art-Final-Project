@@ -51,8 +51,8 @@ export default function Card({
 					to={`/details/${idProduct}`}>
 					<h1 className={s.cardtitle}>{name.toUpperCase()}</h1>
 				</Link>
-				<p className={s.cardsub}>{serie} </p>
-				<p className={s.cardmed}>{measures}</p>
+				<p className={s.cardsub}>Serie: {serie} </p>
+				<p className={s.cardmed}>Medidas: {measures}</p>
 				<p className={s.cardcat}>
 					{categories.map((e) => e.name + " " || e)}
 				</p>

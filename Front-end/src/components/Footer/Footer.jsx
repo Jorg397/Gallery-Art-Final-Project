@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
 	//returns a footer component with social media adress telephone and terms of use a link to the about page and a link to help page
@@ -29,8 +30,8 @@ export default function Footer() {
 							fontSize: "14px",
 							color: "white",
 						}}
-						href='/home#about'>
-						•Ayuda
+						href='/faq'>
+						•Preguntas Frecuentes
 					</a>
 					<a
 						style={{
@@ -40,7 +41,7 @@ export default function Footer() {
 							color: "white",
 						}}
 						href='/home#about'>
-						•Sobre nosotros
+						•Sobre Mi
 					</a>
 					<a
 						style={{
@@ -49,19 +50,19 @@ export default function Footer() {
 							fontSize: "14px",
 							color: "white",
 						}}
-						href='/home#gallery'>
-						•Terminos y condiciones
+						href='/home#destacado'>
+						•Destacado
 					</a>
-					<a
+					<Link
 						style={{
 							marginLeft: "5px",
 							textDecoration: "underline",
 							fontSize: "14px",
 							color: "white",
 						}}
-						href='/home#gallery'>
+						to='/gallery'>
 						•Ver galeria de pinturas
-					</a>
+					</Link>
 				</div>
 				<div className='flex flex-wrap gap-4 flex-col-reverse'>
 					<div>
