@@ -158,11 +158,14 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         filteredPaints: [...state.paints].filter((paint) =>
-          paint.name.toLowerCase().includes(action.payload.toLowerCase()) ||
-          paint.description.toLowerCase().includes(action.payload.toLowerCase()) ||
-          paint.categories.map((e) => e.name).includes(action.payload) ||
-          paint.price.toString().includes(action.payload) ||
-          paint.sku.includes(action.payload)
+        paint.name.toLowerCase().includes(action.payload.toLowerCase()) ||
+        paint.description.toLowerCase().includes(action.payload.toLowerCase()) ||
+        paint.categories.map((e) => e.name.toLowerCase()).includes(action.payload.toLowerCase()) ||
+        paint.price.toString().includes(action.payload) ||
+        paint.sku.includes(action.payload) ||
+        paint.measures.toString().includes(action.payload) ||
+        paint.technique.toLowerCase().includes(action.payload.toLowerCase()) ||
+        paint.released.toString().includes(action.payload)
         ),
       };
     case "FILTER_STATE":
@@ -178,6 +181,29 @@ export default function rootReducer(state = initialState, action) {
           paint.state.toLowerCase().includes(action.payload.toLowerCase())
         ),
       };
+    case "SEARCH_USER_THAT_CONTAINS":
+      return {
+        ...state,
+        customers: [...state.customers].filter((customer) =>
+          customer.email.toLowerCase().includes(action.payload.toLowerCase())
+        ),
+      };
+    case "SEARCH_PAINT_THAT_CONTAINS":
+      return {
+        ...state,
+        filteredPaints: [...state.paints].filter((paint) =>
+          paint.name.toLowerCase().includes(action.payload.toLowerCase()) ||
+          paint.description.toLowerCase().includes(action.payload.toLowerCase()) ||
+          paint.categories.map((e) => e.name.toLowerCase()).includes(action.payload.toLowerCase()) ||
+          paint.price.toString().includes(action.payload) ||
+          paint.sku.includes(action.payload) ||
+          paint.measures.toString().includes(action.payload) ||
+          paint.technique.toLowerCase().includes(action.payload.toLowerCase()) ||
+          paint.released.toString().includes(action.payload)
+        ),
+      };
+
+
     default:
       return state;
   }

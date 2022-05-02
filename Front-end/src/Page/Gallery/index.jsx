@@ -7,6 +7,7 @@ import {
 	filterByCategory,
 	filterByPrice,
 	getCategories,
+	searchPaintThatContains,
 } from "../../redux/actions";
 import Cards from "../../components/Cards/Cards";
 import divider from "../../assets/divider.png";
@@ -16,6 +17,7 @@ import Footer from "../../components/Footer/Footer";
 const Gallery = () => {
 	const dispatch = useDispatch();
 	const categories = useSelector((state) => state.categories);
+	const [search, setSearch] = useState("");
 	const paints = useSelector((state) => state.filteredPaints);
 
 	const [filter, setFilter] = useState(false);
@@ -24,6 +26,11 @@ const Gallery = () => {
 		dispatch(fetchPaints());
 		dispatch(getCategories());
 	}, []);
+
+	const handleChange = (e) => {
+		dispatch(searchPaintThatContains(e.target.value))
+		setSearch(e.target.value);
+	};
 
 	const handleSelect = (e) => {
 		let value = e.target.value;
@@ -38,10 +45,14 @@ const Gallery = () => {
 		dispatch(filterByCategory(value));
 		setFilter(true);
 	};
+
 	return (
 		<>
 			<NavBar />
 			<div className={`text-white pt-48 ${s.container}`}>
+					<div style={{width:"93%", display:"flex", justifyContent:"right", alignItems:"right"}}>
+						<input className={s.selectInput2}  type="text" placeholder="Buscar una pintura" onChange={handleChange} />
+						</div>
 				<h3 className='text-3xl border-b-2 inline-block ml-12'>
 					Gallery
 				</h3>

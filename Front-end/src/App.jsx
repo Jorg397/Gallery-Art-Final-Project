@@ -52,7 +52,7 @@ export default function App() {
       <Route path="/gallery" element={<Gallery />} />
       <Route path="/dashboard" element={<Admin />} />
       <Route path="/dashboard/clients" element={<Clientes />} />
-      <Route path="/dashboard/orders" element={<Pinturas />} />
+      <Route path="/dashboard/paints" element={<Pinturas />} />
       <Route path="/perfil" element={<Profile />} />
       <Route path="/shopping" element={<Shopping />} />
       <Route

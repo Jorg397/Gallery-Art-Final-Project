@@ -2,19 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCustomers, getOrders } from '../../../redux/actions/index.js';
 import NavAdmin from './NavAdmin.jsx'
-import Table from './Table.jsx';
+
 import ModalOrder from './ModalOrder.jsx';
+import orders from "./orders"
 
 export default function Admin() {
-    const orders = useSelector((state) => state.orders);
+    
     const customers = useSelector((state) => state.customers);
     const dispatch = useDispatch();
     const [modalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
-        dispatch(getOrders());
+
         dispatch(getCustomers());
     }, [dispatch]);
+
 
 
     const today = new Date();
@@ -23,7 +25,9 @@ export default function Admin() {
     const yyyy = today.getFullYear();
     // console.log(mm)
 
-    //function to get the customer name from the customerIdCustomer in the order
+    //function to get the customer name from the customeridCustomer in the order
+
+
     const getCustomerName = (customerIdCustomer) => {
         let customer = customers?.find((customer) => customer.id_customer === customerIdCustomer);
         return(customer?.name + " " + customer?.lastName) ;
@@ -41,37 +45,44 @@ export default function Admin() {
                     <img src="https://i.ibb.co/Fn4SJrj/Group-60-1.png" alt="" />
                 </div>
 
-                <div className="box-border relative w-full max-w-md px-4 mt-10 mb-4 text-white bg-no-repeat bg-contain border-solid md:mt-0 md:max-w-none lg:mb-0 md:w-1/2" >
-                    <h1 style={{ marginBottom: "8px", marginLeft: "0px", fontSize: "20px" }}>Revisa tus pedidos pendientes de envio</h1>
+                <div className="box-border relative w-full max-w-md px-4 mt-10 mb-4  bg-no-repeat bg-contain border-solid md:mt-0 md:max-w-none lg:mb-0 md:w-1/2" >
+                    <h1 style={{ marginBottom: "8px", marginLeft: "0px", fontSize: "20px", color:"white" }}>Revisa tus pedidos pendientes de envio</h1>
 
                     <div style={{ backgroundColor: "#9A8C98", paddingBottom: "30px", borderRadius: "10px" }}>
                         <h1 style={{ color: "black", fontWeight: "bolder", fontSize: "20px", marginTop: "1px", marginLeft: "15px", padding: "5px" }}>Pedidos pendientes</h1>
-                        <table className="table-auto" >
-                            <thead style={{ color: "white", backgroundColor: "#4A4E69" }}>
+                        <table className="table-auto" style={{ width:"647px"}}>
+                            <thead style={{ color: "white", backgroundColor: "#4A4E69",textAlign:"left"}}>
                                 <tr>
                                     <th className="">Boleta</th>
                                     <th className="">Cliente</th>
                                     <th className="">Fecha de compra</th>
                                     <th className="">Estado</th>
+                                    <th>Detalles</th>
                                 </tr>
                             </thead>
 
 
 
                             <tbody >
-                                {orders.filter(order => order.order_status === "Pending").map((order) => (
-                                    <tr key={order.id_order}>
-                                        {/* <td className="" style={{fontSize:"12px"}}>{order.id_order}</td> */}
-                                        <td> <a href="#">Ver</a></td>
+                                {orders.filter((order) => order.order_status === "Pending").map((order, index) => (
+                                    <tr style={{ backgroundColor: "#C9ADA7", fontWeight: "bold", borderTop:"10px solid #9A8C98" }}key={order.id_order}>
+                                                                                <td><button onClick={() => {
+                    setModalOpen({
+                        [index]: true,
+                      });
+                  }}>Ver</button>
+                    {modalOpen[index] && <ModalOrder order={order} setOpenModal={setModalOpen} />}</td>
                                         <td className="">{getCustomerName(order.customerIdCustomer)}</td>                                     
                                         <td className="">{order.order_date}</td>                                        
                                         <td className="">{order.order_status}</td>
                                         <td><button onClick={() => {
-                    setModalOpen(true);
+                    setModalOpen({
+                        [index]: true,
+                      });
                   }}>Ver</button>
-                    {modalOpen && <ModalOrder order={order} setOpenModal={setModalOpen} />}</td>
+                    {modalOpen[index] && <ModalOrder order={order} setOpenModal={setModalOpen} />}</td>
                   
-                                    </tr>
+                                    </tr >
                                 ))} 
 
                             </tbody>
@@ -83,9 +94,9 @@ export default function Admin() {
                     <div style={{ marginTop: "20px", marginBottom: "20px" }}>
                         <div style={{ backgroundColor: "#9A8C98", paddingBottom: "30px", borderRadius: "10px", marginBottom: "20px" }}>
                             <h1 style={{ color: "black", fontWeight: "bolder", fontSize: "20px", marginTop: "1px", marginLeft: "15px", padding: "5px" }}>Ventas al dia </h1>
-                            <table className="table-auto" >
-                                <thead style={{ color: "white", backgroundColor: "#4A4E69" }}>
-                                    <tr>
+                            <table className="table-auto" style={{ width:"647px"}}>
+                                <thead style={{ color: "white", backgroundColor: "#4A4E69",textAlign:"left" }}>
+                                    <tr  >
                                         <th className="">Fecha</th>
                                         <th className="">Numero de ventas</th>
                                         <th className="">Importe vendido</th>
@@ -93,7 +104,7 @@ export default function Admin() {
                                 </thead>
                                 <tbody>
                                    {/* returna una suma de todas las ventas hechas el dia de hoy */}
-                                    <tr>
+                                    <tr style={{ backgroundColor: "#C9ADA7", fontWeight: "bold", borderTop:"10px solid #9A8C98" }}>
                                         <td className="">{yyyy + "-" + mm + "-" + dd}</td>
                                         <td className="">{orders.filter(order => order.order_date === yyyy + "-" + mm + "-" + dd).length}</td>
                                         <td className="">{orders.filter(order => order.order_date === yyyy + "-" + mm + "-" + dd).reduce((total, order) => total + parseInt(order.amount), 0)}</td>
@@ -104,17 +115,17 @@ export default function Admin() {
                         </div>
                         <div style={{ backgroundColor: "#9A8C98", paddingBottom: "30px", borderRadius: "10px" }}>
                             <h1 style={{ color: "black", fontWeight: "bolder", fontSize: "20px", marginTop: "1px", marginLeft: "15px", padding: "5px" }}>Ventas del mes</h1>
-                            <table className="table-auto" >
-                                <thead style={{ color: "white", backgroundColor: "#4A4E69" }}>
+                            <table className="table-auto"  style={{ width:"647px"}}>
+                                <thead style={{ color: "white", backgroundColor: "#4A4E69", width:"1000px",textAlign:"left" }}>
                                     <tr>
                                         <th className="">Mes</th>
                                         <th className="">Numero de ventas</th>
                                         <th className="">Importe vendido</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody >
                                     {/* returna una suma de todas las ventas hechas el mes de hoy */}
-                                    <tr>
+                                    <tr style={{ backgroundColor: "#C9ADA7", fontWeight: "bold", borderTop:"10px solid #9A8C98" }}>
                                         <td className="">{mm}</td>
                                         <td className="">{orders.filter(order => order.order_date.slice(5, 7) === mm).length}</td>
                                         <td className="">{orders.filter(order => order.order_date.slice(5, 7) === mm).reduce((total, order) => total + parseInt(order.amount), 0)}</td>

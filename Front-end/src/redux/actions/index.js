@@ -172,6 +172,7 @@ export function searchAllThatContains(search) {
   return {
     type: "SEARCH_ALL_THAT_CONTAINS",
     payload: search,
+
   }
 }
 
@@ -191,19 +192,46 @@ export function getCustomers() {
       });
   };
 }
-export function getOrders() {
+
+export function filterUserState(state) {
+  return {
+    type: "FILTER_USER_STATE",
+    payload: state,
+  };
+}
+export function switchUserState(state) {
+  return {
+    type: "SWITCH_USER_STATE",
+    payload: state,
+  };
+}
+export function getOrder(id) {
   return function (dispatch) {
-    dispatch({ type: "FETCH_ORDERS" });
+    dispatch({ type: "FETCH_ORDER" });
     Api
-      .get(`${local}/orders`)
+      .get(`${local}/order/${id}`)
       .then(function (response) {
         dispatch({
-          type: "FETCH_ORDERS_SUCCESS",
+          type: "FETCH_ORDER_SUCCESS",
           payload: response.data,
         });
       })
       .catch(function (err) {
-        dispatch({ type: "FETCH_ORDERS_FAILURE", payload: err });
+        dispatch({ type: "FETCH_ORDER_FAILURE", payload: err });
       });
   };
+}
+export function searchUserThatContains(search) {
+  return {
+    type: "SEARCH_USER_THAT_CONTAINS",
+    payload: search,
+
+  }
+}
+export function searchPaintThatContains(search) {
+  return {
+    type: "SEARCH_PAINT_THAT_CONTAINS",
+    payload: search,
+
+  }
 }

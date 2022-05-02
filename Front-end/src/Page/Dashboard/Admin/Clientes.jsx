@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPaints, filterState, getCustomers, searchAllThatContains } from '../../../redux/actions';
-import ModalCat from './ModalCat';
-import ModalDesc from './ModalDesc';
-import ModalImage from './ModalImage';
+import { filterUserState, getCustomers, searchUserThatContains, switchUserState } from '../../../redux/actions';
 import NavAdmin from './NavAdmin'
-import PostPaint from './PostPaint'
+
 
 
 
@@ -22,19 +19,14 @@ export default function Clientes() {
     let data = customers
   
     function handleChange(e) {
-      e.preventDefault();
+      e.preventDefault()
       setName(e.target.value);
-      dispatch(searchAllThatContains(name));
+      dispatch(searchUserThatContains(e.target.value));
     }
   
-    function handleSearch(e) {
-      e.preventDefault();
-      dispatch(searchAllThatContains(name));
-      setName("");
-    }
-    function handleState(e) {
-      e.preventDefault();
-      dispatch(filterState(e));
+
+    function handleUserState(e) {
+      dispatch(filterUserState(e));
   
     }
   
@@ -43,7 +35,7 @@ export default function Clientes() {
 
         <NavAdmin></NavAdmin>
 
-        <PostPaint></PostPaint>
+        {/* <PostPaint></PostPaint> */}
         <div 
           style={{
             display: "flex",
@@ -82,7 +74,7 @@ export default function Clientes() {
             }}
           />
           {/* <button className="bg-white border-2" onClick={(e) => handleSearch(e)}>🔍</button> */}
-          <select onChange={(e) => handleState(e)}
+          <select onChange={(e) => handleUserState(e.target.value)}
             style={{
               width: "300px",
               height: "40px",
@@ -97,9 +89,8 @@ export default function Clientes() {
             }}
           >
             <option value="All">Estado</option>
-            <option value="Pending">Pendiente</option>
-            <option value="Available">Disponible</option>
-            <option value="Sold">Vendido</option>
+            <option value="active">Activo</option>
+            <option value="inactive">Inactivo</option>
           </select>
   
           {/* Search bar that filtrates the table */}
@@ -118,6 +109,7 @@ export default function Clientes() {
                   <th>Direccion</th>
                   <th>Rol</th>
                   <th>Estado</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody> 
@@ -129,6 +121,19 @@ export default function Clientes() {
                     <td>{e.email}</td>
                     <td>{e.country + " " + e.billing_address}</td>
                     <td>{e.role}</td>
+                    <td>{e.status|| "No status model"}</td>
+                    <td>
+                      <input 
+                      type="checkbox"
+                       name="status"
+                       id={e.id_customer} 
+                        onChange={(e) => dispatch(switchUserState(e.target.id))}
+                        checked={e.status === "active" ? true : false}
+
+                      
+                      />
+                    </td>
+
                   </tr>
                 ))}
               </tbody>
