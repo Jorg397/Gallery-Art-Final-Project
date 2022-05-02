@@ -9,11 +9,8 @@ const router = Router();
 const nodeMailer=require("./mailer");
 const orderById=require("./order")
 const ordersGet=require("./orders");
-const commentGet=require("./comments");
-const commentPost=require("./comment");
-const commentPut=require("./comment");
-const commentDelete=require("./comment");
-//const commentPostImage=require("./comment");
+const cart=require("./cart");
+
 
 router.use("/products", products);
 router.use("/categories", categories);
@@ -23,10 +20,7 @@ router.use("/payment",payment);
 router.use("/mailer", nodeMailer);
 router.use("/orders", ordersGet);
 router.use("/order", orderById);
-router.use("/comments", commentGet);
-router.use("/comment", commentPost);
-router.use("/comment", commentPut);
-router.use("/comment", commentDelete);
+router.use("/cart", cart);
 
 
 
