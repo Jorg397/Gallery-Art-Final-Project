@@ -250,10 +250,7 @@ export function createProduct(formImage, productData) {
 
       productData.image = uploadImage.data.secure_url;
 
-      const addProduct = await axios.post(
-        "http://localhost:3001/product",
-        productData
-      );
+      const addProduct = await axios.post(`${local}/product`, productData);
 
       toast.success("Producto Guardado", {
         position: "top-right",
@@ -271,6 +268,32 @@ export function createProduct(formImage, productData) {
       };
     } catch (error) {
       return { status: false, message: error };
+    }
+  };
+}
+
+export function updateOrders(idOrder, data) {
+  return async function () {
+    try {
+      const result = await Api.put(`${local}/order/status/${idOrder}`, data);
+
+      toast.success("Orden Actualizada");
+
+      return result.data;
+    } catch (err) {
+      toast.error(err.response.data.message);
+    }
+  };
+}
+
+export function getOrdersForAdmin() {
+  return async function () {
+    try {
+      const result = await Api.get(`${local}/orders`);
+
+      return result.data;
+    } catch (err) {
+      toast.error(err.response.data.message);
     }
   };
 }

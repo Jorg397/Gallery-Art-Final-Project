@@ -51,6 +51,9 @@ module.exports = {
         };
       } else {
         query = {
+          where: {
+            state:"Available"
+          },
           attributes: [
             "id_product",
             "serie",

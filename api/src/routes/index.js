@@ -13,6 +13,7 @@ const cart=require("./cart");
 const comment=require("./comment");
 const commentUser=require("./commentUser");
 const comments=require("./comments")
+const carrito=require("./cart");
 
 router.use("/products", products);
 router.use("/categories", categories);
@@ -26,7 +27,7 @@ router.use("/cart", cart);
 router.use("/comments",comments)
 router.use("/comment", comment);
 router.use("/commentUser", commentUser);
-
+router.use("/cart", carrito);
 
 
 

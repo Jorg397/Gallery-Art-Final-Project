@@ -36,57 +36,37 @@ module.exports = {
   },
 
   googleloginPost: async (req, res) => {
-    const { email } = req.body;
 
-    try {
-      if (email) {
-        let customer = await Customer.findOne({
+    const { email, name } = req.body;
+    try{
+      if(email){
+        const [user, created] = await Customer.findOrCreate({
           where: {
             email,
           },
-        });
-        if (customer) {
-          customer = customer.toJSON();
-          const payload = {
-            check: true,
-            id_customer: customer.id_customer,
-            sub: customer.id_customer,
-            role: customer.role,
-          };
-
-          const token = jwt.sign(payload, keyTokens, {
-            expiresIn: "1h",
-          });
-          return res.status(200).json({
-            message: "usuario y contraseña correctos",
-            token: token,
-            id_customer: customer.id_customer,
-            name: customer.name,
-          });
-        } else {
-          let customer = await Customer.create({
+          defaults: {
+            name: name.split(" ")[0],
             email,
-          });
-
-          customer = customer.toJSON();
-          const payload = {
-            check: true,
-            id_customer: customer.id_customer,
-          };
-          const token = jwt.sign(payload, keyTokens, {
-            expiresIn: "1h",
-          });
-          return res.status(200).json({
-            message: "usuario y contraseña correctos",
-            token: token,
-            id_customer: customer.id_customer,
-            name: customer.name,
-          });
-        }
-      } else {
+          },
+        });
+        const payload = {
+          sub: user.id_customer,
+          role: user.role,
+        };
+        const token = jwt.sign(payload, keyTokens, {
+          expiresIn: "1h",
+        });
+        const prueba = {user, token};
+        console.log(prueba);
+        res.json({
+          user,
+          token,
+        });
+      }else{
         res.status(400).send("email incorrect");
       }
-    } catch (error) {
+
+    }catch(error){
       res.status(400).send("hubo un error en el server");
     }
   },
@@ -174,6 +154,8 @@ module.exports = {
       const token = jwt.sign(payload, keyTokens, {
         expiresIn: "1d",
       });
+      const prueba = {user, token};
+      console.log(prueba);
       res.json({
         user,
         token,
