@@ -53,6 +53,11 @@ module.exports = (sequelize) => {
       type: DataTypes.ENUM('admin','user'),
       allowNull: false,
       defaultValue:'user'
+    },
+    status:{
+      type:DataTypes.ENUM('Active','Inactive'),
+      allowNull:false,
+      defaultValue:'Active'
     }
   });
 };
