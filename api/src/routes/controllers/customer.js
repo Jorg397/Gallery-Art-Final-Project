@@ -11,7 +11,7 @@ module.exports = {
 
       const costumer = await Customer.findOne({
         where: {
-          email:email,
+          email: email,
         },
       });
 
@@ -36,6 +36,7 @@ module.exports = {
   },
 
   googleloginPost: async (req, res) => {
+
     const { email, name } = req.body;
     try{
       if(email){
@@ -111,11 +112,13 @@ module.exports = {
       country,
       default_shipping_address,
       billing_address,
+      status,
+      role,
     } = req.body;
 
     // if(email){
     try {
-      let customer =await Customer.update(
+      let customer = await Customer.update(
         {
           dni,
           name,
@@ -125,6 +128,8 @@ module.exports = {
           country,
           default_shipping_address,
           billing_address,
+          status,
+          role,
         },
         {
           where: {
@@ -137,7 +142,6 @@ module.exports = {
       console.log(err);
       res.status(400).send({ message: "error updating customer" });
     }
-  
   },
 
   passport: async (req, res, next) => {

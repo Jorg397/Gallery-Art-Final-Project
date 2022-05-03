@@ -1,0 +1,7 @@
+.cartContainer {
+  width: 55%;
+  height: 90%;
+  border: 4px solid #3a3f42;
+  background-color: #1b1b2e;
+  grid-template-rows: repeat(1, minmax(0, 0.1fr));
+}
