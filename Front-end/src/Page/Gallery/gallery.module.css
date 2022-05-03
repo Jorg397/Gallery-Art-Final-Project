@@ -9,7 +9,20 @@
     border-radius: 10px;
     transition: all 1s;
 }
-
+.selectInput2 {
+    background-color: #4a4e69;
+    width: 250px;
+    font-size: larger;
+    font-weight: 600;
+    border-radius: 10px;
+    height: 40px;
+    border: 1px solid white;
+    
+    
+}
+.selectInput2:focus {
+    outline: none;
+}
 .selectInput:focus {
     outline: none;
 }

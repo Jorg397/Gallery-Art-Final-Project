@@ -7,13 +7,13 @@ const { checkRoles } = require('./utils/models/models');
 router.route("/:idProduct").get(productController.get);
 
 router.post('/', 
-    passport.authenticate('jwt', { session: false }),
-    checkRoles( 'admin'),
+    // passport.authenticate('jwt', { session: false }),
+    // checkRoles( 'admin'),
     productController.post);
 
 router.put('/:idProduct',
-    passport.authenticate('jwt', { session: false }),
-    checkRoles( 'admin' ),
+    // passport.authenticate('jwt', { session: false }),
+    // checkRoles( 'admin' ),
     productController.put);
 
 module.exports = router;

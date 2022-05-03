@@ -28,6 +28,8 @@
             .profile__container__body-data{
                 width: 50%;
                 padding-top: 30px;
+                animation: dataProfile .7s ease-in-out;
+                animation-iteration-count: 1;
                 .profile__container__body-data-row{
                     display: flex;
                     justify-content: space-between;
@@ -43,6 +45,8 @@
                 }
             }
             .profile__container__body-img{
+                animation: imgProfile .8s ease-in-out;
+                animation-iteration-count: 1;
                 width:50%;
                 display: flex;
                 justify-content: flex-end;
@@ -53,5 +57,27 @@
 
             }
         }
+    }
+}
+
+
+@keyframes imgProfile{
+    0%{
+        transform: translateX(200px);
+        opacity: 0.1;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+@keyframes dataProfile{
+    0%{
+        transform: translateX(-200px);
+        opacity: 0.1;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
     }
 }

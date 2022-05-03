@@ -1,6 +1,5 @@
-const { Customer } = require('../../../db');
-const boom = require('@hapi/boom');
-
+const { Customer } = require("../../../db");
+const boom = require("@hapi/boom");
 
 module.exports = {
     async findByEmail(email) {
@@ -20,5 +19,13 @@ module.exports = {
                 next(boom.unauthorized());
             }
         }
+    }, 
+    todayDate() {
+        const today = new Date();
+        const mm = String(today.getMonth() + 1).padStart(2, '0'); 
+        const dd = String(today.getDate()).padStart(2, '0');
+        const yyyy = today.getFullYear();
+        const now = `${yyyy}-${mm}-${dd}`
+        return now;
     }
 };

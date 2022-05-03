@@ -5,14 +5,15 @@ import save from "../../../assets/icons/save.png";
 import "./Input.scss";
 
 const Input = (props) => {
-  const { name, text, value, state, onchange, type, onClick, width } = props;
+  const { name, text, value, state, onchange, type, onClick, width, visibility } = props;
   const icon = state ? save : edit;
+  //prettier-ignore
   return (
     <div className="input" style={{ width: width }}>
       <label className="input__label">{text}</label>
       {type === "text" ? (
         <input
-          disabled={state ? "" : "disabled"}
+          disabled={state || !visibility ? "" : "disabled"}
           type={type}
           className="input__input"
           value={value}
@@ -27,7 +28,7 @@ const Input = (props) => {
           </select>
         )
       )}
-      {type === "text" && <button
+      {type === "text" && visibility && <button
         onClick={() => {
           onClick(name);
         }}

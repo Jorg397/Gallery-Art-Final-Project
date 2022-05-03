@@ -50,6 +50,8 @@ module.exports = {
           const payload = {
             check: true,
             id_customer: customer.id_customer,
+            sub: customer.id_customer,
+            role: customer.role,
           };
       
           const token = jwt.sign(payload, keyTokens, {
@@ -134,7 +136,7 @@ module.exports = {
 
     // if(email){
     try {
-      await Customer.update(
+      let customer =await Customer.update(
         {
           dni,
           name,
@@ -151,7 +153,7 @@ module.exports = {
           },
         }
       );
-      res.status(200).json({ message: "user updated" });
+      res.status(200).json({ message: "user updated", name: customer.name });
     } catch (err) {
       console.log(err);
       res.status(400).send({ message: "error updating customer" });
@@ -167,7 +169,7 @@ module.exports = {
         role: user.role,
       };
       const token = jwt.sign(payload, keyTokens, {
-        expiresIn: "1h",
+        expiresIn: "1d",
       });
       res.json({
         user,

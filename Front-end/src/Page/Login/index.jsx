@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
 import Button from "../../components/Button/index";
 // import google from "../../assets/icons/google.svg";
 import TextField from "../../components/TextField/index";
@@ -28,14 +28,18 @@ const Login = () => {
   const responseGoogle = async (response) => {
     console.log(response.profileObj);
 
-    await googlelogin(response.profileObj)
-      .then((res) => {
-        alert(res.data.message);
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("id_customer", res.data.id_customer);
-        localStorage.setItem("name", res.data.name);
+    await googlelogin(response.profileObj).then((res) => {
+      setTimeout(() => {
         window.location.href = "/home";
-      })
+      },10)
+      console.log("entra aca login 1",res.data);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("id_customer", res.data.id_customer);
+      localStorage.setItem("name", res.data.name);
+      console.log("entra aca login 2",res.data);
+      console.log("entra aca login 3",res.data);
+    })
+    .catch((err) => {return toast.error(err.response.data.message)});
   };
 
   const changeSetError = (field, value) => {
@@ -112,26 +116,24 @@ const Login = () => {
               onChange={handleChangeInput}
             />
           </div>
-
-          <div className="login__container__buttons-login">
-            <Button
-              name={"Ingresar"}
-              version={"v1"}
-              type={"submit"}
-              width={"357px"}
-              height={"50px"}
-            />
-            <Link to="/login">¿Te olvidas tu contraseña?</Link>
-          </div>
-
-          <div>
-            <GoogleLogin
-              clientId={PORT}
-              buttonText="Login"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-              cookiePolicy={"single_host_origin"}
-            />
+          <div className="login__container__form__buttons">
+            <div className="login__container__buttons-login">
+              <Button
+                name={"Ingresar"}
+                version={"v1"}
+                type={"submit"}
+                width={"357px"}
+                height={"50px"}
+              />
+              <Link to="/login">¿Te olvidas tu contraseña?</Link>
+            </div>
+              <GoogleLogin
+                clientId={PORT}
+                buttonText="Continuar con Google"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={"single_host_origin"}
+              />
           </div>
         </form>
         <div className="login__container__Registry">
