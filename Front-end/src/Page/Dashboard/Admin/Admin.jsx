@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCustomers,
@@ -21,7 +22,16 @@ export default function Admin() {
 
     setOrders(orders);
   };
+                                        
+  if(localStorage.getItem("role") !== "admin"){
+       return <Navigate to="/login" />;
+   } 
 
+  /*const getCustomerName = (customerIdCustomer) => {
+        let customer = customers?.find((customer) => customer.id_customer === customerIdCustomer);
+        return(customer?.name + " " + customer?.lastName) ;
+    }*/
+  
   useEffect(async () => {
     const orders = await dispatch(getOrdersForAdmin());
 
@@ -43,6 +53,8 @@ export default function Admin() {
     );
     return customer?.name + " " + customer?.lastName;
   };
+
+   
 
   return (
     <div>
