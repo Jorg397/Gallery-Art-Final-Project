@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCustomers, getOrders } from '../../../redux/actions/index.js';
 import NavAdmin from './NavAdmin.jsx'
@@ -29,6 +30,11 @@ export default function Admin() {
         return(customer?.name + " " + customer?.lastName) ;
     }   
       
+    if(localStorage.getItem("role") !== "admin"){
+        return <Navigate to="/login" />;
+    }
+
+
     return (
         <div>
             <NavAdmin></NavAdmin>
