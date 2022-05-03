@@ -13,6 +13,7 @@ function InputField({
   patternMessage = "",
   errors,
   disabled,
+  value,
 }) {
   const pattern = patternValue ? new RegExp(patternValue, "i") : patternValue;
 
@@ -27,6 +28,7 @@ function InputField({
         onInput={selectFile}
         name={name}
         disabled={disabled}
+        value={value}
         {...register(name, {
           required: {
             value: true,
