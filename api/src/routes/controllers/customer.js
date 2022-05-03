@@ -11,7 +11,7 @@ module.exports = {
 
       const costumer = await Customer.findOne({
         where: {
-          email:email,
+          email: email,
         },
       });
 
@@ -37,7 +37,7 @@ module.exports = {
 
   googleloginPost: async (req, res) => {
     const { email } = req.body;
-  
+
     try {
       if (email) {
         let customer = await Customer.findOne({
@@ -53,7 +53,7 @@ module.exports = {
             sub: customer.id_customer,
             role: customer.role,
           };
-      
+
           const token = jwt.sign(payload, keyTokens, {
             expiresIn: "1h",
           });
@@ -61,13 +61,13 @@ module.exports = {
             message: "usuario y contraseña correctos",
             token: token,
             id_customer: customer.id_customer,
-            name : customer.name,
+            name: customer.name,
           });
-        }else {
+        } else {
           let customer = await Customer.create({
             email,
           });
-    
+
           customer = customer.toJSON();
           const payload = {
             check: true,
@@ -80,7 +80,7 @@ module.exports = {
             message: "usuario y contraseña correctos",
             token: token,
             id_customer: customer.id_customer,
-            name : customer.name,
+            name: customer.name,
           });
         }
       } else {
@@ -132,11 +132,13 @@ module.exports = {
       country,
       default_shipping_address,
       billing_address,
+      status,
+      role,
     } = req.body;
 
     // if(email){
     try {
-      let customer =await Customer.update(
+      let customer = await Customer.update(
         {
           dni,
           name,
@@ -146,6 +148,8 @@ module.exports = {
           country,
           default_shipping_address,
           billing_address,
+          status,
+          role,
         },
         {
           where: {
@@ -158,7 +162,6 @@ module.exports = {
       console.log(err);
       res.status(400).send({ message: "error updating customer" });
     }
-  
   },
 
   passport: async (req, res, next) => {
