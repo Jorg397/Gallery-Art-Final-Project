@@ -21,6 +21,7 @@ export default function NavBar({ gallerySection, aboutSection }) {
     localStorage.removeItem("token");
     localStorage.removeItem("id_customer");
     localStorage.removeItem("name");
+    localStorage.removeItem("role");
     window.location.reload();
   };
 
@@ -29,6 +30,7 @@ export default function NavBar({ gallerySection, aboutSection }) {
   const [background, setBackground] = useState(false);
 
   const [modalState, setmodalState] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   function openModal() {
     setmodalState(!modalState);
@@ -90,6 +92,11 @@ export default function NavBar({ gallerySection, aboutSection }) {
 
   useEffect(() => {
     console.log("use efect navbar");
+    if(localStorage.getItem("role") === "admin"){
+      setIsAdmin(true);
+    }else{
+      setIsAdmin(false);
+    }
   },[localStorage]);
 
   return (
@@ -112,12 +119,16 @@ export default function NavBar({ gallerySection, aboutSection }) {
           >
             Inicio
           </Link>
-          <Link
+          {isAdmin ? (
+            <Link
             to="/dashboard#admin"
             className="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-12"
           >
             Dashboard
           </Link>
+          ) : null
+          }
+          
           <Link
             to={"/home#gallery"}
             onClick={() => scrollToSection(gallerySection)}

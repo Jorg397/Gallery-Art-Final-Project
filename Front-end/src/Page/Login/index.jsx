@@ -31,11 +31,12 @@ const Login = () => {
     await googlelogin(response.profileObj).then((res) => {
       setTimeout(() => {
         window.location.href = "/home";
-      },10)
+      },10) 
       console.log("entra aca login 1",res.data);
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem("id_customer", res.data.id_customer);
-      localStorage.setItem("name", res.data.name);
+      localStorage.setItem("id_customer", res.data.user.id_customer);
+      localStorage.setItem("name", res.data.user.name);
+      localStorage.setItem("role", res.data.user.role);
       console.log("entra aca login 2",res.data);
       console.log("entra aca login 3",res.data);
     })
@@ -80,6 +81,7 @@ const Login = () => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("id_customer", res.data.user.id_customer);
         localStorage.setItem("name", res.data.user.name);
+        localStorage.setItem("role", res.data.user.role);
         window.location.href = "/home";
       })
       .catch((res) => alert("Usuario o contraseña incorrectos"));
