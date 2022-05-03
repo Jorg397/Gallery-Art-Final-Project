@@ -100,6 +100,8 @@
                      height: 245px;
                      background-color: white;
                      display: flex;
+                     overflow:auto;
+                     flex-wrap: wrap;
                      justify-content: center;
                      margin-top: 15px;
                      img{
@@ -129,7 +131,7 @@
 
                 form{
                     width: 100%;
-                    height: 174px;
+                    height: auto;
                     border-radius: 10px;
                     background-color: #fff;
                     .comments__container__add__form-input{
@@ -149,6 +151,36 @@
                             border: 1px solid color.$color_quaternary;
                         }
                     }
+                    .comments__container__add__form-img{
+                        width: 100%;
+                        display: flex;
+                        justify-content: flex-start;
+                        border-top: color.$color_secondary 1px solid;
+                        overflow: auto;
+                        align-items: center;
+                        flex-wrap: wrap;
+                        transition: all .3s ease-in-out;
+                        .comments__container__add__form-img__item{
+                            width: auto;
+                            height: 163px;
+                            position: relative;
+                            margin: 10px 10px;
+                            button{
+                                width:25px;
+                                height: 25px;
+                                position: absolute;
+                                top: 0;
+                                right: 0;
+                                color: #fff;
+                                background-color: color.$color_primary;
+                                border-radius: 50%;
+                            }
+                            img{
+                                width: auto;
+                                height: 100%;
+                            }
+                        }
+                    }
                     .comments__container__add__form-actions{
                         height: 49px;
                         width: 100%;
@@ -162,6 +194,7 @@
                         .comments__container__add__form-actions-img{}
                     }
                 }
+                
             }
         }
     }

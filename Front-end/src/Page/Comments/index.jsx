@@ -3,7 +3,9 @@ import React from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import Button from "../../components/Button/index";
+import { useLocalStorage } from "../../utils/customerHooks/useLocalStorage";
 import { imageComents } from "../../services/post/imageComents";
+import { coments } from "../../services/post/coments";
 import "./style.scss";
 
 const Comments = () => {
@@ -57,25 +59,80 @@ const Comments = () => {
       validated: true,
     },
   ];
-
+  const [name, setName] = useLocalStorage("name", "");
+  const [selectedImage, setSelectedImage] = React.useState([]);
+  const [getData, setGetData] = React.useState({
+    id_customer: localStorage.getItem("id_customer"),
+    description: "",
+    images: [],
+  });
+  const [previewSrc, setPreviewSrc] = React.useState([]);
   const handleclickImg = () => {
     document.getElementById("files").click();
   };
   const onchangeFiles = (e) => {
-    let files = e.target.files;
-    let reader = new FileReader();
-    reader.readAsDataURL(files[0]);
-    reader.onload = (e) => {
-      const img = e.target.result;
-      imageComents(img)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log("error axios", { err });
-        });
-    };
+    if (!e.target.files || e.target.files.length === 0) {
+      setGetData(() => {
+        return {
+          ...getData,
+          images: [],
+        };
+      });
+      return;
+    }
+    setGetData(() => {
+      return {
+        ...getData,
+        images: [...getData.images, e.target.files[0]],
+      };
+    });
   };
+
+  const handleRemoveImage = (index) => {
+    const newSelectedImage = selectedImage.filter((item, i) => i !== index);
+    setSelectedImage(newSelectedImage);
+  };
+
+  const handleChange = (e) => {
+    setGetData(() => {
+      return {
+        ...getData,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+
+  React.useEffect(() => {
+    if (getData.images.length === 0) {
+      setPreviewSrc([]);
+      return;
+    }
+
+    const ArrayImg = getData.images.map((file) => {
+      return URL.createObjectURL(file);
+    });
+
+    setPreviewSrc(ArrayImg);
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(ArrayImg);
+  }, [getData.images]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formatImages = getData.images.map((file) => {
+      const formImage = new FormData();
+      formImage.append("file", file);
+      formImage.append("upload_preset", "stucxna3");
+      return formImage;
+    });
+    data.images = []; 
+    coments(getData, formatImages)
+    // // setLoading(true);
+    // // const result = await dispatch(createProduct(formImage, data));
+    // // setLoading(false);
+    // // reset();
+  };
+
   return (
     <div className="comments">
       <NavBar />
@@ -143,11 +200,42 @@ const Comments = () => {
         <div className="comments__container__add">
           <h2>Agregar comentario</h2>
           <div className="comments__container__add__form">
-            <form>
+            <form onSubmit={handleSubmit}>
               <textarea
                 type="text"
+                value={getData.description}
+                name="description"
+                onChange={handleChange}
                 className="comments__container__add__form-input"
               />
+              <div
+                className="comments__container__add__form-img"
+                style={
+                  previewSrc.length !== 0
+                    ? { height: "200px" }
+                    : { height: "auto" }
+                }
+              >
+                {previewSrc.length !== 0 &&
+                  previewSrc.map((item, index) => {
+                    return (
+                      <div
+                        className="comments__container__add__form-img__item"
+                        key={index}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => {
+                            handleRemoveImage(index);
+                          }}
+                        >
+                          x
+                        </button>
+                        <img src={item} />
+                      </div>
+                    );
+                  })}
+              </div>
               <div className="comments__container__add__form-actions">
                 <input
                   id="files"
@@ -186,7 +274,7 @@ const Comments = () => {
                 </button>
                 <Button
                   version="v1"
-                  name={`publicar por ${localStorage.getItem("name")}`}
+                  name={`publicar por ${name}`}
                   width="180px"
                   height="35px"
                 />

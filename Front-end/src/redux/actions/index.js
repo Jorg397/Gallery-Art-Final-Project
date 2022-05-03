@@ -250,11 +250,11 @@ export function createProduct(formImage, productData) {
 
       productData.image = uploadImage.data.secure_url;
 
-      const addProduct = await axios.post(
-        "http://localhost:3001/product",
+      const addProduct = await Api.post(
+        "/product",
         productData
       );
-
+        console.log("esro cintesta ", addProduct);
       toast.success("Producto Guardado", {
         position: "top-right",
         autoClose: 3000,

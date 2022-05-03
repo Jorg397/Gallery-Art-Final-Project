@@ -13,7 +13,7 @@ import Input from "./Input/input";
 import "./style.scss";
 
 const Profile = () => {
-  const [name, setName] = useLocalStorage("");
+  const [name, setName] = useLocalStorage("name","");
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
   const [state, setState] = React.useState({});
@@ -231,11 +231,10 @@ const Profile = () => {
                 />
               </form>
             )}
-            {console.log("state", editData)}
             <div
               className="profile__container__body-buttonForm"
               style={
-                inputSate && (profile.lastName || !profile.name) 
+                inputSate && (!profile.lastName || !profile.name) 
                   ? {
                       display: "block",
                     }

@@ -7,7 +7,7 @@ import { useLocalStorage } from "../../utils/customerHooks/useLocalStorage";
 import CartModal from "../CartModal/CartModal";
 
 export default function NavBar({ gallerySection, aboutSection }) {
-  const [name, setName] = useLocalStorage("");
+  const [name, setName] = useLocalStorage("name","");
   const [perfilOptions, setPerfilOptions] = useState(false);
   const scrollToSection = (sectionref) => {
     window.scrollTo({

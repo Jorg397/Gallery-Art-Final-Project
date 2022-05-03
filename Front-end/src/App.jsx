@@ -17,12 +17,9 @@ import Profile from "./Page/Profile/index";
 import Shopping from "./Page/Shopping/index";
 import NavBar from "./components/NavBar/NavBar";
 import { getProfile } from "./redux/actions/index";
-<<<<<<< HEAD
 import Comments from "./Page/Comments/index";
-=======
 import FAQ from "./components/FAQ/FAQ";
 import NotFound from "./components/404/NotFound";
->>>>>>> dd81782e2b5f3e19cd31e4f399389f67c5971895
 
 export default function App() {
   const cart = useSelector((state) => state.cart);
