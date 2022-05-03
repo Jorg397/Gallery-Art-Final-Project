@@ -11,7 +11,8 @@ const orderById=require("./order")
 const ordersGet=require("./orders");
 const cart=require("./cart");
 const comment=require("./comment");
-
+const commentUser=require("./commentUser");
+const comments=require("./comments")
 
 router.use("/products", products);
 router.use("/categories", categories);
@@ -22,7 +23,12 @@ router.use("/mailer", nodeMailer);
 router.use("/orders", ordersGet);
 router.use("/order", orderById);
 router.use("/cart", cart);
+router.use("/comments",comments)
 router.use("/comment", comment);
+router.use("/commentUser", commentUser);
+
+
+
 
 
 //------------------------todas las rutas antes del *!!!!!!!!!!
