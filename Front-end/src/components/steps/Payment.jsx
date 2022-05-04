@@ -16,8 +16,10 @@ import {
 
 import axios from "axios";
 import Button from "../Button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StepperContext } from "../../contexts/StepperContext";
+import API from "../../interceptors/base";
+import { updateCustomer } from "../../redux/actions/index";
 
 //poner la clave secreta en back y clave publoca en front!!!!!
 
@@ -26,6 +28,7 @@ const stripePromise = loadStripe(
 );
 //const stripePromise = loadStripe("<your public key here>");
 const CheckoutForm = () => {
+  const dispatch = useDispatch();
   const { userData, handleClick } = useContext(StepperContext);
 
   const cart = useSelector((state) => state.cart);
@@ -52,7 +55,7 @@ const CheckoutForm = () => {
       setError("");
       const { id } = paymentMethod;
       try {
-        const { data } = await axios.post("http://localhost:3001/payment", {
+        const { data } = await API.post("http://localhost:3001/payment", {
           id,
           amount: cartTotal, //cents
           id_customer: userData.id_customer,
@@ -66,7 +69,22 @@ const CheckoutForm = () => {
           country: userData.country,
         });
         if (data.completed) {
-          handleClick("next");
+          const customerData = {
+            dni: userData.dni,
+            name: userData.name,
+            lastName: userData.lastName,
+            phone: userData.phone,
+            country: userData.country,
+            default_shipping_address: userData.default_shipping_address,
+          };
+          const result = await dispatch(
+            updateCustomer(userData.id_customer, customerData)
+          );
+
+          if (result.message === "user updated") {
+            handleClick("next");
+          }
+
           //elements.getElement(CardElement).clear();
         }
       } catch (error) {

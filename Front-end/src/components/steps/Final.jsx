@@ -52,9 +52,9 @@ export default function Final() {
             Mencionando que no recibio el correo de confirmación.
           </p>
         </div>
-        <Link to="/perfil" className="mt-10" href="/user/dashboard">
+        <Link to="/shopping" className="mt-10" href="/user/dashboard">
           <button className="h-10 px-5 text-green-700 transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-green-500 hover:text-green-100">
-            Ver Orden
+            Ver Ordenes
           </button>
         </Link>
       </div>
