@@ -5,7 +5,7 @@ export default function Footer() {
 	//returns a footer component with social media adress telephone and terms of use a link to the about page and a link to help page
 	return (
 		<div
-			className='w-auto p-4 bottom-0 h-auto relative'
+			className='w-auto p-4 bottom-0 h-auto relative divide-y-2  border-gray-200'
 			style={{ color: "white", marginBottom: "20px" }}>
 			<div className='lg:flex  lg:mt-3 md:mx-12 lg:mx-28 lg:justify-between '>
 				<div className='mb-4 lg:columns-1 w-96'>

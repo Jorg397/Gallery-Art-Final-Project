@@ -6,45 +6,28 @@ const customer = require("./customer");
 const payment = require("./payment");
 const page404 = require("./404");
 const router = Router();
-const nodeMailer=require("./mailer");
-const imageComments = require("./imageComments");
-const orderById=require("./order")
-const ordersGet=require("./orders");
-const commentGet=require("./comments");
-const commentPost=require("./comment");
-const commentPut=require("./comment");
-const commentDelete=require("./comment");
-//const commentPostImage=require("./comment");
+const nodeMailer = require("./mailer");
+const orderById = require("./order");
+const ordersGet = require("./orders");
+const cart = require("./cart");
+const comment = require("./comment");
+const commentUser = require("./commentUser");
+const comments = require("./comments");
 
 router.use("/products", products);
 router.use("/categories", categories);
 router.use("/product", product);
 router.use("/customer", customer);
-router.use("/payment",payment);
+router.use("/payment", payment);
 router.use("/mailer", nodeMailer);
 router.use("/orders", ordersGet);
 router.use("/order", orderById);
-router.use("/comments", commentGet);
-router.use("/comment", commentPost);
-router.use("/comment", commentPut);
-router.use("/comment", commentDelete);
-router.use("/imagecomments", imageComments);
-
-
+router.use("/cart", cart);
+router.use("/comments", comments);
+router.use("/comment", comment);
+router.use("/commentUser", commentUser);
 
 //------------------------todas las rutas antes del *!!!!!!!!!!
 router.use("*", page404);
-
-
-
-
-
-
-
-module.exports = router;
-
-
-
-
 
 module.exports = router;

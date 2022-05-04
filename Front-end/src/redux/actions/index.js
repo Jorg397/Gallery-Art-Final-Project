@@ -8,6 +8,7 @@ export const REMOVE_TO_CART = "REMOVE_TO_CART";
 export const GET_PROFILE = "GET_PROFILE";
 export const CLEAN_CART = "CLEAN_CART";
 export const GET_ORDERS = "GET_ORDERS";
+export const GET_COMMENTS = "GET_COMMENTS";
 
 const local = "http://localhost:3001";
 
@@ -23,6 +24,21 @@ export function fetchPaints() {
       })
       .catch(function (err) {
         dispatch({ type: "FETCH_PAINTS_FAILURE", payload: err });
+      });
+  };
+}
+
+export function getComments() {
+  return function (dispatch) {
+    Api.get(`/comments`)
+      .then(function (response) {
+        dispatch({
+          type: GET_COMMENTS,
+          payload: response.data,
+        });
+      })
+      .catch(function (err) {
+        console.log(err);
       });
   };
 }
@@ -72,7 +88,7 @@ export function getProfile(id) {
 
 export const getOrders = (idCustomer) => {
   return function (dispatch) {
-    Api.get(`${local}/customer/${id}`)
+    Api.get(`/orders/${idCustomer}`)
       .then(function (response) {
         dispatch({
           type: GET_ORDERS,

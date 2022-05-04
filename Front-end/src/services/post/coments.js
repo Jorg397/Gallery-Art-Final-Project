@@ -1,23 +1,23 @@
 import Api from "../../interceptors/base";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const coments = async (data, images) => {
   try {
-    images.forEach((item) => {
-      axios
+   let array = images.map((item) => {
+      return axios
         .post("https://api.cloudinary.com/v1_1/djuzewizj/upload", item)
-        .then(function (response) {
-          data.images.push(response.data.secure_url);
-        })
-        .catch(function (err) {
-          console.log(err);
-        });
     });
-    console.log("promiseImages 2", data.images);
-
-    //productData.image = uploadImage.data.secure_url;
-
-    const coments = await Api.post("/coment", data);
+    let urlImages = [];
+    await Promise.all(array).then(async (response) => {
+      urlImages= response.map((item) => {
+        return item = item.data.secure_url;
+      }) 
+    })
+    .catch((error) => {console.log(error)});
+    console.log("urlImages", urlImages);
+    data.images=urlImages;
+    const coments = await Api.post("/comment", data);
     console.log("esro cintesta ", coments);
     toast.success("comentario Guardado", {
       position: "top-right",
@@ -28,11 +28,6 @@ export const coments = async (data, images) => {
       draggable: true,
       progress: undefined,
     });
-
-    //     return {
-    //       status: addProduct.status === 201 && true,
-    //       message: addProduct.statusText,
-    //     };
   } catch (error) {
     return { status: false, message: error };
   }

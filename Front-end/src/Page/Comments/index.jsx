@@ -1,68 +1,24 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import Button from "../../components/Button/index";
 import { useLocalStorage } from "../../utils/customerHooks/useLocalStorage";
-import { imageComents } from "../../services/post/imageComents";
+import { deleteComments } from "../../services/delete/comments";
 import { coments } from "../../services/post/coments";
+import { getComments, getOrders } from "../../redux/actions/index";
 import "./style.scss";
 
 const Comments = () => {
-  const data = [
-    {
-      id_customer: "31b41653-7b70-424c-8276-24b598e9cff3",
-      name: "Antonio",
-      description:
-        "Muy agradecidos con el buen servicio el personal super amables.muy contentos con angelina una gran gerente.blanki Rivera muy amable y servicial igual senaida(supervisora en cosina ...... Ver mas",
-      img: "https://dbdzm869oupei.cloudfront.net/img/quadres/large/32527.jpg",
-      validated: true,
-    },
-    {
-      id_customer: "31b41653-7b70-424c-8276-24b598e9cff3",
-      name: "Antonio",
-      description:
-        "Muy agradecidos con el buen servicio el personal super amables.muy contentos con angelina una gran gerente.blanki Rivera muy amable y servicial igual senaida(supervisora en cosina ...... Ver mas",
-      img: null,
-      validated: true,
-    },
-    {
-      id_customer: "31b41653-7b70-424c-8276-24b598e9cff3",
-      name: "Antonio",
-      description:
-        "Muy agradecidos con el buen servicio el personal super amables.muy contentos con angelina una gran gerente.blanki Rivera muy amable y servicial igual senaida(supervisora en cosina ...... Ver mas",
-      img: "https://s1.eestatic.com/2019/12/17/como/como_hacer_452716017_140689526_1024x576.jpg",
-      validated: true,
-    },
-    {
-      id_customer: "31b41653-7b70-424c-8276-24b598e9cff3",
-      name: "Antonio",
-      description:
-        "Muy agradecidos con el buen servicio el personal super amables.muy contentos con angelina una gran gerente.blanki Rivera muy amable y servicial igual senaida(supervisora en cosina ...... Ver mas",
-      img: null,
-      validated: true,
-    },
-    {
-      id_customer: "31b41653-7b70-424c-8276-24b598e9cff3",
-      name: "Antonio",
-      description:
-        "Muy agradecidos con el buen servicio el personal super amables.muy contentos con angelina una gran gerente.blanki Rivera muy amable y servicial igual senaida(supervisora en cosina ...... Ver mas",
-      img: null,
-      validated: true,
-    },
-    {
-      id_customer: "31b41653-7b70-424c-8276-24b598e9cff3",
-      name: "Antonio",
-      description:
-        "Muy agradecidos con el buen servicio el personal super amables.muy contentos con angelina una gran gerente.blanki Rivera muy amable y servicial igual senaida(supervisora en cosina ...... Ver mas",
-      img: "https://www.dadorojo.com/static/cuadro-abstracto-origen-II.jpg",
-      validated: true,
-    },
-  ];
+  const dispatch = useDispatch();
+  const orders = useSelector((state) => state.orders);
+  const comments = useSelector((state) => state.comments);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [buttonDesabled, setButtonDesabled] = React.useState(false);
   const [name, setName] = useLocalStorage("name", "");
-  const [selectedImage, setSelectedImage] = React.useState([]);
   const [getData, setGetData] = React.useState({
-    id_customer: localStorage.getItem("id_customer"),
+    customerIdCustomer: localStorage.getItem("id_customer"),
     description: "",
     images: [],
   });
@@ -89,8 +45,18 @@ const Comments = () => {
   };
 
   const handleRemoveImage = (index) => {
-    const newSelectedImage = selectedImage.filter((item, i) => i !== index);
-    setSelectedImage(newSelectedImage);
+    const newSelectedImage = getData.images.filter((item, i) => i !== index);
+    setGetData((prevState) => {
+      return {
+        ...prevState,
+        images: newSelectedImage,
+      };
+    });
+  };
+
+  const handleClickDeleteComment = async (id_comment) => {
+    deleteComments(id_comment);
+    window.location.reload();
   };
 
   const handleChange = (e) => {
@@ -103,6 +69,7 @@ const Comments = () => {
   };
 
   React.useEffect(() => {
+    console.log("use efect", getData.images);
     if (getData.images.length === 0) {
       setPreviewSrc([]);
       return;
@@ -117,7 +84,7 @@ const Comments = () => {
     return () => URL.revokeObjectURL(ArrayImg);
   }, [getData.images]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formatImages = getData.images.map((file) => {
       const formImage = new FormData();
@@ -125,13 +92,26 @@ const Comments = () => {
       formImage.append("upload_preset", "stucxna3");
       return formImage;
     });
-    data.images = []; 
-    coments(getData, formatImages)
-    // // setLoading(true);
-    // // const result = await dispatch(createProduct(formImage, data));
-    // // setLoading(false);
-    // // reset();
+    data.images = [];
+    setIsLoading(true);
+    await coments(getData, formatImages);
+    getData.images = [];
+    getData.description = "";
+    setIsLoading(false);
   };
+
+  React.useEffect(() => {
+    if (getData.description !== "" || getData.images.length > 0) {
+      setButtonDesabled(true);
+    } else {
+      setButtonDesabled(false);
+    }
+  }, [getData]);
+
+  React.useEffect(() => {
+    dispatch(getComments());
+    dispatch(getOrders(localStorage.getItem("id_customer")));
+  }, []);
 
   return (
     <div className="comments">
@@ -139,13 +119,18 @@ const Comments = () => {
       <div className="comments__container">
         <h1>Comentarios y recomendaciones</h1>
         <div className="comments__container__comment">
-          {data.map((item, index) => {
+          {comments.map((item, index) => {
             return (
-              <div className={`comment__card ${item.img !== null && "img"}`}>
+              <div
+                className={`comment__card ${
+                  item.images && item.images.length > 0 && "img"
+                }`}
+              >
                 <div className="comment__card__header">
-                  <h3>{item.name}</h3>
+                  {console.log("comenet", comments)}
+                  <h3>{item.customer.name}</h3>
                   <div className="comment__card__header__actions">
-                    <button className="comment__card__header__actions-1">
+                    {/* <button className="comment__card__header__actions-1">
                       <span>
                         <svg
                           className="edit"
@@ -165,31 +150,45 @@ const Comments = () => {
                           />
                         </svg>
                       </span>
-                    </button>
-                    <button className="comment__card__header__actions-2">
-                      <span>
-                        <svg
-                          className="stop"
-                          width="25"
-                          height="25"
-                          viewBox="0 0 25 25"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M12.5 0C5.60762 0 0 5.60724 0 12.5C0 19.3928 5.60724 25 12.5 25C19.3928 25 25 19.3928 25 12.5C25 5.60724 19.3924 0 12.5 0ZM2.28945 12.5C2.28945 6.86987 6.86987 2.28945 12.5 2.28945C15.0367 2.28945 17.359 3.22163 19.1466 4.759L4.759 19.1466C3.22163 17.359 2.28945 15.0367 2.28945 12.5ZM12.5 22.7106C10.2304 22.7106 8.13212 21.9653 6.43487 20.7081L20.7077 6.43525C21.965 8.1325 22.7102 10.2308 22.7102 12.5004C22.7106 18.1301 18.1301 22.7106 12.5 22.7106Z"
-                            fill="#4A4E69"
-                          />
-                        </svg>
-                      </span>
-                    </button>
+                    </button> */}
+                    {localStorage.getItem("id_customer") ===
+                      item.customer.id_customer && (
+                      <button
+                        className="comment__card__header__actions-2 hover:text-blue-700 transition duration-150 ease-in-out"
+                        data-bs-toggle="tooltip"
+                        title="Eliminar"
+                        onClick={() => {
+                          handleClickDeleteComment(item.id_comment);
+                        }}
+                      >
+                        <span>
+                          <svg
+                            className="stop"
+                            width="25"
+                            height="25"
+                            viewBox="0 0 25 25"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12.5 0C5.60762 0 0 5.60724 0 12.5C0 19.3928 5.60724 25 12.5 25C19.3928 25 25 19.3928 25 12.5C25 5.60724 19.3924 0 12.5 0ZM2.28945 12.5C2.28945 6.86987 6.86987 2.28945 12.5 2.28945C15.0367 2.28945 17.359 3.22163 19.1466 4.759L4.759 19.1466C3.22163 17.359 2.28945 15.0367 2.28945 12.5ZM12.5 22.7106C10.2304 22.7106 8.13212 21.9653 6.43487 20.7081L20.7077 6.43525C21.965 8.1325 22.7102 10.2308 22.7102 12.5004C22.7106 18.1301 18.1301 22.7106 12.5 22.7106Z"
+                              fill="#4A4E69"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    )}
                   </div>
                 </div>
                 <div className="comment__card__body">
                   <p>{item.description}</p>
-                  {item.img !== null && (
+                  {item.images && item.images.length > 0 && (
                     <div className="comment__card__body__img">
-                      <img src={item.img && item.img} />
+                      {item.images.map((item, index) => {
+                        return (
+                          <img key={index} src={item.urlImage} alt="imagen" />
+                        );
+                      })}
                     </div>
                   )}
                 </div>
@@ -199,88 +198,118 @@ const Comments = () => {
         </div>
         <div className="comments__container__add">
           <h2>Agregar comentario</h2>
-          <div className="comments__container__add__form">
-            <form onSubmit={handleSubmit}>
-              <textarea
-                type="text"
-                value={getData.description}
-                name="description"
-                onChange={handleChange}
-                className="comments__container__add__form-input"
-              />
-              <div
-                className="comments__container__add__form-img"
-                style={
-                  previewSrc.length !== 0
-                    ? { height: "200px" }
-                    : { height: "auto" }
-                }
-              >
-                {previewSrc.length !== 0 &&
-                  previewSrc.map((item, index) => {
-                    return (
-                      <div
-                        className="comments__container__add__form-img__item"
-                        key={index}
-                      >
-                        <button
-                          type="button"
-                          onClick={() => {
-                            handleRemoveImage(index);
-                          }}
-                        >
-                          x
-                        </button>
-                        <img src={item} />
-                      </div>
-                    );
-                  })}
-              </div>
-              <div className="comments__container__add__form-actions">
-                <input
-                  id="files"
-                  type="file"
-                  style={{ display: "none" }}
-                  onChange={onchangeFiles}
-                />
-                <button
-                  type="button"
-                  className="comments__container__add__form-actions-img"
-                  onClick={handleclickImg}
-                >
-                  <span>
+          {orders.length > 0 ? (
+            <div className="comments__container__add__form">
+              <form onSubmit={handleSubmit}>
+                {isLoading && (
+                  <>
                     <svg
-                      width="35"
-                      height="35"
-                      viewBox="0 0 35 35"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                      className="animate-spin z-10 h-5 w-5 mr-3 ..."
+                      viewBox="0 0 24 24"
                     >
-                      <rect width="35" height="35" fill="#22223B" />
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
                       <path
-                        d="M33.6916 3.70703H1.3084C0.585518 3.70703 0 4.29327 0 5.01555V29.9846C0 30.7069 0.585518 31.293 1.3084 31.293H33.6916C34.4139 31.293 35 30.7069 35 29.9846V5.01555C35 4.29327 34.4139 3.70703 33.6916 3.70703ZM32.0568 26.4407C32.0568 27.163 31.4707 27.7491 30.7484 27.7491H6.97835C6.25547 27.7491 5.66995 27.163 5.66995 26.4407V8.55933C5.66995 7.83705 6.25547 7.25093 6.97835 7.25093H30.7483C31.4705 7.25093 32.0567 7.83705 32.0567 8.55933V26.4407H32.0568Z"
-                        fill="white"
-                      />
-                      <path
-                        d="M8.83217 26.0334H28.5676C29.2898 26.0334 29.7242 25.4682 29.5351 24.7695L26.3995 13.1221C26.2112 12.4241 25.9004 11.9929 25.7048 12.1584C25.5092 12.3239 25.1552 13.0102 24.9146 13.6918L22.3527 20.9306C22.1119 21.6123 21.5768 21.6869 21.1581 21.098L18.9129 17.9402C18.4936 17.3515 17.8027 17.3423 17.3683 17.9199L14.9615 21.1189C14.527 21.6966 13.74 21.7725 13.203 21.289L12.4219 20.5851C11.8849 20.1017 11.1403 20.207 10.7595 20.8207L8.21405 24.9219C7.83325 25.5356 8.10929 26.0334 8.83217 26.0334Z"
-                        fill="white"
-                      />
-                      <path
-                        d="M13.7381 16.0017C14.7617 16.0017 15.5915 15.1719 15.5915 14.1483C15.5915 13.1247 14.7617 12.2949 13.7381 12.2949C12.7146 12.2949 11.8848 13.1247 11.8848 14.1483C11.8848 15.1719 12.7146 16.0017 13.7381 16.0017Z"
-                        fill="white"
-                      />
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
                     </svg>
-                  </span>
-                </button>
-                <Button
-                  version="v1"
-                  name={`publicar por ${name}`}
-                  width="180px"
-                  height="35px"
+                    Guardando...
+                  </>
+                )}
+                <textarea
+                  type="text"
+                  value={getData.description}
+                  name="description"
+                  onChange={handleChange}
+                  className="comments__container__add__form-input"
                 />
-              </div>
-            </form>
-          </div>
+                <div
+                  className="comments__container__add__form-img"
+                  style={
+                    previewSrc.length !== 0
+                      ? { height: "200px" }
+                      : { height: "auto" }
+                  }
+                >
+                  {previewSrc.length !== 0 &&
+                    previewSrc.map((item, index) => {
+                      return (
+                        <div
+                          className="comments__container__add__form-img__item"
+                          key={index}
+                        >
+                          <button
+                            type="button"
+                            onClick={() => {
+                              handleRemoveImage(index);
+                            }}
+                          >
+                            x
+                          </button>
+                          <img src={item} />
+                        </div>
+                      );
+                    })}
+                </div>
+                <div className="comments__container__add__form-actions">
+                  <input
+                    id="files"
+                    type="file"
+                    style={{ display: "none" }}
+                    onChange={onchangeFiles}
+                  />
+                  <button
+                    type="button"
+                    className="comments__container__add__form-actions-img"
+                    onClick={handleclickImg}
+                  >
+                    <span>
+                      <svg
+                        width="35"
+                        height="35"
+                        viewBox="0 0 35 35"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect width="35" height="35" fill="#22223B" />
+                        <path
+                          d="M33.6916 3.70703H1.3084C0.585518 3.70703 0 4.29327 0 5.01555V29.9846C0 30.7069 0.585518 31.293 1.3084 31.293H33.6916C34.4139 31.293 35 30.7069 35 29.9846V5.01555C35 4.29327 34.4139 3.70703 33.6916 3.70703ZM32.0568 26.4407C32.0568 27.163 31.4707 27.7491 30.7484 27.7491H6.97835C6.25547 27.7491 5.66995 27.163 5.66995 26.4407V8.55933C5.66995 7.83705 6.25547 7.25093 6.97835 7.25093H30.7483C31.4705 7.25093 32.0567 7.83705 32.0567 8.55933V26.4407H32.0568Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M8.83217 26.0334H28.5676C29.2898 26.0334 29.7242 25.4682 29.5351 24.7695L26.3995 13.1221C26.2112 12.4241 25.9004 11.9929 25.7048 12.1584C25.5092 12.3239 25.1552 13.0102 24.9146 13.6918L22.3527 20.9306C22.1119 21.6123 21.5768 21.6869 21.1581 21.098L18.9129 17.9402C18.4936 17.3515 17.8027 17.3423 17.3683 17.9199L14.9615 21.1189C14.527 21.6966 13.74 21.7725 13.203 21.289L12.4219 20.5851C11.8849 20.1017 11.1403 20.207 10.7595 20.8207L8.21405 24.9219C7.83325 25.5356 8.10929 26.0334 8.83217 26.0334Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M13.7381 16.0017C14.7617 16.0017 15.5915 15.1719 15.5915 14.1483C15.5915 13.1247 14.7617 12.2949 13.7381 12.2949C12.7146 12.2949 11.8848 13.1247 11.8848 14.1483C11.8848 15.1719 12.7146 16.0017 13.7381 16.0017Z"
+                          fill="white"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                  <Button
+                    version="v1"
+                    disabled={buttonDesabled ? "" : "disabled"}
+                    name={`publicar por ${name}`}
+                    width="180px"
+                    height="35px"
+                  />
+                </div>
+              </form>
+            </div>
+          ) : (
+            <p>
+              Podras Comentar o sugerencia Cuando realizas tu primera compra
+            </p>
+          )}
         </div>
         <Footer />
       </div>
