@@ -289,17 +289,16 @@ export function getCustomerById(id) {
 export function createProduct(formImage, productData) {
   return async function () {
     try {
-      const uploadImage = await Api.post(
+      const uploadImage = await axios.post(
         "https://api.cloudinary.com/v1_1/djuzewizj/upload",
         formImage
       );
 
       productData.image = uploadImage.data.secure_url;
 
-
       const addProduct = await Api.post(`${local}/product`, productData);
 
-        console.log("esro cintesta ", addProduct);
+      console.log("esro cintesta ", addProduct);
       toast.success("Producto Guardado", {
         position: "top-right",
         autoClose: 3000,

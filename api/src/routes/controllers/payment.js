@@ -51,19 +51,7 @@ module.exports = {
           return countProduct === productsId.length ? true : false;
         });
 
-        const updateUser = await axios.put(
-          `http://localhost:3001/customer/${id_customer}`,
-          {
-            dni,
-            name,
-            lastName,
-            phone,
-            country,
-            default_shipping_address: shipping_address,
-          }
-        );
-
-        if (checkProduct && updateUser.data.message === "user updated") {
+        if (checkProduct) {
           let today = new Date();
           today.toISOString().split("T")[0];
 

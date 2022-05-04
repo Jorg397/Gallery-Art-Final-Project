@@ -92,12 +92,13 @@ const Comments = () => {
       formImage.append("upload_preset", "stucxna3");
       return formImage;
     });
-    data.images = [];
+    getData.images = [];
     setIsLoading(true);
     await coments(getData, formatImages);
     getData.images = [];
     getData.description = "";
     setIsLoading(false);
+    dispatch(getComments());
   };
 
   React.useEffect(() => {
