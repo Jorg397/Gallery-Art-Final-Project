@@ -19,6 +19,7 @@ import NavBar from "./components/NavBar/NavBar";
 import { getProfile } from "./redux/actions/index";
 import FAQ from "./components/FAQ/FAQ";
 import NotFound from "./components/404/NotFound";
+import Categories from "./Page/Dashboard/Admin/Categories";
 
 export default function App() {
   const cart = useSelector((state) => state.cart);
@@ -50,11 +51,12 @@ export default function App() {
       <Route path="/home" element={<Home />} />
       <Route path="/" element={<Landing />} />
       <Route path="/details/:id" element={<Detail />} />
-      <Route path="*" element={<NotFound />} /> 
+      <Route path="*" element={<NotFound />} />
       <Route path="/gallery" element={<Gallery />} />
       <Route path="/dashboard" element={<Admin />} />
       <Route path="/dashboard/clients" element={<Clientes />} />
       <Route path="/dashboard/paints" element={<Pinturas />} />
+      <Route path="/dashboard/categories" element={<Categories />} />
       <Route path="/perfil" element={<Profile />} />
       <Route path="/shopping" element={<Shopping />} />
       <Route path="/faq" element={<FAQ />} />
