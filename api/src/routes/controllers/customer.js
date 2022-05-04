@@ -73,6 +73,7 @@ module.exports = {
     try {
       const costumer = await Customer.findAll();
       delete costumer.password;
+      delete costumer.recoveryToken;
       res.status(200).json(costumer);
     } catch (error) {
       console.log(error);
@@ -90,6 +91,7 @@ module.exports = {
       });
       if (costumer) {
         delete costumer.dataValues.password;
+        delete costumer.dataValues.recoveryToken;
         res.status(200).json(costumer);
       } else {
         res.status(400).send("user not found");

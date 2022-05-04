@@ -9,5 +9,14 @@ router
 .route('/')
 .post(controllerMailer.post)
 
+router.post(
+    "/resetPassword",
+    controllerMailer.resetPassword
+)
+
+router.post(
+    "/changePassword",
+    controllerMailer.changePassword)
+
 
 module.exports = router;

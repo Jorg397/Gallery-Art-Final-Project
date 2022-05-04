@@ -11,6 +11,21 @@ export const GET_ORDERS = "GET_ORDERS";
 
 const local = "http://localhost:3001";
 
+export async function ResetPasswordActions(data){
+    return axios.post(`${local}/mailer/changePassword`, data)
+        .then(res => {
+            if(res.data.status){
+              toast.success("Contraseña actualizada correctamente");
+            }else{
+              toast.error("Error al actualizar la contraseña");
+            }
+        })
+        .catch(err => {
+          console.log(err);
+            toast.error("Error al actualizar la contraseña");
+        })
+}
+
 export function fetchPaints() {
   return function (dispatch) {
     dispatch({ type: "FETCH_PAINTS" });
