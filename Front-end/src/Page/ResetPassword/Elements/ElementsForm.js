@@ -8,11 +8,36 @@ const colors = {
     success: '#1ed12d'
 };
 
+const HeaderStyle = styled.div`
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 0.8%;
+    height: 70px;
+    background-color: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding-left: 50px;
+    a{
+        font-family: 'Play', sans-serif;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 2rem;
+        color: #fff;  
+    }
+`;
+
 const MainStyle = styled.main`
     max-width: 800px;
     width: 90%;
     margin: auto;
     padding: 40px;
+    margin-top: 150px;
+    background: #c9ada7;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
 `;
 
 const FormStyled = styled.form`
@@ -141,6 +166,7 @@ const MessageErrorStyled = styled.p`
 
 
 export {
+    HeaderStyle,
     FormStyled,
     MainStyle,
     LabelStyled,

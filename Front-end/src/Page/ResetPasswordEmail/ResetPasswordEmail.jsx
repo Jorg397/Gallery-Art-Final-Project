@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import {
+    HeaderStyle,
     FormStyled,
     MainStyle,
     ContainerBotonStyled,
@@ -32,30 +34,35 @@ const ResetPasswordEmail = () => {
         }
     }
     return(
-        <MainStyle>
-            <FormStyled action="" onSubmit={onSubmit}>
-                <Input
-                    state={email}
-                    setState={setEmail}
-                    type="text"
-                    label="Enviar Email"
-                    placeholder="pepito@gmail.com..."
-                    name="gmail"
-                    leyendaError="Debe ser un Email valido"
-                    regularExpression={regularExpressionEmail}
-                />
-                {formValido === false && <MessageErrorStyled>
-                    <FontAwesomeIcon icon={faExclamationTriangle} />
-                    <b>Error: </b>Por favor llenar el formulario correctamente
-                </MessageErrorStyled>}
-                <ContainerBotonStyled>
-                    <BotonStyled type="submit">Enviar</BotonStyled>
-                    {formValido && <MessageSuccessStyled>
-                        Revisa tu correo para restablecer tu contraseña 😎
-                    </MessageSuccessStyled>}
-                </ContainerBotonStyled>
-            </FormStyled>
-        </MainStyle>
+        <>
+            <HeaderStyle>
+                <Link to="/home">Gallery</Link>
+            </HeaderStyle>
+            <MainStyle>
+                <FormStyled action="" onSubmit={onSubmit}>
+                    <Input
+                        state={email}
+                        setState={setEmail}
+                        type="text"
+                        label="Enviar Email"
+                        placeholder="pepito@gmail.com..."
+                        name="gmail"
+                        leyendaError="Debe ser un Email valido"
+                        regularExpression={regularExpressionEmail}
+                    />
+                    {formValido === false && <MessageErrorStyled>
+                        <FontAwesomeIcon icon={faExclamationTriangle} />
+                        <b>Error: </b>Por favor llenar el formulario correctamente
+                    </MessageErrorStyled>}
+                    <ContainerBotonStyled>
+                        <BotonStyled type="submit">Enviar</BotonStyled>
+                        {formValido && <MessageSuccessStyled>
+                            Revisa tu correo para restablecer tu contraseña 😎
+                        </MessageSuccessStyled>}
+                    </ContainerBotonStyled>
+                </FormStyled>
+            </MainStyle>
+        </>
     );
 }
 

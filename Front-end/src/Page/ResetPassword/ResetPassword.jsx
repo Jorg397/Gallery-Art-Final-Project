@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import {useSearchParams} from 'react-router-dom';
+import {useSearchParams, Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import {
+    HeaderStyle,
     FormStyled,
     MainStyle,
     ContainerBotonStyled,
@@ -63,41 +64,47 @@ const ResetPassword = () => {
 
 
     return (
-        <MainStyle>
-            <FormStyled action="" onSubmit={onSubmit}>
-                <Input
-                    state={contraseña}
-                    setState={setContraseña}
-                    type="password"
-                    label="Contraseña"
-                    placeholder="Contraseña..."
-                    name="contraseña"
-                    leyendaError="La contraseña debe tener al menos 5 caracteres"
-                    regularExpression={regularExpressionPassword}
-                />
-                <Input 
-                    state={contraseña2}
-                    setState={setContraseña2}
-                    type="password"
-                    label="Confirmar contraseña"
-                    placeholder="Repite tu Contraseña..."
-                    name="contraseña"
-                    leyendaError="No coinciden las contraseñas"
-                    funcion={validarPassword2}
-                />
-                
-                {formValido === false && <MessageErrorStyled>
-                    <FontAwesomeIcon icon={faExclamationTriangle} />
-                    <b>Error: </b>Por favor llenar el formulario correctamente
-                </MessageErrorStyled>}
-                <ContainerBotonStyled>
-                    <BotonStyled type="submit">Enviar</BotonStyled>
-                    {formValido && <MessageSuccessStyled>
-                        Ya tienes una nueva contraseña!
-                    </MessageSuccessStyled>}
-                </ContainerBotonStyled>
-            </FormStyled>
-        </MainStyle>
+        <> 
+            <HeaderStyle>
+                <Link to="/home">Gallery</Link>
+            </HeaderStyle>
+
+            <MainStyle>
+                <FormStyled action="" onSubmit={onSubmit}>
+                    <Input
+                        state={contraseña}
+                        setState={setContraseña}
+                        type="password"
+                        label="Contraseña"
+                        placeholder="Contraseña..."
+                        name="contraseña"
+                        leyendaError="La contraseña debe tener al menos 5 caracteres"
+                        regularExpression={regularExpressionPassword}
+                    />
+                    <Input 
+                        state={contraseña2}
+                        setState={setContraseña2}
+                        type="password"
+                        label="Confirmar contraseña"
+                        placeholder="Repite tu Contraseña..."
+                        name="contraseña"
+                        leyendaError="No coinciden las contraseñas"
+                        funcion={validarPassword2}
+                    />
+                    
+                    {formValido === false && <MessageErrorStyled>
+                        <FontAwesomeIcon icon={faExclamationTriangle} />
+                        <b>Error: </b>Por favor llenar el formulario correctamente
+                    </MessageErrorStyled>}
+                    <ContainerBotonStyled>
+                        <BotonStyled type="submit">Enviar</BotonStyled>
+                        {formValido && <MessageSuccessStyled>
+                            Ya tienes una nueva contraseña!
+                        </MessageSuccessStyled>}
+                    </ContainerBotonStyled>
+                </FormStyled>
+            </MainStyle>
+        </>
     );
 }
 
