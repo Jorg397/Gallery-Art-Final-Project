@@ -53,15 +53,14 @@ const Gallery = () => {
 	return (
 		<>
 			<NavBar />
-			<div className={`text-white pt-48 ${s.container}`}>
-					<div style={{width:"93%", display:"flex", justifyContent:"right", alignItems:"right"}}>
-						<input className={s.selectInput2}  type="text" placeholder="Buscar una pintura" onChange={handleChange} />
-						</div>
+			<div className={`text-white pt-24 ${s.container}`}>
 				<h3 className='text-3xl border-b-2 inline-block ml-12'>
-					Gallery
+					Galeria de obras:
 				</h3>
 				<div className='flex justify-end mr-24'>
-					<p className='mr-8 text-2xl self-center'>Filtros: </p>
+					<p className='mr-8 text-2xl self-center'>
+						Filtros: 
+					</p>
 
 					<select
 						name='filtros'
@@ -82,34 +81,12 @@ const Gallery = () => {
 							<option value='MIN'>Min-Max</option>
 						</optgroup>
 					</select>
+								<input className={`${s.selectInput2} ml-3`}   type="text" placeholder=" Buscar..." onChange={handleChange} />
 				</div>
 
 				<Cards cards={filterAviablePaints} />
 
-				{filter ? null : (
-					<>
-						{categories?.map((category) => {
-							return (
-								<div>
-									<h3 className='text-3xl border-b-2 inline-block ml-12'>
-										{category?.name}
-									</h3>
-									<img src={divider} className='w-full' />
-
-									<Cards
-										cards={filterAviablePaints.filter(
-											(paint) =>
-												paint.categories[0]?.name ===
-													category.name ||
-												paint.categories[1]?.name ===
-													category.name
-										)}
-									/>
-								</div>
-							);
-						})}
-					</>
-				)}
+				
 			</div>
 			<Footer />
 		</>

@@ -200,11 +200,11 @@ a {
 
 .zoonImage{
     position:absolute; 
-    height:520px;
+    height:420px;
     overflow:auto;
     opacity:0;
     z-index:-1;
-    width:700px;
+    width:600px;
     top: 100px;
     right:60px;
     transition:all 0.2s;
