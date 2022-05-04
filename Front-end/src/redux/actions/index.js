@@ -290,3 +290,54 @@ export function createProduct(formImage, productData) {
     }
   };
 }
+
+export function updateOrders(idOrder, data) {
+  return async function () {
+    try {
+      const result = await Api.put(`${local}/order/status/${idOrder}`, data);
+
+      toast.success("Orden Actualizada");
+
+      return result.data;
+    } catch (err) {
+      toast.error(err.response.data.message);
+    }
+  };
+}
+
+export function getOrdersForAdmin() {
+  return async function () {
+    try {
+      const result = await Api.get(`${local}/orders`);
+
+      return result.data;
+    } catch (err) {
+      toast.error(err.response.data.message);
+    }
+  };
+}
+
+export function updateCustomer(id_customer, customerData) {
+  return async function () {
+    try {
+      const result = await axios.put(
+        `http://localhost:3001/customer/${id_customer}`,
+        customerData
+      );
+
+      toast.success("Usuario Actualizado", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      return result.data;
+    } catch (error) {
+      return { status: false, message: error };
+    }
+  };
+}

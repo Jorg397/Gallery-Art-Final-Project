@@ -30,22 +30,19 @@ const Login = () => {
   const responseGoogle = async (response) => {
     console.log(response.profileObj);
 
-    await googlelogin(response.profileObj)
-      .then((res) => {
-        setTimeout(() => {
-          window.location.href = "/home";
-        }, 10);
-        console.log("entra aca login 1", res.data);
-        localStorage.setItem("token", res.data.token);
-        setId_customer(res.data.name);
-        localStorage.setItem("id_customer", res.data.id_customer);
-        setName(res.data.name);
-        console.log("entra aca login 2", res.data);
-        console.log("entra aca login 3", res.data);
-      })
-      .catch((err) => {
-        return toast.error(err.response.data.message);
-      });
+    await googlelogin(response.profileObj).then((res) => {
+      setTimeout(() => {
+        window.location.href = "/home";
+      },10) 
+      console.log("entra aca login 1",res.data);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("id_customer", res.data.user.id_customer);
+      setName(res.data.name);
+      localStorage.setItem("role", res.data.user.role);
+      console.log("entra aca login 2",res.data);
+      console.log("entra aca login 3",res.data);
+    })
+    .catch((err) => {return toast.error(err.response.data.message)});
   };
 
   const changeSetError = (field, value) => {
@@ -86,6 +83,7 @@ const Login = () => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("id_customer", res.data.user.id_customer);
         setName(res.data.user.name);
+        localStorage.setItem("role", res.data.user.role);
         window.location.href = "/home";
       })
       .catch((res) => alert("Usuario o contraseña incorrectos"));
