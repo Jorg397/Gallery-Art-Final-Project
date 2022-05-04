@@ -10,8 +10,9 @@ export default function Ilustrame() {
 			<div className='box-border flex flex-col items-center content-center px-8 mx-auto leading-6 text-black border-0 border-gray-300 border-solid md:flex-row max-w-7xl lg:px-16'>
 				<div className='box-border relative w-full max-w-md px-4 mt-5 mb-4 -ml-5 text-center bg-no-repeat bg-contain border-solid md:ml-0 md:mt-0 md:max-w-none lg:mb-0 md:w-1/2 xl:pl-10'>
 					<img
-						src='https://i.ibb.co/ccCKLh4/img.png'
-						className='p-2 pl-6 pr-5 xl:pl-16 xl:pr-20 '
+						style={{borderRadius: '10px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)'}}
+						src='https://i.ibb.co/Ks5gqJ5/18767848-1801894706493995-6079544335035068337-n.jpg'
+						className='w-full h-full object-cover object-center '
 					/>
 				</div>
 
@@ -20,11 +21,8 @@ export default function Ilustrame() {
 						Ilustracion perfecta
 					</h2>
 					<p className='pt-4 pb-8 m-0 leading-7 text-white-700 border-0 border-gray-300 sm:pr-12 xl:pr-32 lg:text-lg'>
-						Lorem Ipsum es simplemente el texto de relleno de las
-						imprentas y archivos de texto. Lorem Ipsum ha sido el
-						texto de relleno estándar de las industrias desde el año
-						1500, cuando un impresor (N. del T. persona que se
-						dedica a la imprenta) desconocido usó una galería de
+						Realizo trabajos individuales a pedido, tanto retratos como obras de arte de distintos géneros. También puedo realizar trabajos en conjunto con otros artistas.
+						Ante cualquier duda o consulta, puedo ayudarte a encontrar la ilustración perfecta para tu obra.
 					</p>
 					<a href='https://www.whatsapp.com' target='_blank'>
 						<button
@@ -32,7 +30,7 @@ export default function Ilustrame() {
 							className={`${s.cardbtn} flex justify-around py-12`}>
 							<p className=' self-center text-2xl	'>Contáctame</p>
 							<img
-								src='https://cdn-icons-png.flaticon.com/512/1384/1384007.png'
+								src='https://img.icons8.com/fluency/344/whatsapp.png'
 								alt='facebook'
 								className='w-12 self-center'
 							/>

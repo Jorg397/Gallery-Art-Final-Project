@@ -1,53 +1,58 @@
 import React from "react";
+import Button from "../Button";
+import Author from "../Autor/index";
+import s from "../Home/home.module.css";
+import fondoSotelino from "../../assets/sotelinofondo.png";
+import sotelino from "../../assets/sotelino.png";
+import ArrowDown from "../ArrowDown/index";
 import NavBar from "../NavBar/NavBar";
-import s from "./Landing.module.css";
-import a from "../NavBar/NavBar.module.css";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/autoplay";
-
-// import Swiper core and required modules
-import SwiperCore, { Navigation, Autoplay, Pagination } from "swiper";
-import SliderCard from "../SliderCard/SliderCard";
-
-// install Swiper modules
-SwiperCore.use([Navigation, Autoplay, Pagination]);
 export default function Landing() {
 	return (
-		<>
-			<NavBar />
-			<Swiper
-				id='slider'
-				style={{ paddingTop: "100px" }}
-				autoplay={{
-					delay: 3000,
-					disableOnInteraction: false,
-				}}
-				pagination={{
-					clickable: true,
-					dynamicBullets: true,
-				}}
-				navigation={true}
-				modules={[Autoplay, Pagination, Navigation]}
-				className={`${s.container} h-screen`}>
-				<SwiperSlide>
-					<img
-						src='https://i.ibb.co/TWVT7yd/Sin-t-tulo-2.png'
-						className='w-screen'
-					/>
-				</SwiperSlide>
-				<SwiperSlide>
-					<img
-						src='https://i.ibb.co/fD4cXC3/2.png'
-						className='w-screen'
-					/>
-					;
-				</SwiperSlide>
-			</Swiper>
-		</>
+    <div>
+      <NavBar/>
+    <div className={s.banner}>
+    <div className={s.banner__img}>
+      <img
+        src={fondoSotelino}
+        className={s.banner__img_fondo}
+        alt="banner"
+      />
+      <img src={sotelino} className={s.banner__img_sotelino} alt="autor" />
+    </div>
+    <div className={s.banner__text}>
+      <h1>Hola, soy Hugo Sotelino</h1>
+      <p>
+        Un artista enfocado a pintar cuadros de paisaje y naturaleza, te
+        invito a ver mis obras en la siguentes secciones.{" "}
+      </p>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          marginTop: "50px",
+        }}
+      >
+        <div className={s.banner__text_scrol}>
+          <ArrowDown />
+        </div>
+        <a href="/home">
+        <p
+          style={{
+            color: "white",
+            fontFamily: "mulish",
+            fontSize: "0.87rem",
+          }}
+        >
+          Ver mas
+        </p>
+
+        </a>
+      </div>
+    </div>
+  </div>
+    </div>
+
+
 	);
 }
