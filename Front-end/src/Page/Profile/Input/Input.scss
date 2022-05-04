@@ -22,6 +22,11 @@
             outline: none;
         }
     }
+
+    .input__input.error{
+        border: solid 2px;
+        border-color: color.$input_border_color_warning;
+    }
     .input__select{
         font-family: font.$font_text;
         background-color: color.$input_color_background;

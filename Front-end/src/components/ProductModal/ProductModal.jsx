@@ -64,7 +64,7 @@ function ProductModal({ openModalProduct, modalProduct }) {
   const onSubmit = async (data) => {
     const formImage = new FormData();
     formImage.append("file", data.image[0]);
-    formImage.append("upload_preset", "ucacqwtj");
+    formImage.append("upload_preset", "ucacqwtj");image
 
     setLoading(true);
     const result = await dispatch(createProduct(formImage, data));
@@ -243,7 +243,7 @@ function ProductModal({ openModalProduct, modalProduct }) {
               </div>
 
               <div className="grid col-span-2 justify-center">
-                {/*  <input
+                 {/* <input
                   className="flex justify-center items-center btn-primary rounded-lg text-white h-8 cursor-pointer border-2 px-16"
                   type="submit"
                   value={"Guardar"}

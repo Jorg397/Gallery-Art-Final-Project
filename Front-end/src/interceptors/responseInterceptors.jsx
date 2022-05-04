@@ -15,7 +15,6 @@ const responseInterceptors = (axiosInstance) => {
         window.location.href = "/login";
        } else {
        console.log({error}); 
-        toast.error(error.response.data);
       }
     });
     };

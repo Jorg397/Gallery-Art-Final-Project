@@ -5,15 +5,16 @@ import Footer from "../Footer/Footer";
 import Ilustrame from "../Ilustrame/Ilustrame";
 import Button from "../Button";
 import Author from "../Autor/index";
-import Titulos from "../Titulos/Titulos";
 import fondoSotelino from "../../assets/sotelinofondo.png";
 import sotelino from "../../assets/sotelino.png";
+import ArrowDown from "../ArrowDown/index";
+import Titulos from "../Titulos/Titulos";
+
 import s from "./home.module.css";
 import Gallery from "../Gallery/Gallery";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPaints, getCategories } from "../../redux/actions";
-import Slider from "../Slider/Slider";
-import ArrowDown from "../ArrowDown/index";
+
 import NavBar from "../NavBar/NavBar";
 
 export default function Home() {
@@ -51,44 +52,48 @@ export default function Home() {
         aboutSection={about}
         sliderSection={slider}
       />
-      <div className={s.banner}>
-        <div className={s.banner__img}>
-          <img
-            src={fondoSotelino}
-            className={s.banner__img_fondo}
-            alt="banner"
-          />
-          <img src={sotelino} className={s.banner__img_sotelino} alt="autor" />
+    <div className={s.banner}>
+    <div className={s.banner__img}>
+      <img
+        src={fondoSotelino}
+        className={s.banner__img_fondo}
+        alt="banner"
+      />
+      <img src={sotelino} className={s.banner__img_sotelino} alt="autor" />
+    </div>
+    <div className={s.banner__text}>
+      <h1>Hola, soy Hugo Sotelino</h1>
+      <p>
+        Un artista enfocado a pintar cuadros de paisaje y naturaleza, te
+        invito a ver mis obras en la siguentes secciones.{" "}
+      </p>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          marginTop: "50px",
+        }}
+      >
+        <div className={s.banner__text_scrol}>
+          <ArrowDown />
         </div>
-        <div className={s.banner__text}>
-          <h1>Hola, soy Hugo Sotelino</h1>
-          <p>
-            un artista muy enfocado a pintar cuadros de paisaje y naturaleza, te
-            invito a ver mis obras en la siguentes secciones.{" "}
-          </p>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              flexWrap: "wrap",
-              marginTop: "50px",
-            }}
-          >
-            <div className={s.banner__text_scrol}>
-              <ArrowDown />
-            </div>
-            <p
-              style={{
-                color: "white",
-                fontFamily: "mulish",
-                fontSize: "0.87rem",
-              }}
-            >
-              ver mas
-            </p>
-          </div>
-        </div>
+        <a href="/home">
+        <p
+          style={{
+            color: "white",
+            fontFamily: "mulish",
+            fontSize: "0.87rem",
+          }}
+        >
+          Ver mas
+        </p>
+
+        </a>
       </div>
+    </div>
+  </div>
+
 
       {/* <Slider paints={paints}></Slider> */}
 
