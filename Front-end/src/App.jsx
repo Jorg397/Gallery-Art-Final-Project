@@ -17,6 +17,7 @@ import Profile from "./Page/Profile/index";
 import Shopping from "./Page/Shopping/index";
 import NavBar from "./components/NavBar/NavBar";
 import ResetPassword from "./Page/ResetPassword/ResetPassword";
+import ResetPasswordEmail from "./Page/ResetPasswordEmail/ResetPasswordEmail";
 import { getProfile } from "./redux/actions/index";
 import FAQ from "./components/FAQ/FAQ";
 import NotFound from "./components/404/NotFound";
@@ -69,6 +70,7 @@ export default function App() {
         }
       />
       <Route path="/resetPassword" element={<ResetPassword />} />
+      <Route path="/resetPasswordEmail" element={<ResetPasswordEmail />} />
       {/* <Route path="/gallery" element={<Gallery />} /> */}
     </Routes>
   );

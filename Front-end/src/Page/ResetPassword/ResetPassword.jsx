@@ -18,7 +18,7 @@ const ResetPassword = () => {
     const [ contraseña2, setContraseña2 ] = useState({campo: '', valido: null});
     const [ formValido, setFormValido ] = useState(null);
 
-    const regularExpressionPassword = /^.{4,12}$/;
+    const regularExpressionPassword = /^.{5,12}$/;
 
     const validarPassword2 = () => {
         if(contraseña.campo.length > 0 ){
@@ -50,6 +50,9 @@ const ResetPassword = () => {
                     newPassword: contraseña.campo
                 }
                 ResetPasswordActions(data);
+                setTimeout(() => {
+                    window.location.href = "/login";
+                  },3000) 
             }
         }else{
             setFormValido(false);
