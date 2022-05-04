@@ -100,7 +100,7 @@ const Detail = () => {
       </div>
 
       <div className={`${s.principalContainer} mt-10`}>
-        <section className="h-170" style={{ height: "600px" }}>
+        <section className="h-170 overflow-hidden" style={{ height: "600px" }}>
           <div
             className={`pt-32 flex justify-around pb-10  ${s.secondContainer} h-full`}
           >

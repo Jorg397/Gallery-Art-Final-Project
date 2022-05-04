@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import Cart from "../Cart/Cart";
 import s from "./NavBar.module.css";
 import { useState, useEffect, useRef } from "react";
+import { useLocalStorage } from "../../utils/customerHooks/useLocalStorage";
 import CartModal from "../CartModal/CartModal";
 
 export default function NavBar({ gallerySection, aboutSection }) {
+  const [name, setName] = useLocalStorage("name","");
   const [perfilOptions, setPerfilOptions] = useState(false);
   const scrollToSection = (sectionref) => {
     window.scrollTo({
@@ -158,9 +160,9 @@ export default function NavBar({ gallerySection, aboutSection }) {
                 onClick={handleClickOptions}
                 className="focus:outline-none text-base block mt-4 lg:inline-block lg:mt-0 text-white underline hover:text-white mr-12 cursor-pointer uppercase font-bold"
               >
-                {localStorage.getItem("name") === "null"
-                  ? "Usuario"
-                  : localStorage.getItem("name")}
+                {name === "" || name === null
+                  ? "usuario"
+                  : name}
               </button>
               <div
                 className={`${

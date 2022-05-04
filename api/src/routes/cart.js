@@ -4,7 +4,7 @@ const cartController = require("./controllers/cart");
 const passport = require("passport");
 const { checkRoles } = require("./utils/models/models");
 
-router.route("/:idcart").get(cartController.get);
+// router.route("/:idcart").get(cartController.get);
 
 router
   .post(
@@ -18,6 +18,6 @@ router
   .delete("/:idcart", cartController.delete)
   .delete("/:idcart/product/:idProduct", cartController.deleteCP);
 
-router.route("/:idcustomer").post(cartController.post);
+// router.route("/:idcustomer").post(cartController.post);
 
 module.exports = router;
