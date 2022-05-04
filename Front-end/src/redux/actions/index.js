@@ -8,6 +8,7 @@ export const REMOVE_TO_CART = "REMOVE_TO_CART";
 export const GET_PROFILE = "GET_PROFILE";
 export const CLEAN_CART = "CLEAN_CART";
 export const GET_ORDERS = "GET_ORDERS";
+export const GET_COMMENTS = "GET_COMMENTS";
 
 const local = "http://localhost:3001";
 
@@ -57,6 +58,21 @@ export function fetchPaints() {
   };
 }
 
+export function getComments() {
+  return function (dispatch) {
+    Api.get(`/comments`)
+      .then(function (response) {
+        dispatch({
+          type: GET_COMMENTS,
+          payload: response.data,
+        });
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  };
+}
+
 export function getDetail(id) {
   return function (dispatch) {
     dispatch({ type: "FETCH_PAINT_DETAIL" });
@@ -102,7 +118,7 @@ export function getProfile(id) {
 
 export const getOrders = (idCustomer) => {
   return function (dispatch) {
-    Api.get(`${local}/customer/${id}`)
+    Api.get(`/orders/${idCustomer}`)
       .then(function (response) {
         dispatch({
           type: GET_ORDERS,
@@ -151,7 +167,7 @@ export function addLocalStorage(cart) {
 }
 
 export function removeToCart(idProduct) {
-  toast.success("Eliminado con éxito del carrito", {
+  toast.error("Eliminado con éxito del carrito", {
     position: "top-right",
     autoClose: 3000,
     hideProgressBar: false,
@@ -273,15 +289,17 @@ export function getCustomerById(id) {
 export function createProduct(formImage, productData) {
   return async function () {
     try {
-      const uploadImage = await axios.post(
+      const uploadImage = await Api.post(
         "https://api.cloudinary.com/v1_1/djuzewizj/upload",
         formImage
       );
 
       productData.image = uploadImage.data.secure_url;
 
-      const addProduct = await axios.post(`${local}/product`, productData);
 
+      const addProduct = await Api.post(`${local}/product`, productData);
+
+        console.log("esro cintesta ", addProduct);
       toast.success("Producto Guardado", {
         position: "top-right",
         autoClose: 3000,
@@ -324,6 +342,53 @@ export function getOrdersForAdmin() {
       return result.data;
     } catch (err) {
       toast.error(err.response.data.message);
+    }
+  };
+}
+
+export function updateCustomer(id_customer, customerData) {
+  return async function () {
+    try {
+      const result = await Api.put(
+        `${local}/customer/${id_customer}`,
+        customerData
+      );
+
+      toast.success("Usuario Actualizado", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      return result.data;
+    } catch (error) {
+      return { status: false, message: error };
+    }
+  };
+}
+
+export function createdCategories(name) {
+  return async function () {
+    try {
+      const result = await Api.post(`${local}/categories`, name);
+
+      toast.success("Categoria Agregada", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      return result.data;
+    } catch (error) {
+      return { status: false, message: error };
     }
   };
 }

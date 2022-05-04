@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate,Link } from "react-router-dom";
 import MaterialTable from "material-table";
 import { useDispatch, useSelector } from "react-redux";
 import { ThemeProvider, createTheme } from "@mui/material";
@@ -111,7 +111,7 @@ const Shopping = () => {
             {
               rowData.codeSend !== null && <span onClick={()=>{
                 navigator.clipboard.writeText(rowData.codeSend);
-                return toast.success("Copiado numeros de envio");
+                return toast.success("Copiado numero de envio");
               }}>
               <Copy />
             </span>
@@ -184,7 +184,7 @@ const Shopping = () => {
                       border: "0px",
                       background: "#4A4E69",
                       fontWeight: "700",
-                      zIndex: "9999",
+                      zIndex: "9",
                     },
                     rowStyle: {
                       fontFamily: "mulish",
@@ -231,7 +231,7 @@ const Shopping = () => {
                                   return (
                                     <tr key={index}>
                                       <td>codigo: {idproduct}</td>
-                                      <td>nombre: {product.name}-----</td>
+                                      <td>nombre: <Link className="product-order underline text-indigo-300" to={`/details/${product.id_product}`}>{product.name}</Link>-----</td>
                                       <td>
                                         <strong>
                                           precio: S/. {product.price}

@@ -90,6 +90,14 @@
     overflow: auto !important;
     height: 400px !important;
 }
+.product-order{
+    color:rgb(16, 169, 175) !important;
+    transition: all .3s ease-in-out !important;
+    &:hover{
+        color:rgb(14, 247, 255) !important;
+        transform: scale(1.1) !important;
+    }
+}
 
 @keyframes imgShopping{
     0%{
