@@ -7,7 +7,7 @@ const colors = {
     error: '#bb2929',
     success: '#1ed12d'
 };
-
+ 
 const HeaderStyle = styled.div`
     width: 80%;
     margin: 0 auto;

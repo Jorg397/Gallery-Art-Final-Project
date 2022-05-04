@@ -20,7 +20,7 @@ const ResetPasswordEmail = () => {
     const [ formValido, setFormValido ] = useState(null);
 
     const regularExpressionEmail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-
+ 
 
     const onSubmit = (e) => {
         e.preventDefault();

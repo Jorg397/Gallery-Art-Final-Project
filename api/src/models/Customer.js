@@ -70,7 +70,7 @@ module.exports = (sequelize) => {
       type:DataTypes.ENUM('Active','Inactive'),
       allowNull:false,
       defaultValue:'Inactive'
-    },
+    }, 
   });
 };
 
