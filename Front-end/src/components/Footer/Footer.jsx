@@ -74,7 +74,7 @@ export default function Footer() {
 								style={{ color: "white" }}
 								href='https://www.google.com/maps/'
 								target={"_blank"}>
-								Fakeadress 123-California US
+								Alvear 1601, Buenos Aires, Argentina
 							</a>
 						</p>
 						<p>
@@ -106,26 +106,31 @@ export default function Footer() {
 						</p>
 						<a target='_blank' href='https://www.facebook.com/'>
 							<img
-								src='https://img.icons8.com/color/48/000000/facebook-new.png'
+								src='https://i.ibb.co/3CHKtq4/facebook.png'
 								alt='facebook'
+								className="w-10"
 							/>
 						</a>
 						<a href='https://www.instagram.com/' target='_blank'>
 							<img
-								src='https://img.icons8.com/color/48/000000/instagram-new.png'
+								src='https://i.ibb.co/nj2sW43/instagram.png'
 								alt='instagram'
+								className="w-10 ml-2"
+								
 							/>
 						</a>
 						<a target='_blank' href='https://www.twitter.com/'>
 							<img
-								src='https://img.icons8.com/color/48/000000/twitter.png'
+								src='https://i.ibb.co/d7B0R7S/twitter-sign.png'
 								alt='twitter'
+								className="w-10 ml-2"
 							/>
 						</a>
 						<a target='_blank' href='https://www.youtube.com/'>
 							<img
-								src='https://img.icons8.com/color/48/000000/youtube-play.png'
+								src='https://i.ibb.co/Zcw7r5C/youtube.png'
 								alt='youtube'
+								className="w-10 ml-2"
 							/>
 						</a>
 					</div>
