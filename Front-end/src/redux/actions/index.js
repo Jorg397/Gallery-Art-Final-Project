@@ -137,7 +137,7 @@ export function addLocalStorage(cart) {
 }
 
 export function removeToCart(idProduct) {
-  toast.success("Eliminado con éxito del carrito", {
+  toast.error("Eliminado con éxito del carrito", {
     position: "top-right",
     autoClose: 3000,
     hideProgressBar: false,
@@ -259,17 +259,16 @@ export function getCustomerById(id) {
 export function createProduct(formImage, productData) {
   return async function () {
     try {
-      const uploadImage = await axios.post(
+      const uploadImage = await Api.post(
         "https://api.cloudinary.com/v1_1/djuzewizj/upload",
         formImage
       );
 
       productData.image = uploadImage.data.secure_url;
 
-      const addProduct = await Api.post(
-        "/product",
-        productData
-      );
+
+      const addProduct = await Api.post(`${local}/product`, productData);
+
         console.log("esro cintesta ", addProduct);
       toast.success("Producto Guardado", {
         position: "top-right",
@@ -320,12 +319,34 @@ export function getOrdersForAdmin() {
 export function updateCustomer(id_customer, customerData) {
   return async function () {
     try {
-      const result = await axios.put(
-        `http://localhost:3001/customer/${id_customer}`,
+      const result = await Api.put(
+        `${local}/customer/${id_customer}`,
         customerData
       );
 
       toast.success("Usuario Actualizado", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      return result.data;
+    } catch (error) {
+      return { status: false, message: error };
+    }
+  };
+}
+
+export function createdCategories(name) {
+  return async function () {
+    try {
+      const result = await Api.post(`${local}/categories`, name);
+
+      toast.success("Categoria Agregada", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
