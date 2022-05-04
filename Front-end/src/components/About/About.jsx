@@ -28,8 +28,8 @@ export default function About() {
 
 			<div className='box-border relative w-full max-w-md px-4 mt-10 mb-4 text-center bg-no-repeat bg-contain border-solid md:mt-0 md:max-w-none lg:mb-0 md:w-1/2'>
 				<img
-					src='https://i.ibb.co/x7WkV7b/Sin-t-tulo-2.png'
-					className='pl-4 sm:pr-10 xl:pl-10 lg:pr-32'
+					src='https://i.ibb.co/g6Jc8m5/13043464-1364777910205679-4756238183954252517-n.jpg'
+					className=' rounded-md sm:rounded-xl shadow-x2'
 				/>
 			</div>
 		</div>

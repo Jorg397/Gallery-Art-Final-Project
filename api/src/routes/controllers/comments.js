@@ -1,27 +1,29 @@
 require("dotenv").config;
-const { Comment, Order ,Customer,Image} = require("../../db");
+const { Comment, Order, Customer, Image } = require("../../db");
 //const { Op } = require("sequelize");
 
 module.exports = {
   async get(req, res) {
-
-    console.log('hola')
+    console.log("hola");
     try {
       let getComment = await Comment.findAll({
-        attributes: ["id_comment","description", "customerIdCustomer","validated"],
+        attributes: [
+          "id_comment",
+          "description",
+          "customerIdCustomer",
+          "validated",
+        ],
 
         include: [
           {
             model: Image,
-
-            attributes: ["id_image",
-          "urlImage",
-        "commentIdComment"],
+            attributes: ["id_image", "urlImage", "commentIdComment"],
           },
-          
-
+          {
+            model: Customer,
+            attributes: ["id_customer", "name", "lastName", "email"],
+          }
         ],
-                
       });
       res.send(getComment);
     } catch (error) {
@@ -29,7 +31,6 @@ module.exports = {
     }
   },
 };
-
 
 /*"id_order",
             "amount",

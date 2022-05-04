@@ -5,6 +5,9 @@ import {
   GET_PROFILE,
   CLEAN_CART,
   GET_ORDERS,
+  GET_COMMENTS,
+
+
 } from "../actions/index";
 
 const initialState = {
@@ -20,6 +23,7 @@ const initialState = {
   customers: [],
   orders: [],
   customer: [],
+  comments: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -35,6 +39,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         loading: true,
       };
+    case GET_COMMENTS:
+      return {
+        ...state,
+        comments: action.payload,
+      }
     case "FETCH_PAINTS_SUCCESS":
       return {
         ...state,

@@ -100,7 +100,7 @@ const Detail = () => {
       </div>
 
       <div className={`${s.principalContainer} mt-10`}>
-        <section className="h-170" style={{ height: "600px" }}>
+        <section className="h-170 overflow-hidden" style={{ height: "600px" }}>
           <div
             className={`pt-32 flex justify-around pb-10  ${s.secondContainer} h-full`}
           >
@@ -120,9 +120,6 @@ const Detail = () => {
                 </div>
               </div>
               <div className={`flex ${s.secondImagesContainer} justify-center`}>
-                <img src={`${resp?.image}`} alt="" />
-                <img src={`${resp?.image}`} alt="" />
-                <img src={`${resp?.image}`} alt="" />
               </div>
             </div>
             <div className={`flex items-center h-full `}>
@@ -219,15 +216,6 @@ const Detail = () => {
 
       <div className={`${s.particulas}`}></div>
       <div className={`${s.particulas}`}></div>
-      <section className="mt-16 text-2xl">
-        <p className="uppercase text-gray-500 ml-24">
-          Ver más de <span className="text-white">arte abstracto</span>
-        </p>
-
-        <div className="flex">
-          <Cards />
-        </div>
-      </section>
       <Footer></Footer>
     </div>
   );

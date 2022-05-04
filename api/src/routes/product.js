@@ -5,7 +5,6 @@ const passport = require("passport");
 const { checkRoles } = require("./utils/models/models");
 
 router.route("/:idProduct").get(productController.get);
-
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),

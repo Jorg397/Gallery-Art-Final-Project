@@ -34,12 +34,12 @@
 
 nav {
   border-radius: 10px;
-  background-color: #ffffff4a;
+  background-color: rgba(255, 255, 255, 0.5);
   transition: all 0.3s ease-in-out;
 }
 
 .background {
-  background-color: #4A4E69;
+  background-color: rgba(34, 34, 59, 1);
   box-shadow: 5px 5px 5px #ffffff9a;
 }
 
