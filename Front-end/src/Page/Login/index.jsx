@@ -31,9 +31,6 @@ const Login = () => {
     console.log(response.profileObj);
 
     await googlelogin(response.profileObj).then((res) => {
-      setTimeout(() => {
-        window.location.href = "/home";
-      },10) 
       console.log("entra aca login 1",res.data);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("id_customer", res.data.user.id_customer);
@@ -41,6 +38,7 @@ const Login = () => {
       localStorage.setItem("role", res.data.user.role);
       console.log("entra aca login 2",res.data);
       console.log("entra aca login 3",res.data);
+      return <Navigate to="/home" />;
     })
     .catch((err) => {return toast.error(err.response.data.message)});
   };
@@ -84,7 +82,7 @@ const Login = () => {
         localStorage.setItem("id_customer", res.data.user.id_customer);
         setName(res.data.user.name);
         localStorage.setItem("role", res.data.user.role);
-        window.location.href = "/home";
+        return <Navigate to="/home" />;
       })
       .catch((res) => alert("Usuario o contraseña incorrectos"));
   };

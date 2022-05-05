@@ -52,25 +52,27 @@ const Detail = () => {
     }
   };
 
-  const viewImgX=(value)=>{
-	let valueReturn = value*3;
-	return valueReturn;
-  }
-  const viewImgY=(value)=>{
-	let valueReturn = value*2.8;
-	return valueReturn;
-  }
+  const viewImgX = (value) => {
+    let valueReturn = value * 3;
+    return valueReturn;
+  };
+  const viewImgY = (value) => {
+    let valueReturn = value * 2.8;
+    return valueReturn;
+  };
 
   let d =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
   React.useEffect(() => {
-
-	  document.getElementById("zoom1").scroll(viewImgX(x-200),viewImgY(y-280));
-  },[x,y]);
+    document
+      .getElementById("zoom1")
+      .scroll(viewImgX(x - 200), viewImgY(y - 280));
+  }, [x, y]);
   return (
     <div className={s.containerG}>
       <NavBar></NavBar>
       <div className={s.containerRoute}>
+        {console.log("resp ", resp)}
         <div className={s.containerRoute__title}>
           <div className="text-xs ">
             <NavLink
@@ -119,8 +121,9 @@ const Detail = () => {
                   </div>
                 </div>
               </div>
-              <div className={`flex ${s.secondImagesContainer} justify-center`}>
-              </div>
+              <div
+                className={`flex ${s.secondImagesContainer} justify-center`}
+              ></div>
             </div>
             <div className={`flex items-center h-full `}>
               <FontAwesomeIcon
@@ -196,12 +199,26 @@ const Detail = () => {
                 <p className="self-center text-white text-3xl">
                   $ {resp?.price}.00
                 </p>
-                <button
-                  className={`${s.button}`}
-                  onClick={() => handleAddToCart(resp?.idProduct)}
-                >
-                  Agregar al carrito
-                </button>
+                {resp && resp.state === "Available" ? (
+                  <button
+                    className={`${s.button}`}
+                    onClick={() => handleAddToCart(resp?.idProduct)}
+                  >
+                    Agregar al carrito
+                  </button>
+                ) : (
+                  <p
+                    style={{
+                      display: "inline-block",
+                      color: "#c9ada7ff",
+                      fontSize: "1.5rem",
+                      marginRight: "10px",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    Pintura Vendida
+                  </p>
+                )}
               </div>
 
               <p className="text-xs text-white mx-5 my-1">

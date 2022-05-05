@@ -65,14 +65,14 @@ module.exports = {
           })
             .then((order) => {
               //console.log("order id: ", order.id_order);
-              axios.post("http://localhost:3001/mailer", {
+              /* axios.post("http://localhost:3001/mailer", {
                 email,
                 emailType: 1,
                 nombreCompleto: `${name} ${lastName}`,
                 numeroDeOrden: order.id_order,
                 productos: products,
                 total: amount,
-              });
+              }); */
 
               return order.addProducts(productsId);
             })
