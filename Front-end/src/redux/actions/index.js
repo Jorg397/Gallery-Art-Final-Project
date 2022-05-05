@@ -415,3 +415,25 @@ export function deleteCategories(idCategories) {
     }
   };
 }
+
+export function updateCategories(data) {
+  return async function () {
+    try {
+      const result = await Api.put(`${local}/categories/`, data);
+
+      toast.success("Categoria Actualizada", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      return result.data;
+    } catch (error) {
+      return { status: false, message: error };
+    }
+  };
+}

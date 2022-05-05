@@ -48,4 +48,24 @@ module.exports = {
       res.send(err);
     }
   },
+
+  async put(req, res) {
+    const { id_category, name } = req.body;
+    try {
+      await Category.update(
+        {
+          name,
+        },
+        {
+          where: {
+            id_category: id_category,
+          },
+        }
+      );
+
+      res.status(201).json({ success: true, message: "category updated" });
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  },
 };
