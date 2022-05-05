@@ -10,36 +10,38 @@ export const CLEAN_CART = "CLEAN_CART";
 export const GET_ORDERS = "GET_ORDERS";
 export const GET_COMMENTS = "GET_COMMENTS";
 
-const local = "http://localhost:3001";
+const local = "https://15.229.26.228:3001";
 
-export async function ResetPasswordActions(data){
-    return axios.post(`${local}/mailer/changePassword`, data)
-        .then(res => {
-            if(res.data.status){
-              toast.success("Contraseña actualizada correctamente");
-            }else{
-              toast.error("Error al actualizar la contraseña");
-            }
-        })
-        .catch(err => {
-          console.log(err);
-            toast.error("Error al actualizar la contraseña");
-        })
+export async function ResetPasswordActions(data) {
+  return axios
+    .post(`${local}/mailer/changePassword`, data)
+    .then((res) => {
+      if (res.data.status) {
+        toast.success("Contraseña actualizada correctamente");
+      } else {
+        toast.error("Error al actualizar la contraseña");
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      toast.error("Error al actualizar la contraseña");
+    });
 }
 
-export async function ResetPasswordEmailActions(email){
-    return axios.post(`${local}/mailer/resetPassword`, {email})
-        .then(res => {
-            if(res.data.status){
-              toast.success("Se ha enviado un correo para restablecer tu contraseña");
-            }else{
-              toast.error("Error al enviar el correo");
-            }
-        })
-        .catch(err => {
-          console.log(err);
-            toast.error("Error al enviar el correo");
-        })
+export async function ResetPasswordEmailActions(email) {
+  return axios
+    .post(`${local}/mailer/resetPassword`, { email })
+    .then((res) => {
+      if (res.data.status) {
+        toast.success("Se ha enviado un correo para restablecer tu contraseña");
+      } else {
+        toast.error("Error al enviar el correo");
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      toast.error("Error al enviar el correo");
+    });
 }
 
 export function fetchPaints() {

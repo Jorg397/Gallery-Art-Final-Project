@@ -1,0 +1,793 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.2
+-- Dumped by pg_dump version 14.2
+
+-- Started on 2022-05-05 10:45:43
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 837 (class 1247 OID 41732)
+-- Name: enum_customers_role; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.enum_customers_role AS ENUM (
+    'admin',
+    'user',
+    'employed'
+);
+
+
+ALTER TYPE public.enum_customers_role OWNER TO postgres;
+
+--
+-- TOC entry 840 (class 1247 OID 41740)
+-- Name: enum_customers_status; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.enum_customers_status AS ENUM (
+    'Active',
+    'Inactive'
+);
+
+
+ALTER TYPE public.enum_customers_status OWNER TO postgres;
+
+--
+-- TOC entry 846 (class 1247 OID 41746)
+-- Name: enum_customers_statusPublicity; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public."enum_customers_statusPublicity" AS ENUM (
+    'Active',
+    'Inactive'
+);
+
+
+ALTER TYPE public."enum_customers_statusPublicity" OWNER TO postgres;
+
+--
+-- TOC entry 864 (class 1247 OID 41802)
+-- Name: enum_orders_order_status; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.enum_orders_order_status AS ENUM (
+    'Created',
+    'Pending',
+    'Delivered'
+);
+
+
+ALTER TYPE public.enum_orders_order_status OWNER TO postgres;
+
+--
+-- TOC entry 873 (class 1247 OID 41830)
+-- Name: enum_products_state; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.enum_products_state AS ENUM (
+    'Available',
+    'Pending',
+    'Sold'
+);
+
+
+ALTER TYPE public.enum_products_state OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 224 (class 1259 OID 41880)
+-- Name: cart_product; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.cart_product (
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL,
+    "cartIdCart" uuid NOT NULL,
+    "productIdProduct" uuid NOT NULL
+);
+
+
+ALTER TABLE public.cart_product OWNER TO postgres;
+
+--
+-- TOC entry 214 (class 1259 OID 41761)
+-- Name: carts; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.carts (
+    id_cart uuid NOT NULL,
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL,
+    "customerIdCustomer" uuid
+);
+
+
+ALTER TABLE public.carts OWNER TO postgres;
+
+--
+-- TOC entry 216 (class 1259 OID 41772)
+-- Name: categories; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.categories (
+    id_category integer NOT NULL,
+    name character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.categories OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 41771)
+-- Name: categories_id_category_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.categories_id_category_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.categories_id_category_seq OWNER TO postgres;
+
+--
+-- TOC entry 3427 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: categories_id_category_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.categories_id_category_seq OWNED BY public.categories.id_category;
+
+
+--
+-- TOC entry 217 (class 1259 OID 41778)
+-- Name: comments; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.comments (
+    id_comment uuid NOT NULL,
+    description text NOT NULL,
+    validated boolean DEFAULT false,
+    "customerIdCustomer" uuid
+);
+
+
+ALTER TABLE public.comments OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 41751)
+-- Name: customers; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.customers (
+    id_customer uuid NOT NULL,
+    dni character varying(255),
+    name character varying(255),
+    "lastName" character varying(255),
+    email character varying(255) NOT NULL,
+    password character varying(255),
+    phone character varying(255),
+    country character varying(255),
+    default_shipping_address character varying(255),
+    billing_address character varying(255),
+    role public.enum_customers_role DEFAULT 'user'::public.enum_customers_role NOT NULL,
+    "recoveryToken" character varying(255),
+    status public.enum_customers_status DEFAULT 'Active'::public.enum_customers_status NOT NULL,
+    "statusPublicity" public."enum_customers_statusPublicity" DEFAULT 'Inactive'::public."enum_customers_statusPublicity" NOT NULL,
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.customers OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 41791)
+-- Name: images; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.images (
+    id_image uuid NOT NULL,
+    "urlImage" character varying(255),
+    "commentIdComment" uuid
+);
+
+
+ALTER TABLE public.images OWNER TO postgres;
+
+--
+-- TOC entry 212 (class 1259 OID 32791)
+-- Name: models; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.models (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.models OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 32790)
+-- Name: models_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.models_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.models_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3428 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: models_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.models_id_seq OWNED BY public.models.id;
+
+
+--
+-- TOC entry 222 (class 1259 OID 41850)
+-- Name: order_product; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.order_product (
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL,
+    "orderIdOrder" uuid NOT NULL,
+    "productIdProduct" uuid NOT NULL
+);
+
+
+ALTER TABLE public.order_product OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 41809)
+-- Name: orders; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.orders (
+    id_order uuid NOT NULL,
+    amount numeric(8,2) NOT NULL,
+    order_date date NOT NULL,
+    order_status public.enum_orders_order_status DEFAULT 'Created'::public.enum_orders_order_status NOT NULL,
+    observation character varying(255),
+    shipping_address character varying(255) NOT NULL,
+    "codeSend" character varying(255),
+    "companySend" character varying(255),
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL,
+    "customerIdCustomer" uuid
+);
+
+
+ALTER TABLE public.orders OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 41865)
+-- Name: product_category; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.product_category (
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL,
+    "productIdProduct" uuid NOT NULL,
+    "categoryIdCategory" integer NOT NULL
+);
+
+
+ALTER TABLE public.product_category OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 41837)
+-- Name: products; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.products (
+    id_product uuid NOT NULL,
+    name character varying(255) NOT NULL,
+    description character varying(255) NOT NULL,
+    technique character varying(255) NOT NULL,
+    measures character varying(255) NOT NULL,
+    image character varying(255) NOT NULL,
+    price integer NOT NULL,
+    serie character varying(255) NOT NULL,
+    sku character varying(255) NOT NULL,
+    released date NOT NULL,
+    state public.enum_products_state DEFAULT 'Available'::public.enum_products_state NOT NULL,
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL,
+    "sellerIdSeller" uuid
+);
+
+
+ALTER TABLE public.products OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 41822)
+-- Name: sellers; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.sellers (
+    id_seller uuid NOT NULL,
+    "fullName" character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    password character varying(255) NOT NULL,
+    phone integer NOT NULL,
+    country character varying(255) NOT NULL,
+    address character varying(255) NOT NULL,
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.sellers OWNER TO postgres;
+
+--
+-- TOC entry 3230 (class 2604 OID 41775)
+-- Name: categories id_category; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.categories ALTER COLUMN id_category SET DEFAULT nextval('public.categories_id_category_seq'::regclass);
+
+
+--
+-- TOC entry 3226 (class 2604 OID 33173)
+-- Name: models id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.models ALTER COLUMN id SET DEFAULT nextval('public.models_id_seq'::regclass);
+
+
+--
+-- TOC entry 3421 (class 0 OID 41880)
+-- Dependencies: 224
+-- Data for Name: cart_product; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.cart_product ("createdAt", "updatedAt", "cartIdCart", "productIdProduct") FROM stdin;
+\.
+
+
+--
+-- TOC entry 3411 (class 0 OID 41761)
+-- Dependencies: 214
+-- Data for Name: carts; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.carts (id_cart, "createdAt", "updatedAt", "customerIdCustomer") FROM stdin;
+\.
+
+
+--
+-- TOC entry 3413 (class 0 OID 41772)
+-- Dependencies: 216
+-- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.categories (id_category, name) FROM stdin;
+1	Naturaleza Muerta
+2	Surrealismo
+3	Impresionismo
+4	Expresionismo
+5	Arte abstracto
+6	Arte Pop
+7	Paisaje
+\.
+
+
+--
+-- TOC entry 3414 (class 0 OID 41778)
+-- Dependencies: 217
+-- Data for Name: comments; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.comments (id_comment, description, validated, "customerIdCustomer") FROM stdin;
+\.
+
+
+--
+-- TOC entry 3410 (class 0 OID 41751)
+-- Dependencies: 213
+-- Data for Name: customers; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.customers (id_customer, dni, name, "lastName", email, password, phone, country, default_shipping_address, billing_address, role, "recoveryToken", status, "statusPublicity", "createdAt", "updatedAt") FROM stdin;
+1bc33059-d4ee-4a09-ab9d-d1c4b8982b68	\N	\N	\N	admin@gmail.com	$2b$10$yvzF4/neUg7FO0LqSAHusO3hQ48psIAmycHBjzD2Q5uueA7YFORe6	\N	\N	\N	\N	user	\N	Active	Inactive	2022-05-05 10:44:40.235-05	2022-05-05 10:44:40.235-05
+\.
+
+
+--
+-- TOC entry 3415 (class 0 OID 41791)
+-- Dependencies: 218
+-- Data for Name: images; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.images (id_image, "urlImage", "commentIdComment") FROM stdin;
+\.
+
+
+--
+-- TOC entry 3409 (class 0 OID 32791)
+-- Dependencies: 212
+-- Data for Name: models; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.models (id, name, "createdAt", "updatedAt") FROM stdin;
+\.
+
+
+--
+-- TOC entry 3419 (class 0 OID 41850)
+-- Dependencies: 222
+-- Data for Name: order_product; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.order_product ("createdAt", "updatedAt", "orderIdOrder", "productIdProduct") FROM stdin;
+\.
+
+
+--
+-- TOC entry 3416 (class 0 OID 41809)
+-- Dependencies: 219
+-- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.orders (id_order, amount, order_date, order_status, observation, shipping_address, "codeSend", "companySend", "createdAt", "updatedAt", "customerIdCustomer") FROM stdin;
+\.
+
+
+--
+-- TOC entry 3420 (class 0 OID 41865)
+-- Dependencies: 223
+-- Data for Name: product_category; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.product_category ("createdAt", "updatedAt", "productIdProduct", "categoryIdCategory") FROM stdin;
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	22491003-a2eb-48f5-aff7-4367dcd1a8c9	3
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	6da09784-68b3-41f1-be38-48b2d9712b9c	4
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	8773485e-1e93-4186-83ed-65a61bfca975	4
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	8a6a3415-22ce-4c41-86bb-7e4fd7a6a010	5
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	8c4dc226-8f3c-4947-bb44-d4d65cebacbd	4
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	99748a01-16db-4be4-a883-408cdadba29c	2
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	b275b0ea-1d55-4863-bb9a-01427964e0aa	1
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	bc6c8cc9-f745-4816-84f4-934250900bfc	2
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	c3e75d51-6ed5-4558-bce4-3b951abf29e7	4
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	c6457616-a69f-4252-b230-16be1c8dc900	5
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	da426d20-7b2d-4e31-8672-44ae507bfaa6	4
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	5a667c24-ed5d-4265-8eeb-5183750bebbb	3
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	3fc30f19-f210-42cf-a985-2bcc1726be21	2
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	eceeee7d-1147-46bf-9f7b-05e2205bdbd3	6
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	fd03481e-3e3c-493d-9a38-f57823ed63aa	5
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	9a59f6fa-b8fe-4e52-97f1-575911f1d984	6
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	8d824226-16ff-4d31-b6db-eeef7ac06d04	4
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	9a59f6fa-b8fe-4e52-97f1-575911f1d984	3
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	dd7aba9d-f498-4cab-aa4b-2cf8427c3825	3
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	9cd8eff4-5c52-4f84-98bf-1554d59d928a	4
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	a4d5b55a-5df6-4b01-9083-d752f7ae728e	5
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	7c2c5a32-60ba-4115-a86f-489ebcd092f2	3
+2022-05-04 20:24:27.251-05	2022-05-04 20:24:27.251-05	3d3d5120-1355-42da-bb51-a4ab20b2dba0	2
+2022-05-04 20:28:30.62-05	2022-05-04 20:28:30.62-05	99e4e569-3f39-48e8-a418-a9083007cfbf	4
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	99e4e569-3f39-48e8-a418-a9083007cfbf	1
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	3d3d5120-1355-42da-bb51-a4ab20b2dba0	5
+2022-05-04 20:38:30.975-05	2022-05-04 20:38:30.975-05	2a46ead8-bb71-498f-904a-d3014146aa8e	4
+2022-05-04 18:41:18.526-05	2022-05-04 18:41:18.526-05	2a46ead8-bb71-498f-904a-d3014146aa8e	3
+2022-05-04 20:42:51.923-05	2022-05-04 20:42:51.923-05	caf31caf-d91f-4091-adc6-ab300270ebf4	4
+2022-05-04 20:46:16.717-05	2022-05-04 20:46:16.717-05	f33de18a-e519-416b-a43f-dc540704d3ae	5
+2022-05-04 20:50:41.852-05	2022-05-04 20:50:41.852-05	610433a4-7518-4309-94ea-6301e8a0e243	7
+2022-05-04 20:57:22.928-05	2022-05-04 20:57:22.928-05	a9102cf1-2698-4993-8340-55f0347dd3f7	7
+2022-05-04 21:01:16.677-05	2022-05-04 21:01:16.677-05	507d5414-6993-4d9a-9eff-4fa0b04766f4	7
+\.
+
+
+--
+-- TOC entry 3418 (class 0 OID 41837)
+-- Dependencies: 221
+-- Data for Name: products; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.products (id_product, name, description, technique, measures, image, price, serie, sku, released, state, "createdAt", "updatedAt", "sellerIdSeller") FROM stdin;
+1d6cfbe2-6086-4568-a380-a270868bc606	EL ATAJO	Líneas oblicuas, incisiones rítmicas, imágenes de búsqueda que anulan nuestro confort inicial. Manifiestan una violencia suave. 	TÉCNICA: Acrílico sobre tela \n\n	MEDIDAS: 160 x 120 cm	https://d3ugyf2ht6aenh.cloudfront.net/stores/051/125/products/k29163-11-bc2e8635ac691f9c7816510036727813-1024-1024.jpg	500	42	369	2022-04-14	Sold	2022-04-13 22:00:00-05	2022-04-13 22:00:00-05	feb54fcc-1433-41f0-810a-4612d3bf7fdd
+22491003-a2eb-48f5-aff7-4367dcd1a8c9	Bella Brisa Amazonas	Los contrastes aplicados a la obra de arte, personas que viven insertas en el amazonas, con características propias de naturaleza que fluye por las venas.	Oleo	150x070	https://res.cloudinary.com/djuzewizj/image/upload/v1651695451/gallery/10_eiq8af.webp	100	2	1	2021-11-03	Available	2022-05-04 15:17:30.146-05	2022-05-04 15:17:30.146-05	\N
+8c4dc226-8f3c-4947-bb44-d4d65cebacbd	Lirio Rosa	Una sensacional obra que nos lleva a sentirnos aliviados y simples de vivir la vida, sólo admirando una bella flor.	Oleo	150x070	https://res.cloudinary.com/djuzewizj/image/upload/v1651696093/gallery/11_qtjrjw.webp	90	3	1	2021-08-02	Available	2022-05-04 15:28:12.572-05	2022-05-04 15:28:12.572-05	\N
+6da09784-68b3-41f1-be38-48b2d9712b9c	Blas Vidal	Contraste de luz y detalles gris	Color sobre papel	64x47	https://res.cloudinary.com/djuzewizj/image/upload/v1651696985/gallery/13_pbwi76.jpg	85	1	2	2020-07-01	Available	2022-05-04 15:43:04.486-05	2022-05-04 15:43:04.486-05	\N
+9cd8eff4-5c52-4f84-98bf-1554d59d928a	Suave Entrega De Luz	"Suave entrega de luz Acrílico, Hoja de oro Sobre Tela 100 x 150 cm 39"" x 59"" Gran Formato"	Acrilico	100x150	https://res.cloudinary.com/djuzewizj/image/upload/v1651697209/gallery/14_zgne5d.jpg	150	1	2	2021-02-10	Available	2022-05-04 15:46:48.393-05	2022-05-04 15:46:48.393-05	\N
+9a59f6fa-b8fe-4e52-97f1-575911f1d984	Personas	Contraste de luz y detalles gris	Grafito sobre papel	150x160	https://res.cloudinary.com/djuzewizj/image/upload/v1651699708/gallery/20_hmyabu.jpg	100	3	2	2021-03-19	Available	2022-05-04 16:28:27.128-05	2022-05-04 16:28:27.128-05	\N
+dd7aba9d-f498-4cab-aa4b-2cf8427c3825	Asombro	Carita con contraste azul marino y celeste	Acrilico	150x070	https://res.cloudinary.com/djuzewizj/image/upload/v1651700230/gallery/17_ce4eqz.png	150	1	2	2021-01-05	Available	2022-05-04 16:37:09.68-05	2022-05-04 16:37:09.68-05	\N
+eceeee7d-1147-46bf-9f7b-05e2205bdbd3	Amarillo Y Azul	Excelente contraste de color y de forma, esta obra de arte es algo genial, que visualiza los colores mas vivos de la paleta de un artista.	Oleo pastel y tinta	60X50	https://res.cloudinary.com/djuzewizj/image/upload/v1651687641/gallery/2_phomif.webp	100	44	100	2022-05-02	Available	2022-05-04 13:07:22.632-05	2022-05-04 13:07:22.632-05	\N
+c3e75d51-6ed5-4558-bce4-3b951abf29e7	Velero En Alta Mar	Velero en alta mar, es una obra realista que nos deja entrever los desafios que los marinos tienen que lidiar día a día, y de los cuales los habitantes de la tierra no tiene la noción que es enfrentarse al mar.	oleo	90X60	https://res.cloudinary.com/djuzewizj/image/upload/v1651694426/gallery/3_kxgku9.webp	450	4585	1558	2022-04-03	Available	2022-05-04 15:00:29.42-05	2022-05-04 15:00:29.42-05	\N
+fd03481e-3e3c-493d-9a38-f57823ed63aa	La Ultima Cena	La última cena es la presentación mas iconica de la religión, lo que representa nuestro sentido de pertenecia con lo inexacto, con la fe, con la señal de vida, con la camaraderia.	crayon	130x70	https://res.cloudinary.com/djuzewizj/image/upload/v1651694674/gallery/4_nhdltw.webp	250	5465	2314	2021-06-04	Available	2022-05-04 15:04:36.255-05	2022-05-04 15:04:36.255-05	\N
+b275b0ea-1d55-4863-bb9a-01427964e0aa	Abstracta	Una obra de pasividad y singular alegria, ojos de sumisión y de esperanza. Con grandes desafios de mezclarse en la naturaleza y salir victoriosos.	oleo	62x120	https://res.cloudinary.com/djuzewizj/image/upload/v1651697085/gallery/5_mvzvw2.webp	140	450	254	2022-05-02	Available	2022-05-04 15:44:46.446-05	2022-05-04 15:44:46.446-05	\N
+c6457616-a69f-4252-b230-16be1c8dc900	Amazonas	Una obra de pasividad y singular alegria, ojos de sumisión y de esperanza. Con grandes desafios de mezclarse en la naturaleza y salir victoriosos.	oleo	62x120	https://res.cloudinary.com/djuzewizj/image/upload/v1651697153/gallery/6_kqecj7.webp	140	450	254	2022-05-02	Available	2022-05-04 15:45:54.773-05	2022-05-04 15:45:54.773-05	\N
+bc6c8cc9-f745-4816-84f4-934250900bfc	Caleta Angelmo	Caleta de Angelmo, es una excelente obra de un artista, que representa la realidad y los detalles en cada una de las obras que se dibujan. En esta obra se puede visulizar, cada una de las personas que pasan por el sector donde se encuentran los barcos.	tinta	62x120	https://res.cloudinary.com/djuzewizj/image/upload/v1651697272/gallery/7_dz5u23.webp	140	450	254	2022-05-02	Available	2022-05-04 15:47:54.512-05	2022-05-04 15:47:54.512-05	\N
+da426d20-7b2d-4e31-8672-44ae507bfaa6	Luz Entre Arboles	Luz de atardecer entre lso arboles, puede representar el atardecer o la mañana en el sur de chile, este cuadro es muy caracteristico de los lugares habitados de la tierra y dan el detalle más que acabado de un paisaje sureño.	tinta	125x74	https://res.cloudinary.com/djuzewizj/image/upload/v1651697439/gallery/8_wcdeq0.webp	140	450	254	2022-05-02	Available	2022-05-04 15:50:41.693-05	2022-05-04 15:50:41.693-05	\N
+8773485e-1e93-4186-83ed-65a61bfca975	Camino La Arena	Camino la arena, esta dibujado en una ciudad llamada Puerto Montoo, al sur de Chile. Esta obra realista, nos atrapa y nos deja pensando en la solemnidad de la naturaleza.	oleo	120x40	https://res.cloudinary.com/djuzewizj/image/upload/v1651697868/gallery/9_vqmos1.webp	750	982	854	2021-06-04	Available	2022-05-04 15:57:49.985-05	2022-05-04 15:57:49.985-05	\N
+8a6a3415-22ce-4c41-86bb-7e4fd7a6a010	Presente Imperfecto	TÉCNICA: Serigrafía EDICIÓN: 99 ejemplares PRUEBAS DE ARTISTA: XIII COLORES: 67 MEDIDAS: Imagen: 50 66 cm Papel: 57 x 77 cm Marco: 74,5 x 94 cm PAPEL: BFK Rives	serigrafia	150x70	https://res.cloudinary.com/djuzewizj/image/upload/v1651698329/gallery/22_ih4inm.jpg	350	267	2314	2021-01-04	Available	2022-05-04 16:05:31.319-05	2022-05-04 16:05:31.319-05	\N
+3fc30f19-f210-42cf-a985-2bcc1726be21	Espacio Atemporal	Una danza que muta continuamente. La espacialidad y el cuerpo son eje de estructuras donde la tensión entre el plano y la figura,	Oleo pastel tinta	150x115	https://res.cloudinary.com/djuzewizj/image/upload/v1651698536/gallery/23_cwrm21.jpg	350	267	554	2021-01-04	Available	2022-05-04 16:08:57.872-05	2022-05-04 16:08:57.872-05	\N
+5a667c24-ed5d-4265-8eeb-5183750bebbb	Brutalismos Minimos	retomo fragmentos de estas construcciones y las transpolo a la madera como soporte, intentando dialogar con la intención que guardaban originalmente estas obras con la materialidad,	Acrilico en madera	44x34	https://res.cloudinary.com/djuzewizj/image/upload/v1651698688/gallery/24_l2pa4c.jpg	350	267	438	2021-01-04	Available	2022-05-04 16:11:29.317-05	2022-05-04 16:11:29.317-05	\N
+8d824226-16ff-4d31-b6db-eeef7ac06d04	Toro	Excelente contraste de color y de forma, esta obra de arte es algo genial, que visualiza los colores mas vivos de la paleta de un artista.	srrt	10x20	https://res.cloudinary.com/djuzewizj/image/upload/v1651681673/gallery/1_qafuj8.webp	100	32	2314	2022-05-11	Available	2022-05-04 11:27:54.809-05	2022-05-04 11:27:54.809-05	\N
+7c2c5a32-60ba-4115-a86f-489ebcd092f2	poblacion	Impresión digital Sobre Canvas 60 x 90 cm 24" x 35" Formato Mediano $6,925 MXN *Montada en bastidor	Montada en bastidor	60x90	https://res.cloudinary.com/djuzewizj/image/upload/v1651697992/gallery/16_osgb0k.jpg	110	3	2	2021-02-10	Available	2022-05-04 15:59:51.356-05	2022-05-04 15:59:51.356-05	\N
+9ad10a53-7766-4c2b-8207-45866825beba	El Atajo	Líneas oblicuas, incisiones rítmicas, imágenes de búsqueda que anulan nuestro confort inicial. Manifiestan una violencia suave.	Acrilico sobre tela	160x120	https://res.cloudinary.com/djuzewizj/image/upload/v1651698856/gallery/25_mcpq1n.jpg	350	267	1258	2021-01-04	Available	2022-05-04 16:14:17.908-05	2022-05-04 16:14:17.908-05	\N
+99748a01-16db-4be4-a883-408cdadba29c	Recuerdo  Apostoles	Recuerdo de los Apóstoles	oleo	120x160	https://res.cloudinary.com/djuzewizj/image/upload/v1651700173/gallery/4_hqlpal.webp	500	987	8254	2022-05-02	Available	2022-05-04 16:36:15.059-05	2022-05-04 16:36:15.059-05	\N
+3d3d5120-1355-42da-bb51-a4ab20b2dba0	Te Encontre	Contrastes aplicados a la obra de arte.	Color sobre papel	150x070	https://res.cloudinary.com/djuzewizj/image/upload/v1651713868/gallery/18_exvvti.jpg	120	4589	1569	2021-07-06	Available	2022-05-04 20:24:27.166-05	2022-05-04 20:24:27.166-05	\N
+99e4e569-3f39-48e8-a418-a9083007cfbf	Ole	Contrastes de Colores	Oleo	60x90	https://res.cloudinary.com/djuzewizj/image/upload/v1651714111/gallery/15_v7yofv.jpg	3214	5698	5897	2020-08-06	Available	2022-05-04 20:28:30.613-05	2022-05-04 20:28:30.613-05	\N
+a4d5b55a-5df6-4b01-9083-d752f7ae728e	El Guasón	Ahí estás	Mixta Sobre Tela	120x120	https://res.cloudinary.com/djuzewizj/image/upload/v1651698712/gallery/19_e4ysgh.jpg	150	3	2	2021-07-16	Available	2022-05-04 16:11:51.331-05	2022-05-04 16:11:51.331-05	\N
+2a46ead8-bb71-498f-904a-d3014146aa8e	Enredado	Enredado, Confundido, Roto	Color sobre papel	150x070	https://res.cloudinary.com/djuzewizj/image/upload/v1651714711/gallery/21_owjjqq.jpg	160	548	965	2021-04-07	Available	2022-05-04 20:38:30.896-05	2022-05-04 20:38:30.896-05	\N
+caf31caf-d91f-4091-adc6-ab300270ebf4	Perdida	Obra que nos lleva a reflejarnos en situaciones de tristezas.	Grafito sobre papel	60x90	https://res.cloudinary.com/djuzewizj/image/upload/v1651714972/gallery/12_wjj5mw.jpg	200	589	789	2020-03-05	Available	2022-05-04 20:42:51.918-05	2022-05-04 20:42:51.918-05	\N
+f33de18a-e519-416b-a43f-dc540704d3ae	Multicolor	Cuadro Multicolor.	Acrilico	64x47	https://res.cloudinary.com/djuzewizj/image/upload/v1651715177/gallery/25_y49uqj.jpg	250	842	693	2022-01-10	Available	2022-05-04 20:46:16.635-05	2022-05-04 20:46:16.635-05	\N
+610433a4-7518-4309-94ea-6301e8a0e243	Naturaleza	Una sensacional obra que nos lleva a sentirnos en  armonia con la naturaleza.	Acrilico	150x170	https://res.cloudinary.com/djuzewizj/image/upload/v1651715442/gallery/26_rvb5tl.jpg	250	321	597	2021-03-10	Available	2022-05-04 20:50:41.771-05	2022-05-04 20:50:41.771-05	\N
+a9102cf1-2698-4993-8340-55f0347dd3f7	Otono	Reflejo del otono	Color sobre papel	150x160	https://res.cloudinary.com/djuzewizj/image/upload/v1651715843/gallery/27_sxr6bk.jpg	200	896	569	2020-07-08	Available	2022-05-04 20:57:22.846-05	2022-05-04 20:57:22.846-05	\N
+507d5414-6993-4d9a-9eff-4fa0b04766f4	Arbol	Arbol Rosado en medio de una laguna	Acrilico	60x90	https://res.cloudinary.com/djuzewizj/image/upload/v1651716077/gallery/30_vrofbj.jpg	260	321	987	2019-06-04	Available	2022-05-04 21:01:16.597-05	2022-05-04 21:01:16.597-05	\N
+\.
+
+
+--
+-- TOC entry 3417 (class 0 OID 41822)
+-- Dependencies: 220
+-- Data for Name: sellers; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sellers (id_seller, "fullName", email, password, phone, country, address, "createdAt", "updatedAt") FROM stdin;
+feb54fcc-1433-41f0-810a-4612d3bf7fdd	victor rodriguez	test@gmail.com	123	999999999	peru	direccion de prueba 12, calle 857	2022-04-14 04:07:31-05	2022-04-14 04:07:31-05
+\.
+
+
+--
+-- TOC entry 3429 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: categories_id_category_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.categories_id_category_seq', 10, true);
+
+
+--
+-- TOC entry 3430 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: models_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.models_id_seq', 1, false);
+
+
+--
+-- TOC entry 3257 (class 2606 OID 41884)
+-- Name: cart_product cart_product_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cart_product
+    ADD CONSTRAINT cart_product_pkey PRIMARY KEY ("cartIdCart", "productIdProduct");
+
+
+--
+-- TOC entry 3239 (class 2606 OID 41765)
+-- Name: carts carts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.carts
+    ADD CONSTRAINT carts_pkey PRIMARY KEY (id_cart);
+
+
+--
+-- TOC entry 3241 (class 2606 OID 41777)
+-- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.categories
+    ADD CONSTRAINT categories_pkey PRIMARY KEY (id_category);
+
+
+--
+-- TOC entry 3243 (class 2606 OID 41785)
+-- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT comments_pkey PRIMARY KEY (id_comment);
+
+
+--
+-- TOC entry 3237 (class 2606 OID 41760)
+-- Name: customers customers_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.customers
+    ADD CONSTRAINT customers_pkey PRIMARY KEY (id_customer);
+
+
+--
+-- TOC entry 3245 (class 2606 OID 41795)
+-- Name: images images_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.images
+    ADD CONSTRAINT images_pkey PRIMARY KEY (id_image);
+
+
+--
+-- TOC entry 3235 (class 2606 OID 32796)
+-- Name: models models_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.models
+    ADD CONSTRAINT models_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3253 (class 2606 OID 41854)
+-- Name: order_product order_product_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_product
+    ADD CONSTRAINT order_product_pkey PRIMARY KEY ("orderIdOrder", "productIdProduct");
+
+
+--
+-- TOC entry 3247 (class 2606 OID 41816)
+-- Name: orders orders_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_pkey PRIMARY KEY (id_order);
+
+
+--
+-- TOC entry 3255 (class 2606 OID 41869)
+-- Name: product_category product_category_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_category
+    ADD CONSTRAINT product_category_pkey PRIMARY KEY ("productIdProduct", "categoryIdCategory");
+
+
+--
+-- TOC entry 3251 (class 2606 OID 41844)
+-- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT products_pkey PRIMARY KEY (id_product);
+
+
+--
+-- TOC entry 3249 (class 2606 OID 41828)
+-- Name: sellers sellers_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sellers
+    ADD CONSTRAINT sellers_pkey PRIMARY KEY (id_seller);
+
+
+--
+-- TOC entry 3267 (class 2606 OID 41885)
+-- Name: cart_product cart_product_cartIdCart_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cart_product
+    ADD CONSTRAINT "cart_product_cartIdCart_fkey" FOREIGN KEY ("cartIdCart") REFERENCES public.carts(id_cart) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3268 (class 2606 OID 41890)
+-- Name: cart_product cart_product_productIdProduct_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cart_product
+    ADD CONSTRAINT "cart_product_productIdProduct_fkey" FOREIGN KEY ("productIdProduct") REFERENCES public.products(id_product) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3258 (class 2606 OID 41766)
+-- Name: carts carts_customerIdCustomer_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.carts
+    ADD CONSTRAINT "carts_customerIdCustomer_fkey" FOREIGN KEY ("customerIdCustomer") REFERENCES public.customers(id_customer) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- TOC entry 3259 (class 2606 OID 41786)
+-- Name: comments comments_customerIdCustomer_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT "comments_customerIdCustomer_fkey" FOREIGN KEY ("customerIdCustomer") REFERENCES public.customers(id_customer) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- TOC entry 3260 (class 2606 OID 41796)
+-- Name: images images_commentIdComment_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.images
+    ADD CONSTRAINT "images_commentIdComment_fkey" FOREIGN KEY ("commentIdComment") REFERENCES public.comments(id_comment) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- TOC entry 3263 (class 2606 OID 41855)
+-- Name: order_product order_product_orderIdOrder_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_product
+    ADD CONSTRAINT "order_product_orderIdOrder_fkey" FOREIGN KEY ("orderIdOrder") REFERENCES public.orders(id_order) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3264 (class 2606 OID 41860)
+-- Name: order_product order_product_productIdProduct_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_product
+    ADD CONSTRAINT "order_product_productIdProduct_fkey" FOREIGN KEY ("productIdProduct") REFERENCES public.products(id_product) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3261 (class 2606 OID 41817)
+-- Name: orders orders_customerIdCustomer_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT "orders_customerIdCustomer_fkey" FOREIGN KEY ("customerIdCustomer") REFERENCES public.customers(id_customer) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- TOC entry 3266 (class 2606 OID 41875)
+-- Name: product_category product_category_categoryIdCategory_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_category
+    ADD CONSTRAINT "product_category_categoryIdCategory_fkey" FOREIGN KEY ("categoryIdCategory") REFERENCES public.categories(id_category) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3265 (class 2606 OID 41870)
+-- Name: product_category product_category_productIdProduct_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_category
+    ADD CONSTRAINT "product_category_productIdProduct_fkey" FOREIGN KEY ("productIdProduct") REFERENCES public.products(id_product) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3262 (class 2606 OID 41845)
+-- Name: products products_sellerIdSeller_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT "products_sellerIdSeller_fkey" FOREIGN KEY ("sellerIdSeller") REFERENCES public.sellers(id_seller) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+-- Completed on 2022-05-05 10:45:43
+
+--
+-- PostgreSQL database dump complete
+--
+
