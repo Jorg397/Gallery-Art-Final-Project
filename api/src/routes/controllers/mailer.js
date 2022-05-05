@@ -2,7 +2,10 @@ require("dotenv").config();
 var nodemailer = require("nodemailer");
 const { Router } = require("express");
 const router = Router();
-const { sendEmailResetPassword, changePass } = require("../utils/models/models");
+const {
+  sendEmailResetPassword,
+  changePass,
+} = require("../utils/models/models");
 const { GMAIL_USER, GMAIL_PASSWORD } = process.env;
 
 const liString = (name) => {
@@ -37,7 +40,7 @@ module.exports = {
         });
 
         var mailOptions = {
-          from: "Remitente",
+          from: "from@gmail.com",
           to: email,
           subject: "Tu compra se ha procesado.",
 
@@ -112,29 +115,31 @@ module.exports = {
     }
   },
   resetPassword: async (req, res) => {
-     try {
-        const { email } = req.body;
-        if(email){
-          const rta = await sendEmailResetPassword(email);
-          res.status(200).json(rta);
-        }else{
-          res.status(500).json({ status: false, message: "Email required" });
-        }
-     } catch (error) {
-        res.status(500).json({ status: false, message: error.message });
-     }
+    try {
+      const { email } = req.body;
+      if (email) {
+        const rta = await sendEmailResetPassword(email);
+        res.status(200).json(rta);
+      } else {
+        res.status(500).json({ status: false, message: "Email required" });
+      }
+    } catch (error) {
+      res.status(500).json({ status: false, message: error.message });
+    }
   },
 
   changePassword: async (req, res) => {
-    try{
-      const {token, newPassword} = req.body;
-      if(token && newPassword){
+    try {
+      const { token, newPassword } = req.body;
+      if (token && newPassword) {
         const rta = await changePass(token, newPassword);
         res.status(200).json(rta);
-      }else{
-        res.status(500).json({ status: false, message: "Token and new password required" });
+      } else {
+        res
+          .status(500)
+          .json({ status: false, message: "Token and new password required" });
       }
-    }catch(error){
+    } catch (error) {
       res.status(500).json({ status: false, message: error.message });
     }
   },

@@ -31,6 +31,7 @@
                 width: 100%;
                 height: 192px;
                 grid-row: span 1;
+                overflow: hidden;
                 border-radius: 10px;
                 border: 2px solid color.$color_quaternary;
                 background-color: color.$color_secondary;
