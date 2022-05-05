@@ -11,7 +11,10 @@ export const GET_ORDERS = "GET_ORDERS";
 export const GET_COMMENTS = "GET_COMMENTS";
 export const RESET_TOTAL_PAGES = "RESET_TOTAL_PAGES";
 
-const local = "http://localhost:3001";
+
+const local = "https://15.229.26.228:3001";
+
+
 
 export async function ResetPasswordActions(data) {
   return axios
