@@ -141,8 +141,11 @@ const Login = () => {
           </div>
         </form>
         <div className="login__container__Registry">
-          <span>¿no tienes una cuenta? </span>
+          <span>¿No tienes una cuenta? </span>
           <Link to="/registry">Registrate aqui</Link>
+          <br/>
+          <span>¿Olvidaste tu contraseña? </span>
+          <Link to="/resetPasswordEmail">Oprime aqui</Link>
         </div>
       </div>
     </div>

@@ -12,6 +12,36 @@ export const GET_COMMENTS = "GET_COMMENTS";
 
 const local = "http://localhost:3001";
 
+export async function ResetPasswordActions(data){
+    return axios.post(`${local}/mailer/changePassword`, data)
+        .then(res => {
+            if(res.data.status){
+              toast.success("Contraseña actualizada correctamente");
+            }else{
+              toast.error("Error al actualizar la contraseña");
+            }
+        })
+        .catch(err => {
+          console.log(err);
+            toast.error("Error al actualizar la contraseña");
+        })
+}
+
+export async function ResetPasswordEmailActions(email){
+    return axios.post(`${local}/mailer/resetPassword`, {email})
+        .then(res => {
+            if(res.data.status){
+              toast.success("Se ha enviado un correo para restablecer tu contraseña");
+            }else{
+              toast.error("Error al enviar el correo");
+            }
+        })
+        .catch(err => {
+          console.log(err);
+            toast.error("Error al enviar el correo");
+        })
+}
+
 export function fetchPaints() {
   return function (dispatch) {
     dispatch({ type: "FETCH_PAINTS" });
@@ -137,7 +167,7 @@ export function addLocalStorage(cart) {
 }
 
 export function removeToCart(idProduct) {
-  toast.success("Eliminado con éxito del carrito", {
+  toast.error("Eliminado con éxito del carrito", {
     position: "top-right",
     autoClose: 3000,
     hideProgressBar: false,
@@ -266,11 +296,9 @@ export function createProduct(formImage, productData) {
 
       productData.image = uploadImage.data.secure_url;
 
-      const addProduct = await Api.post(
-        "/product",
-        productData
-      );
-        console.log("esro cintesta ", addProduct);
+      const addProduct = await Api.post(`${local}/product`, productData);
+
+      console.log("esro cintesta ", addProduct);
       toast.success("Producto Guardado", {
         position: "top-right",
         autoClose: 3000,
@@ -320,12 +348,34 @@ export function getOrdersForAdmin() {
 export function updateCustomer(id_customer, customerData) {
   return async function () {
     try {
-      const result = await axios.put(
-        `http://localhost:3001/customer/${id_customer}`,
+      const result = await Api.put(
+        `${local}/customer/${id_customer}`,
         customerData
       );
 
       toast.success("Usuario Actualizado", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      return result.data;
+    } catch (error) {
+      return { status: false, message: error };
+    }
+  };
+}
+
+export function createdCategories(name) {
+  return async function () {
+    try {
+      const result = await Api.post(`${local}/categories`, name);
+
+      toast.success("Categoria Agregada", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

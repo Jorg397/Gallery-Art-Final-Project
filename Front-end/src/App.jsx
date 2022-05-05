@@ -16,10 +16,13 @@ import Pinturas from "./Page/Dashboard/Admin/Pinturas";
 import Profile from "./Page/Profile/index";
 import Shopping from "./Page/Shopping/index";
 import NavBar from "./components/NavBar/NavBar";
+import ResetPassword from "./Page/ResetPassword/ResetPassword";
+import ResetPasswordEmail from "./Page/ResetPasswordEmail/ResetPasswordEmail";
 import { getProfile } from "./redux/actions/index";
 import Comments from "./Page/Comments/index";
 import FAQ from "./components/FAQ/FAQ";
 import NotFound from "./components/404/NotFound";
+import Categories from "./Page/Dashboard/Admin/Categories";
 
 export default function App() {
   const cart = useSelector((state) => state.cart);
@@ -56,6 +59,7 @@ export default function App() {
       <Route path="/dashboard" element={<Admin />} />
       <Route path="/dashboard/clients" element={<Clientes />} />
       <Route path="/dashboard/paints" element={<Pinturas />} />
+      <Route path="/dashboard/categories" element={<Categories />} />
       <Route path="/perfil" element={<Profile />} />
       <Route path="/shopping" element={<Shopping />} />
       <Route path="/comentarios" element={<Comments />} />
@@ -69,6 +73,8 @@ export default function App() {
           </>
         }
       />
+      <Route path="/resetPassword" element={<ResetPassword />} />
+      <Route path="/resetPasswordEmail" element={<ResetPasswordEmail />} />
       {/* <Route path="/gallery" element={<Gallery />} /> */}
     </Routes>
   );

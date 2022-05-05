@@ -7,7 +7,7 @@ import { useLocalStorage } from "../../utils/customerHooks/useLocalStorage";
 import CartModal from "../CartModal/CartModal";
 
 export default function NavBar({ gallerySection, aboutSection }) {
-  const [name, setName] = useLocalStorage("name","");
+  const [name, setName] = useLocalStorage("name", "");
   const [perfilOptions, setPerfilOptions] = useState(false);
   const scrollToSection = (sectionref) => {
     window.scrollTo({
@@ -94,12 +94,12 @@ export default function NavBar({ gallerySection, aboutSection }) {
 
   useEffect(() => {
     console.log("use efect navbar");
-    if(localStorage.getItem("role") === "admin"){
+    if (localStorage.getItem("role") === "admin") {
       setIsAdmin(true);
-    }else{
+    } else {
       setIsAdmin(false);
     }
-  },[localStorage]);
+  }, [localStorage]);
 
   return (
     <nav
@@ -108,9 +108,7 @@ export default function NavBar({ gallerySection, aboutSection }) {
       } ${show ? s.active : s.hidden}`}
     >
       <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <span className={s.title}>
-          Sotelino
-        </span>
+        <span className={s.title}>Sotelino</span>
       </div>
       <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div className="text-sm lg:flex-grow"></div>
@@ -123,14 +121,13 @@ export default function NavBar({ gallerySection, aboutSection }) {
           </Link>
           {isAdmin ? (
             <Link
-            to="/dashboard#admin"
-            className="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-12"
-          >
-            Dashboard
-          </Link>
-          ) : null
-          }
-          
+              to="/dashboard#admin"
+              className="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-12"
+            >
+              Panel
+            </Link>
+          ) : null}
+
           <Link
             to={"/home#gallery"}
             onClick={() => scrollToSection(gallerySection)}
@@ -145,7 +142,14 @@ export default function NavBar({ gallerySection, aboutSection }) {
             onClick={() => scrollToSection(aboutSection)}
             className="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-12 pointer"
           >
-            About
+            Sobre mi
+          </Link>
+          <Link
+            to={"/comentarios"}
+            onClick={() => scrollToSection(aboutSection)}
+            className="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white mr-12 pointer"
+          >
+            Comentarios
           </Link>
           {!localStorage.getItem("token") ? (
             <Link
@@ -158,11 +162,9 @@ export default function NavBar({ gallerySection, aboutSection }) {
             <div className="relative">
               <button
                 onClick={handleClickOptions}
-                className="focus:outline-none text-base block mt-4 lg:inline-block lg:mt-0 text-white underline hover:text-white mr-12 cursor-pointer "
+                className="focus:outline-none text-base block mt-4 lg:inline-block lg:mt-0 text-white underline hover:text-white mr-12 cursor-pointer uppercase font-bold"
               >
-                {name === "" || name === null
-                  ? "usuario"
-                  : name}
+                {name === "" || name === null ? "usuario" : name}
               </button>
               <div
                 className={`${

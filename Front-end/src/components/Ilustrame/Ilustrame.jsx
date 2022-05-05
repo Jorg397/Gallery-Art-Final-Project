@@ -27,12 +27,12 @@ export default function Ilustrame() {
 					<a href='https://www.whatsapp.com' target='_blank'>
 						<button
 							type='button'
-							className={`${s.cardbtn} flex justify-around py-12`}>
+							className={`${s.cardbtn} flex justify-around py-6`}>
 							<p className=' self-center text-2xl	'>Contáctame</p>
 							<img
-								src='https://img.icons8.com/fluency/344/whatsapp.png'
+								src='https://i.ibb.co/znDXnbn/whatsapp.png'
 								alt='facebook'
-								className='w-12 self-center'
+								className='w-6 self-center'
 							/>
 						</button>
 					</a>

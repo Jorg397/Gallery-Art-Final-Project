@@ -184,7 +184,7 @@ const Shopping = () => {
                       border: "0px",
                       background: "#4A4E69",
                       fontWeight: "700",
-                      zIndex: "9999",
+                      zIndex: "9",
                     },
                     rowStyle: {
                       fontFamily: "mulish",

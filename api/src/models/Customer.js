@@ -54,11 +54,23 @@ module.exports = (sequelize) => {
       allowNull: false,
       defaultValue:'user'
     },
+
+    recoveryToken: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    
     status:{
       type:DataTypes.ENUM('Active','Inactive'),
       allowNull:false,
       defaultValue:'Active'
-    }
+    },
+
+    statusPublicity:{
+      type:DataTypes.ENUM('Active','Inactive'),
+      allowNull:false,
+      defaultValue:'Inactive'
+    }, 
   });
 };
 

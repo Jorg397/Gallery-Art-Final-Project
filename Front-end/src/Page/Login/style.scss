@@ -120,6 +120,7 @@
 
         .login__container__Registry{
             @include baseFormElemts (357px, 20px);
+            margin-top: -25px;
             margin-bottom: 15px;
             text-align: left;
 
