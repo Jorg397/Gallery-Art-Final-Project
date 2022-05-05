@@ -5,6 +5,7 @@ import axios from "axios";
 import Stepper from "../Stepper.jsx/Stepper";
 import StepperControl from "../StepperControl.ljsx/StepperControl";
 import Account from "../steps/Account";
+import { Navigate } from "react-router-dom";
 import Address from "../steps/Address";
 import Final from "../steps/Final";
 import Payments from "../steps/Payment";
@@ -134,7 +135,9 @@ function Payment() {
   };
 
   const [errors, setErrors] = useState(errorsInitialValue);
-
+  if (localStorage.getItem("token") === null) {
+    return <Navigate to="/login" />;
+  }
   return (
     <div className="">
       <div className="min-h-screen flex-1 items-center max-w-4x1 max-auto pt-32 px-24">

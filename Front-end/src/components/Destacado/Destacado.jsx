@@ -62,7 +62,7 @@ export default function Destacado({ cards }) {
           </ul>
         </div>
       </div>
-      <div class="w-full px-3 mb-12 lg:w-1/2 order-0 lg:order-1 lg:mb-0"><img class="mx-auto sm:max-w-sm lg:max-w-full" src={Destacado?.image} alt="feature image"/></div>
+      <div class="w-full px-3 mb-12 lg:w-1/2 order-0 lg:order-1 lg:mb-0"><img class="mx-auto sm:max-w-sm lg:max-w-full" src={Destacado?.image} alt="No se encontró una imagen"/></div>
     </div>
   </div>
 </section>

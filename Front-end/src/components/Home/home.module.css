@@ -12,8 +12,7 @@ html {
 
 
 .banner{
-  padding-top: 85px;
-  width: 100vw;
+  width: 100%;
   position: relative;
 }
 .banner__text{
@@ -83,8 +82,8 @@ html {
 
 .banner__img_sotelino{
   width: auto;
-  min-height: 670px;
-  height: 670px;
+  min-height: 580px;
+  height: 580px;
   position: absolute;
   left: 0;
   bottom: 0;

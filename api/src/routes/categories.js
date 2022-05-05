@@ -11,7 +11,7 @@ router
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
-  checkRoles("admin"),
+  checkRoles("admin", "employed"),
   categories.post
 );
 
