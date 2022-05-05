@@ -5,6 +5,7 @@ import axios from "axios";
 import Stepper from "../Stepper.jsx/Stepper";
 import StepperControl from "../StepperControl.ljsx/StepperControl";
 import Account from "../steps/Account";
+import { Navigate } from "react-router-dom";
 import Address from "../steps/Address";
 import Final from "../steps/Final";
 import Payments from "../steps/Payment";
@@ -13,7 +14,6 @@ import { StepperContext } from "../../contexts/StepperContext";
 import imgData from "../../assets/payments/datos.png";
 import imgPay from "../../assets/payments/rectangle.png";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
 
 const validate = (input, data) => {
   //const validText = /^[A-za-z0-9]+[A-za-z0-9-,;!?:.&\s]+$/;
