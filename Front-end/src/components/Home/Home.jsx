@@ -3,15 +3,11 @@ import About from "../About/About";
 import Destacado from "../Destacado/Destacado";
 import Footer from "../Footer/Footer";
 import Ilustrame from "../Ilustrame/Ilustrame";
-<<<<<<< HEAD
-
-=======
 import Button from "../Button";
 import Author from "../Autor/index";
 import fondoSotelino from "../../assets/sotelinofondo.png";
 import sotelino from "../../assets/sotelino.png";
 import ArrowDown from "../ArrowDown/index";
->>>>>>> 6b62c43a376c0b4608e446825fd02f430d41c75d
 import Titulos from "../Titulos/Titulos";
 
 import s from "./home.module.css";
