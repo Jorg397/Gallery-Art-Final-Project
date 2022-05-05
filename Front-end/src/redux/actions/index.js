@@ -9,8 +9,12 @@ export const GET_PROFILE = "GET_PROFILE";
 export const CLEAN_CART = "CLEAN_CART";
 export const GET_ORDERS = "GET_ORDERS";
 export const GET_COMMENTS = "GET_COMMENTS";
+export const RESET_TOTAL_PAGES = "RESET_TOTAL_PAGES";
+
 
 const local = "https://15.229.26.228:3001";
+
+
 
 export async function ResetPasswordActions(data) {
   return axios
@@ -44,14 +48,14 @@ export async function ResetPasswordEmailActions(email) {
     });
 }
 
-export function fetchPaints() {
+export function fetchPaints(currentPage) {
   return function (dispatch) {
     dispatch({ type: "FETCH_PAINTS" });
-    Api.get(`${local}/products`)
+    Api.get(`${local}/products?page=${currentPage}`)
       .then(function (response) {
         dispatch({
           type: "FETCH_PAINTS_SUCCESS",
-          payload: response.data.content,
+          payload: response.data,
         });
       })
       .catch(function (err) {
@@ -393,3 +397,56 @@ export function createdCategories(name) {
     }
   };
 }
+
+export function deleteCategories(idCategories) {
+  return async function () {
+    try {
+      const result = await Api.delete(`${local}/categories/${idCategories}`);
+
+      toast.error("Categoria Eliminada", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      return result.data;
+    } catch (error) {
+      return { status: false, message: error };
+    }
+  };
+}
+
+export function updateCategories(data) {
+  return async function () {
+    try {
+      const result = await Api.put(`${local}/categories/`, data);
+
+      toast.success("Categoria Actualizada", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      return result.data;
+    } catch (error) {
+      return { status: false, message: error };
+    }
+  };
+}
+
+
+export function resetTotalPages(page) {
+  return {
+    type: RESET_TOTAL_PAGES,
+    payload: page,
+  };
+}
+

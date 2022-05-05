@@ -6,8 +6,7 @@ import {
   CLEAN_CART,
   GET_ORDERS,
   GET_COMMENTS,
-
-
+  RESET_TOTAL_PAGES,
 } from "../actions/index";
 
 const initialState = {
@@ -24,6 +23,7 @@ const initialState = {
   orders: [],
   customer: [],
   comments: [],
+  totalPages: 0,
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -43,12 +43,13 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         comments: action.payload,
-      }
+      };
     case "FETCH_PAINTS_SUCCESS":
       return {
         ...state,
-        paints: action.payload,
-        filteredPaints: action.payload,
+        paints: state.paints.concat(action.payload.content),
+        filteredPaints: state.filteredPaints.concat(action.payload.content),
+        totalPages: action.payload.totalPages,
         loading: false,
       };
     case "FETCH_PAINTS_FAILURE":
@@ -223,7 +224,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         customer: action.payload,
       };
-
+    case RESET_TOTAL_PAGES:
+      return {
+        ...state,
+        totalPages: action.payload,
+      };
     default:
       return state;
   }

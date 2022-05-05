@@ -12,6 +12,13 @@ router.post(
   productController.post
 );
 
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  checkRoles("admin", "employed"),
+  productController.post
+);
+
 router.put(
   "/:idProduct",
   passport.authenticate("jwt", { session: false }),

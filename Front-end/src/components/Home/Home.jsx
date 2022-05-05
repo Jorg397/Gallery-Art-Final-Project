@@ -11,6 +11,7 @@ import ArrowDown from "../ArrowDown/index";
 import Titulos from "../Titulos/Titulos";
 
 import s from "./home.module.css";
+import Comments from "../Comments/index";
 import Gallery from "../Gallery/Gallery";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPaints, getCategories } from "../../redux/actions";
@@ -102,11 +103,13 @@ export default function Home() {
         <Titulos titulo="Cuadros decorativos"></Titulos>
       </div>
       <Destacado cards={filterAviablePaints}></Destacado>
-      <Titulos titulo="Una galeria explendida"></Titulos>
+      <Titulos titulo="Una galeria esplendida"></Titulos>
       <Gallery cards={filterAviablePaints} categories={categories} innerRef={gallery} />
       <Titulos titulo="Ilustramos tu personalidad"></Titulos>
       <Ilustrame></Ilustrame>
-      <Titulos titulo="Sobre nosotros"></Titulos>
+      <Titulos titulo="Comentarios"></Titulos>
+      <Comments/>
+      <Titulos titulo="Sobre mi"></Titulos>
       <About innerRef={about}></About>
       <Titulos></Titulos>
       <Footer></Footer>
