@@ -111,7 +111,9 @@ const Comments = () => {
 
   React.useEffect(() => {
     dispatch(getComments());
-    dispatch(getOrders(localStorage.getItem("id_customer")));
+    if(localStorage.getItem("id_customer")){
+      dispatch(getOrders(localStorage.getItem("id_customer")));
+    }
   }, []);
 
   return (

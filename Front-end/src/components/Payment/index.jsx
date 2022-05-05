@@ -14,7 +14,6 @@ import { StepperContext } from "../../contexts/StepperContext";
 import imgData from "../../assets/payments/datos.png";
 import imgPay from "../../assets/payments/rectangle.png";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
 
 const validate = (input, data) => {
   //const validText = /^[A-za-z0-9]+[A-za-z0-9-,;!?:.&\s]+$/;
