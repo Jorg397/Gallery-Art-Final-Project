@@ -9,6 +9,7 @@ export const GET_PROFILE = "GET_PROFILE";
 export const CLEAN_CART = "CLEAN_CART";
 export const GET_ORDERS = "GET_ORDERS";
 export const GET_COMMENTS = "GET_COMMENTS";
+export const RESET_TOTAL_PAGES = "RESET_TOTAL_PAGES";
 
 const local = "http://localhost:3001";
 
@@ -44,14 +45,14 @@ export async function ResetPasswordEmailActions(email) {
     });
 }
 
-export function fetchPaints() {
+export function fetchPaints(currentPage) {
   return function (dispatch) {
     dispatch({ type: "FETCH_PAINTS" });
-    Api.get(`${local}/products`)
+    Api.get(`${local}/products?page=${currentPage}`)
       .then(function (response) {
         dispatch({
           type: "FETCH_PAINTS_SUCCESS",
-          payload: response.data.content,
+          payload: response.data,
         });
       })
       .catch(function (err) {
@@ -437,3 +438,12 @@ export function updateCategories(data) {
     }
   };
 }
+
+
+export function resetTotalPages(page) {
+  return {
+    type: RESET_TOTAL_PAGES,
+    payload: page,
+  };
+}
+
