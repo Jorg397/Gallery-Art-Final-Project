@@ -7,13 +7,21 @@ import {
 } from "../../../redux/actions";
 import ModalPaint from "./ModalPaint";
 import NavAdmin from "./NavAdmin";
-import { getCategories, createdCategories } from "../../../redux/actions/index";
+import {
+  getCategories,
+  createdCategories,
+  deleteCategories,
+  updateCategories,
+} from "../../../redux/actions/index";
 import ProductModal from "../../../components/ProductModal/ProductModal";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 
 export default function Categories() {
   const [loading, setLoading] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [categoryEdit, setCategoryEdit] = useState("");
+
   const {
     control,
     register,
@@ -23,19 +31,37 @@ export default function Categories() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    setLoading(true);
-    try {
-      const result = await dispatch(createdCategories(data));
+    if (editing) {
+      setLoading(true);
+      try {
+        data.id_category = categoryEdit.id_category;
 
-      if (result === "Category Created!") {
-        dispatch(getCategories());
-        reset();
+        const result = await dispatch(updateCategories(data));
+
+        if (result.success) {
+          dispatch(getCategories());
+          setEditing(false);
+          setInputCategory("");
+        }
+      } catch (error) {
+        console.log(error);
       }
+    } else {
+      setLoading(true);
+      try {
+        const result = await dispatch(createdCategories(data));
 
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
+        if (result === "Category Created!") {
+          dispatch(getCategories());
+          reset();
+          setInputCategory("");
+        }
+
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        console.log(error);
+      }
     }
   };
   const [modalOpen, setModalOpen] = useState(false);
@@ -53,6 +79,7 @@ export default function Categories() {
 
   const categories = useSelector((state) => state.filterCategories);
   const [name, setName] = useState("");
+  const [inputCategory, setInputCategory] = useState("");
 
   function handleChange(e) {
     e.preventDefault();
@@ -60,9 +87,33 @@ export default function Categories() {
     dispatch(searchAllThatContains(e.target.value));
   }
 
+  function handleInput(e) {
+    e.preventDefault();
+
+    setInputCategory(e.target.value);
+  }
+
   function handleState(e) {
     dispatch(filterState(e));
   }
+  const handleDelete = async (id_category) => {
+    const result = await dispatch(deleteCategories(id_category));
+    if (result.success) dispatch(getCategories());
+  };
+
+  const handleEdit = (category) => {
+    setEditing(true);
+    setCategoryEdit(category);
+    setInputCategory(category.name);
+  };
+
+  const handleCancelEdit = () => {
+    setEditing(false);
+  };
+
+  const registerOptions = {
+    role: { required: true },
+  };
 
   return (
     <div>
@@ -128,11 +179,12 @@ export default function Categories() {
               <input
                 type="text"
                 placeholder="Categoria"
+                value={inputCategory}
                 style={{
+                  border: "1px solid #9A8C98",
                   width: "300px",
                   height: "40px",
                   borderRadius: "10px",
-                  border: "1px solid #9A8C98",
                   marginTop: "20px",
                   marginBottom: "20px",
                   paddingLeft: "10px",
@@ -150,6 +202,7 @@ export default function Categories() {
                     message: "Solo debe tener letras y maximo 20 caracteres",
                   },
                 })}
+                onChange={(e) => handleInput(e)}
               />
 
               <button
@@ -167,8 +220,28 @@ export default function Categories() {
                 }}
                 type="submit"
               >
-                Agregar Categoria
+                {editing ? "Actualizar Categoria" : "Agregar Categoria"}
               </button>
+              {editing ? (
+                <button
+                  onClick={handleCancelEdit}
+                  className="bg-white border-2"
+                  style={{
+                    marginLeft: "20px",
+                    marginTop: "20px",
+                    marginBottom: "20px",
+                    padding: "5px",
+                    borderRadius: "10px",
+                    width: "110px",
+                    color: "#fff",
+                    backgroundColor: "#4A4E69",
+                    border: "1px solid #fff",
+                  }}
+                  type="submit"
+                >
+                  Cancelar
+                </button>
+              ) : undefined}
             </form>
           </div>
           {errors.name && (
@@ -223,23 +296,17 @@ export default function Categories() {
                     <td>
                       <button
                         onClick={() => {
-                          setModalOpen({
-                            [index]: true,
-                          });
+                          handleEdit(category);
                         }}
                       >
-                        Ver
+                        Editar
                       </button>
-                      {modalOpen[index] && (
-                        <ModalPaint
-                          category={category}
-                          setOpenModal={setModalOpen}
-                        />
-                      )}
                     </td>
 
                     <td>
-                      <button>
+                      <button
+                        onClick={() => handleDelete(category.id_category)}
+                      >
                         <img
                           src="https://i.ibb.co/9bXyDbb/delete-svgrepo-com-1.png"
                           alt=""
