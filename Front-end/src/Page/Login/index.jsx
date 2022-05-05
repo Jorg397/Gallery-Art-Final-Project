@@ -129,7 +129,7 @@ const Login = () => {
                 width={"357px"}
                 height={"50px"}
               />
-              <Link to="/login">¿Te olvidas tu contraseña?</Link>
+              <Link to="/resetPasswordEmail">¿Te olvidas tu contraseña?</Link>
             </div>
             <GoogleLogin
               clientId={PORT}
@@ -144,8 +144,8 @@ const Login = () => {
           <span>¿No tienes una cuenta? </span>
           <Link to="/registry">Registrate aqui</Link>
           <br/>
-          <span>¿Olvidaste tu contraseña? </span>
-          <Link to="/resetPasswordEmail">Oprime aqui</Link>
+          {/* <span>¿Olvidaste tu contraseña? </span>
+          <Link to="/resetPasswordEmail">Oprime aqui</Link> */}
         </div>
       </div>
     </div>
