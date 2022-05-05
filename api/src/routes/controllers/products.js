@@ -52,7 +52,7 @@ module.exports = {
       } else {
         query = {
           where: {
-            state:"Available"
+            state: "Available",
           },
           attributes: [
             "id_product",
@@ -67,8 +67,8 @@ module.exports = {
             "released",
             "state",
           ],
-          limit: 20,
-          offset: page * 20,
+          limit: 3,
+          offset: page * 3,
           include: [
             {
               model: Category,
@@ -82,7 +82,7 @@ module.exports = {
       }
       const products = await getProducts(query);
       res.send({
-        totalPages: Math.ceil(products.count / 5),
+        totalPages: Math.ceil(products.count / 3),
         content: products.rows,
       });
     } catch (err) {

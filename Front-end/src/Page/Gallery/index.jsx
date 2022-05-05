@@ -8,6 +8,7 @@ import {
   filterByPrice,
   getCategories,
   searchPaintThatContains,
+  resetTotalPages,
 } from "../../redux/actions";
 import Cards from "../../components/Cards/Cards";
 import divider from "../../assets/divider.png";
@@ -19,6 +20,20 @@ const Gallery = () => {
   const categories = useSelector((state) => state.categories);
   const [search, setSearch] = useState("");
   const paints = useSelector((state) => state.filteredPaints);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const scrollToEnd = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  window.onscroll = function () {
+    if (
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.offsetHeight
+    ) {
+      scrollToEnd();
+    }
+  };
 
   let filterAviablePaints = paints.filter(
     (paint) => paint.state === "Available"
@@ -27,8 +42,17 @@ const Gallery = () => {
   const [filter, setFilter] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchPaints());
+    if (currentPage !== 0 || paints.length === 0)
+      dispatch(fetchPaints(currentPage));
+  }, [currentPage]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(getCategories());
+
+    return () => {
+      dispatch(resetTotalPages(0));
+    };
   }, []);
 
   const handleChange = (e) => {
