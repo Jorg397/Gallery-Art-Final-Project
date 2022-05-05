@@ -439,9 +439,11 @@ export function updateCategories(data) {
   };
 }
 
+
 export function resetTotalPages(page) {
   return {
     type: RESET_TOTAL_PAGES,
     payload: page,
   };
 }
+
