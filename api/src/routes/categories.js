@@ -15,4 +15,11 @@ router.post(
   categories.post
 );
 
+router.delete(
+  "/:idCategories",
+  /* passport.authenticate("jwt", { session: false }),
+  checkRoles("admin", "employed"), */
+  categories.delete
+);
+
 module.exports = router;

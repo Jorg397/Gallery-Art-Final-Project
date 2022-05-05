@@ -7,7 +7,11 @@ import {
 } from "../../../redux/actions";
 import ModalPaint from "./ModalPaint";
 import NavAdmin from "./NavAdmin";
-import { getCategories, createdCategories } from "../../../redux/actions/index";
+import {
+  getCategories,
+  createdCategories,
+  deleteCategories,
+} from "../../../redux/actions/index";
 import ProductModal from "../../../components/ProductModal/ProductModal";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -63,6 +67,11 @@ export default function Categories() {
   function handleState(e) {
     dispatch(filterState(e));
   }
+
+  const handleDelete = async (id_category) => {
+    const result = await dispatch(deleteCategories(id_category));
+    if (result.success) dispatch(getCategories());
+  };
 
   return (
     <div>
@@ -239,7 +248,9 @@ export default function Categories() {
                     </td>
 
                     <td>
-                      <button>
+                      <button
+                        onClick={() => handleDelete(category.id_category)}
+                      >
                         <img
                           src="https://i.ibb.co/9bXyDbb/delete-svgrepo-com-1.png"
                           alt=""
