@@ -36,6 +36,8 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
 
+  const profile = useSelector((state) => state.profile);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const mountedRef = useRef(true);
@@ -50,15 +52,16 @@ const CheckoutForm = () => {
       card: elements.getElement(CardCvcElement),
     });
     setLoading(true);
-
+    const profileId = localStorage.getItem("id_customer");
     if (!error) {
       setError("");
       const { id } = paymentMethod;
+      console.log("id del usuario ", profile.id_customer);
       try {
         const { data } = await API.post("http://localhost:3001/payment", {
           id,
           amount: cartTotal, //cents
-          id_customer: userData.id_customer,
+          id_customer: profileId,
           shipping_address: userData.default_shipping_address,
           products: cart,
           name: userData.name,
@@ -78,7 +81,7 @@ const CheckoutForm = () => {
             default_shipping_address: userData.default_shipping_address,
           };
           const result = await dispatch(
-            updateCustomer(userData.id_customer, customerData)
+            updateCustomer(profileId, customerData)
           );
 
           if (result.message === "user updated") {
