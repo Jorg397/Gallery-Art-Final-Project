@@ -54,7 +54,7 @@ export default function App() {
       <Route path="/home" element={<Home />} />
       <Route path="/" element={<Landing />} />
       <Route path="/details/:id" element={<Detail />} />
-      <Route path="*" element={<NotFound />} /> 
+      <Route path="*" element={<NotFound />} />
       <Route path="/gallery" element={<Gallery />} />
       <Route path="/dashboard" element={<Admin />} />
       <Route path="/dashboard/clients" element={<Clientes />} />

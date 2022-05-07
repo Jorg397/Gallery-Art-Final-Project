@@ -58,7 +58,7 @@ const CheckoutForm = () => {
       const { id } = paymentMethod;
       console.log("id del usuario ", profile.id_customer);
       try {
-        const { data } = await API.post("http://localhost:3001/payment", {
+        const { data } = await API.post("/payment", {
           id,
           amount: cartTotal, //cents
           id_customer: profileId,

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = "http://localhost:3001/";
+const apiUrl = import.meta.env.VITE_URL_API;
 //const apiUrl = "https://15.228.78.162:3001/";
 export const login = async (customer) => {
   console.log({ customer });
