@@ -15,6 +15,7 @@ import Comments from "../Comments/index";
 import Gallery from "../Gallery/Gallery";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPaints, getCategories } from "../../redux/actions";
+import { Link } from "react-router-dom";
 
 import NavBar from "../NavBar/NavBar";
 
