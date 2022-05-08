@@ -41,18 +41,18 @@ export default function Final() {
             En unos minutos le llegara la confirmación en el correo registrado.
             <br></br>
             Sino le llega el correo puede escribirnos a nuestro numero Whatsapp{" "}
-            <a
-              href="https://www.whatsapp.com"
+            <Link
+              to="https://www.whatsapp.com"
               target="_blank"
               className="text-white"
             >
               985623586
-            </a>
+            </Link>
             <br></br>
             Mencionando que no recibio el correo de confirmación.
           </p>
         </div>
-        <Link to="/shopping" className="mt-10" href="/user/dashboard">
+        <Link to="/shopping" className="mt-10">
           <button className="h-10 px-5 text-green-700 transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-green-500 hover:text-green-100">
             Ver Ordenes
           </button>
