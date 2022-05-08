@@ -35,12 +35,12 @@
     "passport-local": "^1.0.0",
     "pg": "^8.5.1",
     "sequelize": "^6.3.5",
-    "stripe": "^8.218.0"
+    "stripe": "^8.218.0",
+    "nodemon": "^2.0.6"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^8.2.1",
-    "nodemon": "^2.0.6",
     "supertest": "^6.0.1",
     "supertest-session": "^4.1.0"
   }

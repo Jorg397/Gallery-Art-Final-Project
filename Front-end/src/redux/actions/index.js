@@ -11,14 +11,9 @@ export const GET_ORDERS = "GET_ORDERS";
 export const GET_COMMENTS = "GET_COMMENTS";
 export const RESET_TOTAL_PAGES = "RESET_TOTAL_PAGES";
 
-
-const local = "https://15.229.26.228:3001";
-
-
-
 export async function ResetPasswordActions(data) {
   return axios
-    .post(`${local}/mailer/changePassword`, data)
+    .post(`/mailer/changePassword`, data)
     .then((res) => {
       if (res.data.status) {
         toast.success("Contraseña actualizada correctamente");
@@ -34,7 +29,7 @@ export async function ResetPasswordActions(data) {
 
 export async function ResetPasswordEmailActions(email) {
   return axios
-    .post(`${local}/mailer/resetPassword`, { email })
+    .post(`/mailer/resetPassword`, { email })
     .then((res) => {
       if (res.data.status) {
         toast.success("Se ha enviado un correo para restablecer tu contraseña");
@@ -51,7 +46,7 @@ export async function ResetPasswordEmailActions(email) {
 export function fetchPaints(currentPage) {
   return function (dispatch) {
     dispatch({ type: "FETCH_PAINTS" });
-    Api.get(`${local}/products?page=${currentPage}`)
+    Api.get(`/products?page=${currentPage}`)
       .then(function (response) {
         dispatch({
           type: "FETCH_PAINTS_SUCCESS",
@@ -82,7 +77,7 @@ export function getComments() {
 export function getDetail(id) {
   return function (dispatch) {
     dispatch({ type: "FETCH_PAINT_DETAIL" });
-    Api.get(`${local}/product/${id}`)
+    Api.get(`/product/${id}`)
       .then(function (response) {
         dispatch({
           type: "FETCH_PAINT_DETAIL",
@@ -98,7 +93,7 @@ export function getDetail(id) {
 export function getCategories() {
   return function (dispatch) {
     dispatch({ type: "FETCH_CATEGORIES" });
-    Api.get(`${local}/categories`)
+    Api.get(`/categories`)
       .then(function (response) {
         dispatch({
           type: "FETCH_CATEGORIES_SUCCESS",
@@ -196,7 +191,7 @@ export function cleanCart() {
 export function createPaint(data) {
   return function (dispatch) {
     dispatch({ type: "CREATE_PAINT" });
-    Api.post(`${local}/product`, data)
+    Api.post(`/product`, data)
       .then(function (response) {
         dispatch({
           type: "CREATE_PAINT_SUCCESS",
@@ -224,7 +219,7 @@ export function searchAllThatContains(search) {
 export function getCustomers() {
   return function (dispatch) {
     dispatch({ type: "FETCH_CUSTOMERS" });
-    Api.get(`${local}/customer`)
+    Api.get(`/customer`)
       .then(function (response) {
         dispatch({
           type: "FETCH_CUSTOMERS_SUCCESS",
@@ -252,7 +247,7 @@ export function switchUserState(state) {
 export function getOrder(id) {
   return function (dispatch) {
     dispatch({ type: "FETCH_ORDER" });
-    Api.get(`${local}/order/${id}`)
+    Api.get(`/order/${id}`)
       .then(function (response) {
         dispatch({
           type: "FETCH_ORDER_SUCCESS",
@@ -279,7 +274,7 @@ export function searchPaintThatContains(search) {
 export function getCustomerById(id) {
   return function (dispatch) {
     dispatch({ type: "FETCH_CUSTOMER_BY_ID" });
-    Api.get(`${local}/customer/${id}`)
+    Api.get(`/customer/${id}`)
       .then(function (response) {
         dispatch({
           type: "FETCH_CUSTOMER_BY_ID_SUCCESS",
@@ -302,7 +297,7 @@ export function createProduct(formImage, productData) {
 
       productData.image = uploadImage.data.secure_url;
 
-      const addProduct = await Api.post(`${local}/product`, productData);
+      const addProduct = await Api.post(`/product`, productData);
 
       console.log("esro cintesta ", addProduct);
       toast.success("Producto Guardado", {
@@ -328,7 +323,7 @@ export function createProduct(formImage, productData) {
 export function updateOrders(idOrder, data) {
   return async function () {
     try {
-      const result = await Api.put(`${local}/order/status/${idOrder}`, data);
+      const result = await Api.put(`/order/status/${idOrder}`, data);
 
       toast.success("Orden Actualizada");
 
@@ -342,7 +337,7 @@ export function updateOrders(idOrder, data) {
 export function getOrdersForAdmin() {
   return async function () {
     try {
-      const result = await Api.get(`${local}/orders`);
+      const result = await Api.get(`/orders`);
 
       return result.data;
     } catch (err) {
@@ -354,10 +349,7 @@ export function getOrdersForAdmin() {
 export function updateCustomer(id_customer, customerData) {
   return async function () {
     try {
-      const result = await Api.put(
-        `${local}/customer/${id_customer}`,
-        customerData
-      );
+      const result = await Api.put(`/customer/${id_customer}`, customerData);
 
       toast.success("Usuario Actualizado", {
         position: "top-right",
@@ -379,7 +371,7 @@ export function updateCustomer(id_customer, customerData) {
 export function createdCategories(name) {
   return async function () {
     try {
-      const result = await Api.post(`${local}/categories`, name);
+      const result = await Api.post(`/categories`, name);
 
       toast.success("Categoria Agregada", {
         position: "top-right",
@@ -401,7 +393,7 @@ export function createdCategories(name) {
 export function deleteCategories(idCategories) {
   return async function () {
     try {
-      const result = await Api.delete(`${local}/categories/${idCategories}`);
+      const result = await Api.delete(`/categories/${idCategories}`);
 
       toast.error("Categoria Eliminada", {
         position: "top-right",
@@ -423,7 +415,7 @@ export function deleteCategories(idCategories) {
 export function updateCategories(data) {
   return async function () {
     try {
-      const result = await Api.put(`${local}/categories/`, data);
+      const result = await Api.put(`/categories/`, data);
 
       toast.success("Categoria Actualizada", {
         position: "top-right",
@@ -442,11 +434,9 @@ export function updateCategories(data) {
   };
 }
 
-
 export function resetTotalPages(page) {
   return {
     type: RESET_TOTAL_PAGES,
     payload: page,
   };
 }
-
