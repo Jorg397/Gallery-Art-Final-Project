@@ -7,9 +7,15 @@ import {
   GET_ORDERS,
   GET_COMMENTS,
   RESET_TOTAL_PAGES,
+  FETCH_PAINTS_HOME,
+  FETCH_PAINTS_HOME_SUCCESS,
+  FETCH_PAINTS_SUCCESS,
+  FETCH_PAINTS_FAILURE,
+  FETCH_PAINTS,
 } from "../actions/index";
 
 const initialState = {
+  paintsHome: [],
   paints: [],
   filteredPaints: [],
   loading: false,
@@ -34,7 +40,7 @@ export default function rootReducer(state = initialState, action) {
     return state.cart.find((paint) => paint.id_product === id_product);
   };
   switch (action.type) {
-    case "FETCH_PAINTS":
+    case FETCH_PAINTS:
       return {
         ...state,
         loading: true,
@@ -44,7 +50,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         comments: action.payload,
       };
-    case "FETCH_PAINTS_SUCCESS":
+    case FETCH_PAINTS_SUCCESS:
       return {
         ...state,
         paints: state.paints.concat(action.payload.content),
@@ -52,7 +58,13 @@ export default function rootReducer(state = initialState, action) {
         totalPages: action.payload.totalPages,
         loading: false,
       };
-    case "FETCH_PAINTS_FAILURE":
+    case FETCH_PAINTS_HOME_SUCCESS:
+      return {
+        ...state,
+        paintsHome: action.payload.content,
+        loading: false,
+      };
+    case FETCH_PAINTS_FAILURE:
       return {
         ...state,
         loading: false,

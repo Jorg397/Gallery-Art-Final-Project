@@ -10,7 +10,11 @@ export const CLEAN_CART = "CLEAN_CART";
 export const GET_ORDERS = "GET_ORDERS";
 export const GET_COMMENTS = "GET_COMMENTS";
 export const RESET_TOTAL_PAGES = "RESET_TOTAL_PAGES";
-
+export const FETCH_PAINTS_HOME = "FETCH_PAINTS_HOME";
+export const FETCH_PAINTS_HOME_SUCCESS = "FETCH_PAINTS_HOME_SUCCESS";
+export const FETCH_PAINTS_SUCCESS = "FETCH_PAINTS_SUCCESS";
+export const FETCH_PAINTS_FAILURE = "FETCH_PAINTS_FAILURE";
+export const FETCH_PAINTS = "FETCH_PAINTS";
 export async function ResetPasswordActions(data) {
   return axios
     .post(`/mailer/changePassword`, data)
@@ -45,16 +49,32 @@ export async function ResetPasswordEmailActions(email) {
 
 export function fetchPaints(currentPage) {
   return function (dispatch) {
-    dispatch({ type: "FETCH_PAINTS" });
+    dispatch({ type: FETCH_PAINTS });
     Api.get(`/products?page=${currentPage}`)
       .then(function (response) {
         dispatch({
-          type: "FETCH_PAINTS_SUCCESS",
+          type: FETCH_PAINTS_SUCCESS,
           payload: response.data,
         });
       })
       .catch(function (err) {
-        dispatch({ type: "FETCH_PAINTS_FAILURE", payload: err });
+        dispatch({ type: FETCH_PAINTS_FAILURE, payload: err });
+      });
+  };
+}
+
+export function fetchPaintsHome(currentPage = 0) {
+  return function (dispatch) {
+    dispatch({ type: FETCH_PAINTS_HOME });
+    Api.get(`/products?page=${currentPage}`)
+      .then(function (response) {
+        dispatch({
+          type: FETCH_PAINTS_HOME_SUCCESS,
+          payload: response.data,
+        });
+      })
+      .catch(function (err) {
+        dispatch({ type: FETCH_PAINTS_FAILURE, payload: err });
       });
   };
 }

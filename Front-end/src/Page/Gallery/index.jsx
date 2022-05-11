@@ -47,7 +47,6 @@ const Gallery = () => {
   }, [currentPage]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     dispatch(getCategories());
 
     return () => {

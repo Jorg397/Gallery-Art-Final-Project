@@ -14,14 +14,14 @@ import s from "./home.module.css";
 import Comments from "../Comments/index";
 import Gallery from "../Gallery/Gallery";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchPaints, getCategories } from "../../redux/actions";
+import { fetchPaintsHome, getCategories } from "../../redux/actions";
 import { Link } from "react-router-dom";
 
 import NavBar from "../NavBar/NavBar";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const paints = useSelector((state) => state.filteredPaints);
+  const paints = useSelector((state) => state.paintsHome);
   let filterAviablePaints = paints.filter(
     (paint) => paint.state === "Available"
   );
@@ -37,7 +37,7 @@ export default function Home() {
   const slider = useRef(null);
 
   useEffect(() => {
-    dispatch(fetchPaints());
+    dispatch(fetchPaintsHome());
     dispatch(getCategories());
   }, [dispatch]);
 
